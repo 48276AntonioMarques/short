@@ -8,4 +8,3 @@ rootProject.name = "short"
 include("app")
 include("framework")
 include("htmlGenerator")
-include("sequences")

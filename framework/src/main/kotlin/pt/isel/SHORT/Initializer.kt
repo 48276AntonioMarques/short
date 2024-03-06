@@ -10,9 +10,12 @@ import org.http4k.server.Jetty
 import org.http4k.server.asServer
 import java.util.concurrent.CompletableFuture
 
-fun <T : Application> runSHORT(args: Array<String>) {
-    val webApp = CompletableFuture<String>()
+typealias WebApp = String
 
+fun <T : Application> runSHORT(args: Array<String>) {
+    val webApp = CompletableFuture<WebApp>()
+
+    // TODO: Allow to add more routes
     val exposedPaths = routes(
         "/" bind Method.GET to { request: Request ->
             // Maybe this should be a 404 or a static loading page
@@ -20,19 +23,18 @@ fun <T : Application> runSHORT(args: Array<String>) {
             if (webApp.isDone) {
                 Response(Status.OK).body(webApp.get())
             } else {
-                Response(Status.NOT_FOUND)
+                Response(Status.NOT_FOUND).body("Page not found.")
             }
         }
     )
 
     // TODO: Get port from environment variable or dependency injector
     val port = 9000
-    // Jetty is the default servlet container
+    // Jetty is the default servlet container (ensure this using inheritance? Or here?)
     val serverConfig = Jetty(port)
 
-    // This should launch and only after the page aggregator
     val server = exposedPaths.asServer(serverConfig).start()
-
-    // This should be completed with the page aggregator result
+    println("Server started at port $port.")
     webApp.complete(generateWebApp())
+    // TODO: Properly handle shutdown (expose server to developer?)
 }
