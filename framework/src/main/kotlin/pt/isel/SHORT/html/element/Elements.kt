@@ -13,6 +13,6 @@ fun HtmlTag.Body(content: HtmlReceiver? = null): HtmlTag = apply {
     appendChild(prototype("body", content))
 }
 
-fun HtmlTag.Div(content: HtmlReceiver? = null): HtmlTag = apply {
+fun HtmlTag.Div(id: String? = null, content: HtmlReceiver? = null): HtmlTag = apply {
     appendChild(prototype("div", content))
 }

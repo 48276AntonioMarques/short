@@ -1,13 +1,17 @@
 package pt.isel.SHORT.html
 
-import pt.isel.SHORT.html.element.single.Head
+import pt.isel.SHORT.getResource
+import pt.isel.SHORT.html.element.prototype
 
 sealed interface HtmlElement
 
 class HtmlPage(tag: String, children: List<HtmlElement>) : HtmlTag(tag, children)
 class HtmlText(val content: String) : HtmlElement
 
-open class HtmlTag(private val tag: String, children: List<HtmlElement>) : HtmlElement {
+open class HtmlTag(
+    private val tag: String,
+    children: List<HtmlElement>
+) : HtmlElement {
     private val _children = children.toMutableList()
 
     // This function exists in JS
@@ -35,7 +39,44 @@ fun HtmlTag.Text(content: () -> String) = apply {
     appendChild(HtmlText(content()))
 }
 
+fun HtmlTag.Text(content: String) = apply {
+    appendChild(HtmlText(content))
+}
+
 fun Text(content: () -> String) = HtmlText(content())
+
+fun Text(content: String) = HtmlText(content)
+
+fun HtmlTag.Script(code: () -> String) = apply {
+    appendChild(
+        prototype("script") {
+            Text(code())
+        }
+    )
+}
+
+fun HtmlTag.Script(resource: String) = apply {
+    val res = getResource(name = resource)
+    val content = if (res != null) {
+        res.readText().apply {
+            println(this)
+        }
+    } else {
+        "Resource not found: $resource".also {
+            this.Text("console.log('$it')")
+        }
+    }
+    Script {
+        content
+    }
+}
+
+fun HtmlTag.Link(rel: String, href: String) = apply {
+    appendChild(
+        prototype("link") {
+        }
+    )
+}
 
 // For all the html tags there must exist three functions
 // One that enables to append a child to the tag directly on a lambda

@@ -9,4 +9,3 @@ fun home() =
     Div {
         Text { "Hello, World!" }
     }
-
