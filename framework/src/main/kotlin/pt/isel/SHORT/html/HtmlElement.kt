@@ -58,24 +58,13 @@ fun HtmlTag.Script(code: () -> String) = apply {
 fun HtmlTag.Script(resource: String) = apply {
     val res = getResource(name = resource)
     val content = if (res != null) {
-        res.readText().apply {
-            println(this)
-        }
+        res.readText()
     } else {
-        "Resource not found: $resource".also {
-            this.Text("console.log('$it')")
-        }
+        "console.log('Resource not found: $resource')"
     }
     Script {
         content
     }
-}
-
-fun HtmlTag.Link(rel: String, href: String) = apply {
-    appendChild(
-        prototype("link") {
-        }
-    )
 }
 
 // For all the html tags there must exist three functions
