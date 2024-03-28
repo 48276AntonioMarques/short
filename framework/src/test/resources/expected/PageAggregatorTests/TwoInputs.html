@@ -1,0 +1,17 @@
+<html><head><script>var pages = {}
+
+function registerPage(url, renderFunction) {
+    pages[url] = renderFunction
+}
+
+function loadPage(url) {
+    const page = pages[url]
+    if (page) {
+        document.getElementById("app").innerHTML = page()
+    }
+}
+
+function navigate(url) {
+    window.history.pushState({}, '', url)
+    loadPage(url)
+}</script><script>console.log('Resource not found: /scripts/requester.js')</script><script>registerPage("/", () => { return "<div>Hello World</div>"})</script><script>registerPage("/page2", () => { return "<div>Hello World</div>"})</script></head><body><div></div></body><script>loadPage('/')</script></html>
