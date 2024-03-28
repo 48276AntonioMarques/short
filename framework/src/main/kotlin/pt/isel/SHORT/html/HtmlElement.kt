@@ -2,6 +2,7 @@ package pt.isel.SHORT.html
 
 import pt.isel.SHORT.component.Variable
 import pt.isel.SHORT.getResource
+import pt.isel.SHORT.html.element.Text
 import pt.isel.SHORT.html.element.prototype
 
 sealed interface HtmlElement
@@ -11,6 +12,9 @@ class HtmlPage(
     attributes: List<Attribute>,
     children: List<HtmlElement>
 ) : HtmlTag(tag, attributes, children)
+
+fun Html(content: HtmlTag.() -> Unit) =
+    HtmlPage("html", emptyList(), emptyList()).apply(content)
 
 class HtmlText(val content: String) : HtmlElement
 
@@ -56,44 +60,3 @@ open class HtmlTag(
         }
     }
 }
-
-fun Html(content: HtmlTag.() -> Unit) =
-    HtmlPage("html", emptyList(), emptyList()).apply(content)
-
-fun HtmlTag.Text(content: () -> String) = apply {
-    appendChild(HtmlText(content()))
-}
-
-fun HtmlTag.Text(content: String) = apply {
-    appendChild(HtmlText(content))
-}
-
-fun Text(content: () -> String) = HtmlText(content())
-
-fun Text(content: String) = HtmlText(content)
-
-fun HtmlTag.Script(code: () -> String) = apply {
-    appendChild(
-        prototype("script") {
-            Text(code())
-        }
-    )
-}
-
-fun HtmlTag.Script(resource: String) = apply {
-    val res = getResource(name = resource)
-    val content = if (res != null) {
-        res.readText()
-    } else {
-        "console.log('Resource not found: $resource')"
-    }
-    Script {
-        content
-    }
-}
-
-// For all the html tags there must exist three functions
-// One that enables to append a child to the tag directly on a lambda
-// Another that creates a new tag with the given content
-// And a last one that creates a new tag with no content
-// They should be created at pt.isel.SHORT.html.element.Elements
