@@ -6,13 +6,34 @@ import org.http4k.core.Response
 import org.http4k.core.Status
 import org.http4k.routing.bind
 import org.http4k.routing.routes
-import org.http4k.server.Jetty
+import org.http4k.server.Http4kServer
 import org.http4k.server.asServer
 import java.util.concurrent.CompletableFuture
 
 typealias WebApp = String
 
-fun <T : Application> runSHORT(args: Array<String>) {
+/**
+ * Top level function acting as a Kotlin shortcut allowing to write
+ * `runApplication<FooApplication>(args)` instead of
+ * `runApplication(FooApplication::class.java, args)`.
+ */
+inline fun <reified T : Application> runSHORT(args: Array<String>) {
+    runSHORT(T::class.java, args)
+}
+
+/**
+ * Create a new instance of [sources]. The context will be loaded from the overridden methods
+ * The instance can have more function that will be used to inject dependencies in the pages
+ */
+fun <T : Application> runSHORT(sources: Class<T>, args: Array<String>): Http4kServer {
+    val serverSources: T
+
+    try {
+        serverSources = sources.getDeclaredConstructor().newInstance()
+    } catch (e: Exception) {
+        throw RuntimeException("Couldn't create an instance of the server sources", e)
+    }
+
     val webApp = CompletableFuture<WebApp>()
 
     // TODO: Allow to add more routes
@@ -23,18 +44,15 @@ fun <T : Application> runSHORT(args: Array<String>) {
             if (webApp.isDone) {
                 Response(Status.OK).body(webApp.get())
             } else {
-                Response(Status.NOT_FOUND).body("Page not found.")
+                serverSources.getLoadingScreen(request)
             }
         }
     )
 
-    // TODO: Get port from environment variable or dependency injector
-    val port = 9000
-    // Jetty is the default servlet container (ensure this using inheritance? Or here?)
-    val serverConfig = Jetty(port)
+    val server = exposedPaths.asServer(serverSources.getServerConfig()).start()
+    println("Server started at port ${server.port()}.")
 
-    val server = exposedPaths.asServer(serverConfig).start()
-    println("Server started at port $port.")
     webApp.complete(generateWebApp())
-    // TODO: Properly handle shutdown (expose server to developer?)
+
+    return server
 }
