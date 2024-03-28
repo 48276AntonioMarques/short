@@ -35,16 +35,21 @@ open class HtmlTag(
     }
 
     fun toHtml(): String {
-        val attr = attributes.joinToString(" ") { attribute ->
-            "${attribute.name}='${attribute.value}'"
+        val attr = if (attributes.isEmpty()) {
+            ""
+        } else {
+            " " + attributes.joinToString(" ") { attribute ->
+                "${attribute.name}='${attribute.value}'"
+            }
         }
+
         val children = _children.joinToString("") { element ->
             when (element) {
                 is HtmlTag -> element.toHtml()
                 is HtmlText -> element.content
             }
         }
-        return "<$tag${if(attr.isNotEmpty())" " else ""}$attr>$children</$tag>"
+        return "<$tag$attr>$children</$tag>"
     }
 }
 
