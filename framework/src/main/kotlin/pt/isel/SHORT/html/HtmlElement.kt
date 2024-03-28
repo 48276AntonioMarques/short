@@ -42,14 +42,18 @@ open class HtmlTag(
                 "${attribute.name}='${attribute.value}'"
             }
         }
+        return "<$tag$attr>${innerHtml()}</$tag>"
+    }
 
-        val children = _children.joinToString("") { element ->
+    // This function exists in JS
+    // Ensure that the HTML generator does not try to recreate the same function
+    fun innerHtml(): String {
+        return _children.joinToString("") { element ->
             when (element) {
                 is HtmlTag -> element.toHtml()
                 is HtmlText -> element.content
             }
         }
-        return "<$tag$attr>$children</$tag>"
     }
 }
 

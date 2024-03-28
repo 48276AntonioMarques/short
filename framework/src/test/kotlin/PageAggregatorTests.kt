@@ -3,6 +3,7 @@ import PageAggregatorSources.page2
 import pt.isel.SHORT.PageFactory
 import pt.isel.SHORT.aggregatePages
 import pt.isel.SHORT.getPages
+import pt.isel.SHORT.html.HtmlTag
 import kotlin.reflect.jvm.javaMethod
 import kotlin.test.Test
 
@@ -40,7 +41,7 @@ class PageAggregatorTests {
 
     @Test
     fun `aggregate pages with one input`() {
-        val pages = listOf(::page1.javaMethod as PageFactory)
+        val pages = listOf(HtmlTag::page1.javaMethod as PageFactory)
 
         val htmlPage = aggregatePages(pages)
         val expectedPath = "expected/PageAggregatorTests/OneInput.html"
@@ -52,7 +53,7 @@ class PageAggregatorTests {
 
     @Test
     fun `aggregate pages with two inputs`() {
-        val pages = listOf(::page1.javaMethod as PageFactory, ::page2.javaMethod as PageFactory)
+        val pages = listOf(HtmlTag::page1.javaMethod as PageFactory, HtmlTag::page2.javaMethod as PageFactory)
 
         val htmlPage = aggregatePages(pages)
         val expectedPath = "expected/PageAggregatorTests/TwoInputs.html"

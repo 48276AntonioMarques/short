@@ -12,6 +12,7 @@ import pt.isel.SHORT.html.id
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.lang.reflect.Method
+import kotlin.reflect.jvm.kotlinFunction
 
 /**
  * This annotation is used to represent a page in the web application
@@ -109,8 +110,8 @@ fun aggregatePages(pages: List<PageFactory>): HtmlPage {
                 Script {
                     val url = page.getAnnotation(Page::class.java)?.path
                         ?: throw PageLinkageException("Failed to link '${page.name}' to a path.")
-                    val pageInstance = page.invoke(page.javaClass) as HtmlTag
-                    "registerPage(\"$url\", () => { return \"${pageInstance.toHtml()}\"})"
+                    val pageInstance = page.kotlinFunction!!.call(Html {}) as HtmlTag
+                    "registerPage(\"$url\", () => { return \"${pageInstance.innerHtml()}\"})"
                 }
             }
         }
