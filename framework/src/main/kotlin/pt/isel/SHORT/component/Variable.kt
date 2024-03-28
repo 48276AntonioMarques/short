@@ -1,6 +1,17 @@
 package pt.isel.SHORT.component
 
-data class Variable<T>(val value: T) {
+import pt.isel.SHORT.html.HtmlTag
+
+fun <T : Any> HtmlTag.Var(value: T) =
+    Variable(value).also { appendVariable(it as Variable<Any>) }
+
+class Variable<T>(value: T) {
+
+    private var _value = value
+    val value: String
+        get() = {
+            "code to get value"
+        }()
 
     class Condition(val a: Variable<*>, val b: Variable<*>) {
         infix fun then(block: () -> Unit): Condition {
