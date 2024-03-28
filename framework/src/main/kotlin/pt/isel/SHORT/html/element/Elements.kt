@@ -7,13 +7,13 @@ import pt.isel.SHORT.html.HtmlTag
 // Any changes to this file will be lost
 
 fun HtmlTag.Head(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): HtmlTag = apply {
-    appendChild(prototype("head", content))
+    appendChild(prototype("head", attributes, content))
 }
 
 fun HtmlTag.Body(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): HtmlTag = apply {
-    appendChild(prototype("body", content))
+    appendChild(prototype("body", attributes, content))
 }
 
 fun HtmlTag.Div(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): HtmlTag = apply {
-    appendChild(prototype("div", content))
+    appendChild(prototype("div", attributes, content))
 }
