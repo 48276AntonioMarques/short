@@ -6,10 +6,9 @@ import pt.isel.SHORT.html.Text
 import pt.isel.SHORT.html.element.Div
 import pt.isel.SHORT.html.id
 
-fun HtmlTag.Button(text: String) = apply {
+fun HtmlTag.Button(text: String) =
     Div(
         attributes = Attribute.id("button")
     ) {
         Text(text)
     }
-}

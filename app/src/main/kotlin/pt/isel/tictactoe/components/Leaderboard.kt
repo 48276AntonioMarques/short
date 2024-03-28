@@ -6,10 +6,9 @@ import pt.isel.SHORT.html.Text
 import pt.isel.SHORT.html.element.Div
 import pt.isel.SHORT.html.id
 
-fun HtmlTag.Leaderboard() = apply {
+fun HtmlTag.Leaderboard() =
     Div(
         attributes = Attribute.id("leaderboard")
     ) {
         Text("Leaderboard")
     }
-}
