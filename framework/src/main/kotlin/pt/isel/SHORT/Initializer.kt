@@ -8,9 +8,10 @@ import org.http4k.routing.bind
 import org.http4k.routing.routes
 import org.http4k.server.Http4kServer
 import org.http4k.server.asServer
+import pt.isel.SHORT.html.HtmlPage
 import java.util.concurrent.CompletableFuture
 
-typealias WebApp = String
+typealias WebApp = HtmlPage
 
 /**
  * Top level function acting as a Kotlin shortcut allowing to write
@@ -42,7 +43,7 @@ fun <T : Application> runSHORT(sources: Class<T>, args: Array<String>): Http4kSe
             // Maybe this should be a 404 or a static loading page
             // Until the page aggregator is finished
             if (webApp.isDone) {
-                Response(Status.OK).body(webApp.get())
+                Response(Status.OK).body(webApp.get().toHtml())
             } else {
                 serverSources.getLoadingScreen(request)
             }

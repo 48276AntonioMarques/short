@@ -5,3 +5,6 @@ package pt.isel.SHORT.html
 
 fun Attribute.Companion.id(value: String) = add("id", value)
 fun List<Attribute>.id(value: String) = add("id", value)
+
+fun Attribute.Companion.`class`(value: String) = add("class", value)
+fun List<Attribute>.`class`(value: String) = add("class", value)

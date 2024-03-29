@@ -6,7 +6,7 @@ import pt.isel.SHORT.html.HtmlTag
 fun HtmlTag.Script(code: () -> String) = apply {
     appendChild(
         prototype("script") {
-            Text(code())
+            Text(code)
         }
     )
 }

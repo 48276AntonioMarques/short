@@ -2,7 +2,9 @@ package pt.isel.SHORT.html
 
 import pt.isel.SHORT.component.Variable
 
-sealed interface HtmlElement
+sealed interface HtmlElement {
+    fun toHtml(): String
+}
 
 class HtmlPage(
     tag: String,
@@ -13,7 +15,9 @@ class HtmlPage(
 fun Html(content: HtmlTag.() -> Unit) =
     HtmlPage("html", emptyList(), emptyList()).apply(content)
 
-class HtmlText(val content: String) : HtmlElement
+class HtmlText(val content: () -> String) : HtmlElement {
+    override fun toHtml() = content()
+}
 
 open class HtmlTag(
     private val tag: String,
@@ -35,7 +39,7 @@ open class HtmlTag(
         _variables += variable
     }
 
-    fun toHtml(): String {
+    override fun toHtml(): String {
         val attr = if (attributes.isEmpty()) {
             ""
         } else {
@@ -48,12 +52,5 @@ open class HtmlTag(
 
     // This function exists in JS
     // Ensure that the HTML generator does not try to recreate the same function
-    fun innerHtml(): String {
-        return _children.joinToString("") { element ->
-            when (element) {
-                is HtmlTag -> element.toHtml()
-                is HtmlText -> element.content
-            }
-        }
-    }
+    fun innerHtml() = _children.joinToString("") { element -> element.toHtml() }
 }

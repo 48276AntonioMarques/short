@@ -41,8 +41,7 @@ fun generateWebApp(): WebApp {
         }
     }
     val classNames = sysClassLoader.searchClasses("")
-    val webApp = aggregatePages(getPages(classNames))
-    return webApp.toHtml()
+    return aggregatePages(getPages(classNames))
 }
 
 /**
@@ -110,6 +109,7 @@ fun aggregatePages(pages: List<PageFactory>): HtmlPage {
                 val url = page.getAnnotation(Page::class.java)?.path
                     ?: throw PageLinkageException("Failed to link '${page.name}' to a path.")
                 val pageInstance = page.kotlinFunction!!.call(Html {}) as HtmlTag
+                // TODO: Make this lambda lazy
                 Script {
                     "registerPage(\"$url\", () => { return `${pageInstance.innerHtml()}`})"
                 }
