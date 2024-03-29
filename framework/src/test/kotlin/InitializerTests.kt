@@ -6,6 +6,7 @@ class InitializerTests {
 
     @Test
     fun `basic initialization`() {
+        println(System.getProperty("java.version"))
         class WebApp : Application()
 
         val args = emptyArray<String>()

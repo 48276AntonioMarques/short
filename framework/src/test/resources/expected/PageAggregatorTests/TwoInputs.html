@@ -14,4 +14,4 @@ function loadPage(url) {
 function navigate(url) {
     window.history.pushState({}, '', url)
     loadPage(url)
-}</script><script>console.log('Resource not found: /scripts/requester.js')</script><script>registerPage("/", () => { return "<div>Hello World</div>"})</script><script>registerPage("/page2", () => { return "<div>Hello World</div>"})</script></head><body><div id='app'></div></body><script>loadPage('/')</script></html>
+}</script><script>console.log('Resource not found: /scripts/requester.js')</script><script>registerPage("/", () => { return `<div>Hello World</div>`})</script><script>registerPage("/page2", () => { return `<div>Hello World</div>`})</script></head><body><div id='app'></div></body><script>loadPage('/')</script></html>

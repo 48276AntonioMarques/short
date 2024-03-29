@@ -1,9 +1,6 @@
 package pt.isel.SHORT.html
 
 import pt.isel.SHORT.component.Variable
-import pt.isel.SHORT.getResource
-import pt.isel.SHORT.html.element.Text
-import pt.isel.SHORT.html.element.prototype
 
 sealed interface HtmlElement
 
