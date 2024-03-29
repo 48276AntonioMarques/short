@@ -1,14 +1,17 @@
 package pt.isel.SHORT
 
+import io.github.oshai.kotlinlogging.KotlinLogging
 import java.net.URL
 
-fun getResource(name: String): URL? {
+private val logger = KotlinLogging.logger {}
+
+fun getResource(name: String): URL {
     val resource = object {}.javaClass.getResource(name)
     if (resource != null) {
         return resource
     }
     // Not found
     // Log on the server
-    println("Resource not found: $name")
-    return null
+    logger.warn { "Resource not found: $name" }
+    throw ResourceNotFoundException("Resource not found: $name")
 }

@@ -7,7 +7,7 @@ fun HtmlTag.Style(resource: String) = apply {
     appendChild(
         prototype("style") {
             Text {
-                val res = getResource(name = resource)
+                getResource(name = resource).readText()
                 if (res != null) {
                     res.readText()
                 } else {

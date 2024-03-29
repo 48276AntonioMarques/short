@@ -7,7 +7,7 @@ class InitializerTests {
     @Test
     fun `basic initialization`() {
         println(System.getProperty("java.version"))
-        class WebApp : Application()
+        class WebApp(arguments: Array<String>) : Application(arguments)
 
         val args = emptyArray<String>()
         runSHORT<WebApp>(args)

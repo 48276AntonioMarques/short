@@ -16,6 +16,8 @@ dependencies {
 
     implementation(group = "org.http4k", name = "http4k-core", version = "5.14.+")
     implementation(group = "org.http4k", name = "http4k-server-jetty", version = "5.14.+")
+
+    implementation(group = "io.github.oshai", name = "kotlin-logging-jvm", version = "6.0.+")
 }
 
 tasks.test {

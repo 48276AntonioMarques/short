@@ -1,5 +1,6 @@
 package pt.isel.SHORT.html.element
 
+import pt.isel.SHORT.ResourceNotFoundException
 import pt.isel.SHORT.getResource
 import pt.isel.SHORT.html.HtmlTag
 
@@ -12,13 +13,12 @@ fun HtmlTag.Script(code: () -> String) = apply {
 }
 
 fun HtmlTag.Script(resource: String) = apply {
-    val res = getResource(name = resource)
-    val content = if (res != null) {
-        res.readText()
-    } else {
-        "console.log('Resource not found: $resource')"
-    }
     Script {
-        content
+        try {
+            getResource(name = resource).readText()
+        }
+        catch (rnfe: ResourceNotFoundException) {
+            "console.log('Resource not found: $resource')"
+        }
     }
 }
