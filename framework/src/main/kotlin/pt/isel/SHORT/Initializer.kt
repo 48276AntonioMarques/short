@@ -25,17 +25,17 @@ inline fun <reified T : Application> runSHORT(args: Array<String>) {
 }
 
 /**
- * Create a new instance of [sources]. The context will be loaded from the overridden methods
+ * Create a new instance of [sourceManagerClass]. The context will be loaded from the overridden methods
  * The instance can have more function that will be used to inject dependencies in the pages
  */
-fun <T : Application> runSHORT(sources: Class<T>, args: Array<String>): Http4kServer {
+fun <T : Application> runSHORT(sourceManagerClass: Class<T>, args: Array<String>): Http4kServer {
     // Instantiate the sources manager
-    val serverSources: T
+    val sourceManager: T
 
     try {
-        serverSources = sources.getDeclaredConstructor().newInstance()
+        sourceManager = sourceManagerClass.getDeclaredConstructor().newInstance()
     } catch (e: Exception) {
-        throw RuntimeException("Couldn't create an instance of the server sources", e)
+        throw RuntimeException("Couldn't create an instance of the source manager", e)
     }
 
     // Register loading page
@@ -44,7 +44,7 @@ fun <T : Application> runSHORT(sources: Class<T>, args: Array<String>): Http4kSe
             var loadingScreen: HtmlTag? = null
             val root = Html {
                 Body {
-                    loadingScreen = serverSources.getLoadingScreen(this)
+                    loadingScreen = sourceManager.getLoadingScreen(this)
                 }
             }
             if (loadingScreen == null) {
@@ -56,7 +56,7 @@ fun <T : Application> runSHORT(sources: Class<T>, args: Array<String>): Http4kSe
     )
 
     // Launch temporary server
-    val tempServer = loadingPath.asServer(serverSources.getServerConfig()).start()
+    val tempServer = loadingPath.asServer(sourceManager.getServerConfig()).start()
 
     // Generate the web app
     val webApp = generateWebApp()
@@ -72,7 +72,7 @@ fun <T : Application> runSHORT(sources: Class<T>, args: Array<String>): Http4kSe
     tempServer.stop()
 
     // Launch definitive server
-    val server = exposedPaths.asServer(serverSources.getServerConfig()).start()
+    val server = exposedPaths.asServer(sourceManager.getServerConfig()).start()
     println("Server started at port ${server.port()}.")
 
     return server
