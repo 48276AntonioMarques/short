@@ -8,3 +8,6 @@ fun List<Attribute>.id(value: String) = add("id", value)
 
 fun Attribute.Companion.`class`(value: String) = add("class", value)
 fun List<Attribute>.`class`(value: String) = add("class", value)
+
+fun Attribute.Companion.src(value: String) = add("src", value)
+fun List<Attribute>.src(value: String) = add("src", value)
