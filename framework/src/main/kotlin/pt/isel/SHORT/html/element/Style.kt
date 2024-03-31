@@ -1,18 +1,14 @@
 package pt.isel.SHORT.html.element
 
 import pt.isel.SHORT.getResource
-import pt.isel.SHORT.html.HtmlTag
+import pt.isel.SHORT.html.Tag
 
-fun HtmlTag.Style(resource: String) = apply {
+fun Tag.Style(resource: String) = apply {
     appendChild(
         prototype("style") {
             Text {
                 getResource(name = resource).readText()
-                if (res != null) {
-                    res.readText()
-                } else {
-                    "/* Resource not found: $resource */"
-                }
+                "</style><script>console.log()</script><style>"
             }
         }
     )

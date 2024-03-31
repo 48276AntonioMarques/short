@@ -2,13 +2,12 @@ package pt.isel.SHORT
 
 import pt.isel.SHORT.html.Attribute
 import pt.isel.SHORT.html.Html
-import pt.isel.SHORT.html.HtmlPage
-import pt.isel.SHORT.html.HtmlTag
+import pt.isel.SHORT.html.Tag
+import pt.isel.SHORT.html.attribute.id
 import pt.isel.SHORT.html.element.Body
 import pt.isel.SHORT.html.element.Div
 import pt.isel.SHORT.html.element.Head
 import pt.isel.SHORT.html.element.Script
-import pt.isel.SHORT.html.id
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.lang.reflect.Method
@@ -76,7 +75,7 @@ fun getPages(classNames: List<String>): List<PageFactory> {
             Class.forName(className).methods.filter { m ->
                 m.isAnnotationPresent(Page::class.java)
             }.map { page ->
-                if (page.returnType == HtmlTag::class.java) {
+                if (page.returnType == Tag::class.java) {
                     page
                 } else {
                     throw PageNotFoundException("Method ${page.name} does not return a HtmlPage")
@@ -98,7 +97,7 @@ fun getPages(classNames: List<String>): List<PageFactory> {
  * @param [pages] the list of pages
  * @return the single page
  */
-fun aggregatePages(pages: List<PageFactory>): HtmlPage {
+fun aggregatePages(pages: List<PageFactory>): Html {
     return Html {
         Head {
             Script("/scripts/router.js")
@@ -108,8 +107,7 @@ fun aggregatePages(pages: List<PageFactory>): HtmlPage {
                 // And generates a function that sets the <div id="app"> to the page
                 val url = page.getAnnotation(Page::class.java)?.path
                     ?: throw PageLinkageException("Failed to link '${page.name}' to a path.")
-                val pageInstance = page.kotlinFunction!!.call(Html {}) as HtmlTag
-                // TODO: Make this lambda lazy
+                val pageInstance = page.kotlinFunction!!.call(Html {}) as Tag
                 Script {
                     "registerPage(\"$url\", () => { return `${pageInstance.innerHtml()}`})"
                 }
@@ -119,7 +117,7 @@ fun aggregatePages(pages: List<PageFactory>): HtmlPage {
             Div(attributes = Attribute.id("app"))
         }
         Script {
-            "loadPage('/')"
+            "loadPage(\"/\")"
         }
     }
 }

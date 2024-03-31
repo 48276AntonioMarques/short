@@ -1,8 +1,8 @@
 package pt.isel.SHORT.component
 
-import pt.isel.SHORT.html.HtmlTag
+import pt.isel.SHORT.html.Tag
 
-fun <T : Any> HtmlTag.Var(value: T) =
+fun <T : Any> Tag.Var(value: T) =
     Variable(value).also { appendVariable(it as Variable<Any>) }
 
 class Variable<T>(value: T) {

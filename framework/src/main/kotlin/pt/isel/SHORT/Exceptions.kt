@@ -4,3 +4,4 @@ class ClassLoaderException(message: String, cause: Throwable) : RuntimeException
 class PageNotFoundException(message: String) : RuntimeException(message)
 class PageLinkageException(message: String) : RuntimeException(message)
 class ResourceNotFoundException(message: String) : RuntimeException(message)
+class JavaScriptException(message: String) : RuntimeException(message)

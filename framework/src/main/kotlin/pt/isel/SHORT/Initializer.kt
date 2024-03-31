@@ -10,13 +10,12 @@ import org.http4k.routing.routes
 import org.http4k.server.Http4kServer
 import org.http4k.server.asServer
 import pt.isel.SHORT.html.Html
-import pt.isel.SHORT.html.HtmlPage
-import pt.isel.SHORT.html.HtmlTag
+import pt.isel.SHORT.html.Tag
 import pt.isel.SHORT.html.element.Body
 
 private val logger = KotlinLogging.logger {}
 
-typealias WebApp = HtmlPage
+typealias WebApp = Html
 
 /**
  * Top level function acting as a Kotlin shortcut allowing to write
@@ -49,7 +48,7 @@ fun runSHORT(sourceManagerClass: Class<Application>, args: Array<String>): Http4
     logger.debug { "Registering loading page..." }
     val loadingPath = routes(
         "/" bind Method.GET to { _: Request ->
-            var loadingScreen: HtmlTag? = null
+            var loadingScreen: Tag? = null
             val root = Html {
                 Body {
                     loadingScreen = sourceManager.getLoadingScreen(this)

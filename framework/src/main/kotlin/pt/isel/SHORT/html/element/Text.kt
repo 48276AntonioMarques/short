@@ -1,12 +1,10 @@
 package pt.isel.SHORT.html.element
 
-import pt.isel.SHORT.html.HtmlTag
-import pt.isel.SHORT.html.HtmlText
+import pt.isel.SHORT.html.Tag
+import pt.isel.SHORT.html.Text as TextClass
 
-fun HtmlTag.Text(content: () -> String) = apply {
-    appendChild(HtmlText(content))
+fun Tag.Text(content: () -> String) = apply {
+    appendChild(TextClass(content))
 }
 
-fun HtmlTag.Text(content: String) = apply {
-    appendChild(HtmlText { content })
-}
+fun Tag.Text(content: String) = Text { content }

@@ -1,10 +1,11 @@
 package pt.isel.SHORT.html.element
 
+import pt.isel.SHORT.JavaScriptException
 import pt.isel.SHORT.ResourceNotFoundException
 import pt.isel.SHORT.getResource
-import pt.isel.SHORT.html.HtmlTag
+import pt.isel.SHORT.html.Tag
 
-fun HtmlTag.Script(code: () -> String) = apply {
+fun Tag.Script(code: () -> String) = apply {
     appendChild(
         prototype("script") {
             Text(code)
@@ -12,13 +13,13 @@ fun HtmlTag.Script(code: () -> String) = apply {
     )
 }
 
-fun HtmlTag.Script(resource: String) = apply {
+fun Tag.Script(resource: String) = apply {
     Script {
         try {
             getResource(name = resource).readText()
-        }
-        catch (rnfe: ResourceNotFoundException) {
-            "console.log('Resource not found: $resource')"
+        } catch (_: ResourceNotFoundException) {
+            // "console.log('Resource not found: $resource')"
+            throw JavaScriptException("Resource not found: $resource")
         }
     }
 }

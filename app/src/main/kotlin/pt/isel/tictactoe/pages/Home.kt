@@ -2,8 +2,8 @@ package pt.isel.tictactoe.pages
 
 import pt.isel.SHORT.Page
 import pt.isel.SHORT.html.Attribute
-import pt.isel.SHORT.html.HtmlTag
-import pt.isel.SHORT.html.`class`
+import pt.isel.SHORT.html.Tag
+import pt.isel.SHORT.html.attribute.`class`
 import pt.isel.SHORT.html.element.Div
 import pt.isel.SHORT.html.element.Style
 import pt.isel.SHORT.html.element.Text
@@ -13,7 +13,7 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 @Page("/")
-fun HtmlTag.home() = apply {
+fun Tag.home() = apply {
     Div(
         attributes = Attribute.`class`("menu align-right")
     ) {
