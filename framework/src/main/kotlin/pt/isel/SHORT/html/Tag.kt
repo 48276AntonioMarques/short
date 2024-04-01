@@ -37,9 +37,10 @@ open class Tag(
      */
     override fun toHtml(): String {
         // IMPORTANT: Events MUST be invoked before innerHtml
-        events.forEach { event -> this.event() }
+        val copy = Tag(tag, attributes, children)
+        events.forEach { event -> copy.event() }
 
-        val attr = attributes.mapNotNull { attribute ->
+        val attr = copy.attributes.mapNotNull { attribute ->
             try {
                 attribute.toHtml()
             } catch (jse: JavaScriptException) {
@@ -49,9 +50,9 @@ open class Tag(
         }
         return try {
             if (attr.isEmpty()) {
-                "<$tag>${innerHtml()}</$tag>"
+                "<${copy.tag}>${copy.innerHtml()}</${copy.tag}>"
             } else {
-                "<$tag ${attr.joinToString(" ")}>${innerHtml()}</$tag>"
+                "<${copy.tag} ${attr.joinToString(" ")}>${copy.innerHtml()}</${copy.tag}>"
             }
         } catch (jse: JavaScriptException) {
             // TODO: Log error on client
