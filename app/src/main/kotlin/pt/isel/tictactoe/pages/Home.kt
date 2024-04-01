@@ -40,5 +40,6 @@ fun Tag.home() = apply {
         SideBar()
     }
     Style("/css/styles.css")
-    Style("http://online-fonts.com/sites/default/files/css/css_FjK2FbyVynhbQbZZ9qcrvQ8TlBGq_P7UJPLEzp3bt9o.css?delta=0&amp;language=en&amp;theme=fontsonline_theme&amp;include=eJx9zEEKwCAMBdELWTySRE01oIn0pwtv3-4L3Q6PwYbzjJnA4TR1mA5RTt55cmzDMo0Dvt_YfkC5ZDlCoeWl03c3rd6Do6h4ogpW8AOhvjBl")
+    // TODO: Do imports like this using <link> tags
+    // Style("http://online-fonts.com/sites/default/files/css/css_FjK2FbyVynhbQbZZ9qcrvQ8TlBGq_P7UJPLEzp3bt9o.css?delta=0&amp;language=en&amp;theme=fontsonline_theme&amp;include=eJx9zEEKwCAMBdELWTySRE01oIn0pwtv3-4L3Q6PwYbzjJnA4TR1mA5RTt55cmzDMo0Dvt_YfkC5ZDlCoeWl03c3rd6Do6h4ogpW8AOhvjBl")
 }

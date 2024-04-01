@@ -1,13 +1,23 @@
-var pages = {}
+function checkTemplateSupport() {
+    if ("content" in document.createElement("template")) {
 
-function registerPage(url, renderFunction) {
-    pages[url] = renderFunction
+    }
+    else {
+        document.getElementById("app").innerHTML = "Your browser does not support templates."
+    }
 }
 
 function loadPage(url) {
-    const page = pages[url]
-    if (page) {
-        document.getElementById("app").innerHTML = page()
+    const templates = document.getElementsByTagName("template")
+    const template = templates["page-" + url]
+    if (template) {
+        const page = template.content.cloneNode(true)
+        const app = document.getElementById("app")
+        page.childNodes.forEach(node => { app.appendChild(node) })
+    }
+    else {
+        // TODO: 404 page
+        console.log("Page not found: " + url)
     }
 }
 

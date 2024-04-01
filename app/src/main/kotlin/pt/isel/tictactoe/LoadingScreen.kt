@@ -7,6 +7,6 @@ import pt.isel.SHORT.html.element.Style
 
 fun Tag.loadingScreen() =
     Div {
-        Style("loading.css")
+        // Style("loading.css")
         Img("loading.gif", embed = true)
     }

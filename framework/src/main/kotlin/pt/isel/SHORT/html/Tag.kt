@@ -34,7 +34,6 @@ open class Tag(
             try {
                 attribute.toHtml()
             } catch (jse: JavaScriptException) {
-                println(jse.message)
                 // TODO: Log error on client
                 null
             }
@@ -46,9 +45,7 @@ open class Tag(
                 "<$tag ${attr.joinToString(" ")}>${innerHtml()}</$tag>"
             }
         } catch (jse: JavaScriptException) {
-            println(jse.message)
             // TODO: Log error on client
-            println("Error in tag: $tag")
             ""
         }
     }

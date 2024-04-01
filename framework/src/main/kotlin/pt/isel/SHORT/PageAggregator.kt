@@ -8,6 +8,8 @@ import pt.isel.SHORT.html.element.Body
 import pt.isel.SHORT.html.element.Div
 import pt.isel.SHORT.html.element.Head
 import pt.isel.SHORT.html.element.Script
+import pt.isel.SHORT.html.element.Template
+import pt.isel.SHORT.html.element.Text
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.lang.reflect.Method
@@ -108,8 +110,10 @@ fun aggregatePages(pages: List<PageFactory>): Html {
                 val url = page.getAnnotation(Page::class.java)?.path
                     ?: throw PageLinkageException("Failed to link '${page.name}' to a path.")
                 val pageInstance = page.kotlinFunction!!.call(Html {}) as Tag
-                Script {
-                    "registerPage(\"$url\", () => { return `${pageInstance.innerHtml()}`})"
+                Template(
+                    attributes = Attribute.id("page-$url")
+                ) {
+                    Text { pageInstance.innerHtml() }
                 }
             }
         }
@@ -117,6 +121,11 @@ fun aggregatePages(pages: List<PageFactory>): Html {
             Div(attributes = Attribute.id("app"))
         }
         Script {
+            // If template is not supported use legacy version?
+            "checkTemplateSupport()"
+        }
+        Script {
+            // TODO: Change "/" to the value fetched from the URL
             "loadPage(\"/\")"
         }
     }
