@@ -4,6 +4,6 @@ import pt.isel.SHORT.html.Attribute
 import pt.isel.SHORT.html.Html
 import pt.isel.SHORT.html.Tag
 
-fun Html.Body(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
+fun Html.Body(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = tag.apply {
     appendChild(prototype("body", attributes, content))
 }

@@ -2,6 +2,7 @@ package pt.isel.SHORT.html
 
 import pt.isel.SHORT.JavaScriptException
 import pt.isel.SHORT.component.Variable
+import pt.isel.SHORT.html.element.HtmlReceiver
 
 open class Tag(
     internal val tag: String,
@@ -9,6 +10,7 @@ open class Tag(
     children: List<Element>
 ) : Element {
     private val children = children.toMutableList()
+    private val events = mutableListOf<HtmlReceiver>()
 
     private val _variables = mutableListOf<Variable<Any>>()
 
@@ -17,6 +19,10 @@ open class Tag(
     fun appendChild(child: Element): Element {
         children += child
         return this
+    }
+
+    fun appendEvent(event: HtmlReceiver) {
+        events += event
     }
 
     fun appendVariable(variable: Variable<Any>) {
@@ -30,6 +36,9 @@ open class Tag(
      *  @param innerHtml the inner HTML of the element
      */
     override fun toHtml(): String {
+        // IMPORTANT: Events MUST be invoked before innerHtml
+        events.forEach { event -> this.event() }
+
         val attr = attributes.mapNotNull { attribute ->
             try {
                 attribute.toHtml()
@@ -52,5 +61,5 @@ open class Tag(
 
     // This function exists in JS
     // Ensure that the HTML generator does not try to recreate the same function
-    fun innerHtml() = children.joinToString("") { child -> child.toHtml() }
+    override fun innerHtml() = children.joinToString("") { child -> child.toHtml() }
 }

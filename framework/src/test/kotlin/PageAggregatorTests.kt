@@ -1,5 +1,6 @@
 import Pages.page1
 import Pages.page2
+import diff.markTextDiff2
 import pt.isel.SHORT.PageFactory
 import pt.isel.SHORT.aggregatePages
 import pt.isel.SHORT.getPages
@@ -35,7 +36,7 @@ class PageAggregatorTests {
         val expectedPath = "expected/PageAggregatorTests/NoInput.html"
         val expectedResult = ClassLoader.getSystemResource(expectedPath).readText().normalize()
         val actualResult = htmlPage.toHtml().normalize()
-        println(actualResult)
+        println(markTextDiff2(actualResult, expectedResult))
         assert(actualResult == expectedResult)
     }
 
@@ -47,7 +48,7 @@ class PageAggregatorTests {
         val expectedPath = "expected/PageAggregatorTests/OneInput.html"
         val expectedResult = ClassLoader.getSystemResource(expectedPath).readText().normalize()
         val actualResult = htmlPage.toHtml().normalize()
-        println(actualResult)
+        println(markTextDiff2(actualResult, expectedResult))
         assert(actualResult == expectedResult)
     }
 
@@ -59,7 +60,7 @@ class PageAggregatorTests {
         val expectedPath = "expected/PageAggregatorTests/TwoInputs.html"
         val expectedResult = ClassLoader.getSystemResource(expectedPath).readText().normalize()
         val actualResult = htmlPage.toHtml().normalize()
-        println(actualResult)
+        println(markTextDiff2(actualResult, expectedResult))
         assert(actualResult == expectedResult)
     }
 }

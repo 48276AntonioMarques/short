@@ -1,12 +1,3 @@
-function checkTemplateSupport() {
-    if ("content" in document.createElement("template")) {
-
-    }
-    else {
-        document.getElementById("app").innerHTML = "Your browser does not support templates."
-    }
-}
-
 function loadPage(url) {
     const templates = document.getElementsByTagName("template")
     const template = templates["page-" + url]

@@ -14,4 +14,14 @@ function loadPage(url) {
 function navigate(url) {
     window.history.pushState({}, '', url)
     loadPage(url)
-}</script><script>registerPage("/", () => { return `<div>Hello from Page 1.</div>`})</script></head><body><div id="app"></div></body><script>loadPage("/")</script></html>
+}
+</script><script>registerPage("/", () => { return `<div>Hello from Page 1.</div>`})</script></head><body><div id="app"></div></body><script>function checkTemplateSupport() {
+    if ("content" in document.createElement("template")) {
+
+    }
+    else {
+        document.getElementById("app").innerHTML = "Your browser does not support templates."
+    }
+}
+checkTemplateSupport()
+</script><script>loadPage("/")</script></html>

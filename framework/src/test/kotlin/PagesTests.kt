@@ -2,6 +2,7 @@ import Pages.page1
 import Pages.page2
 import Pages.page3
 import pt.isel.SHORT.html.Html
+import pt.isel.SHORT.html.element.Body
 import pt.isel.SHORT.html.element.Div
 import pt.isel.SHORT.html.element.Text
 import kotlin.test.Test
@@ -13,20 +14,26 @@ class PagesTests {
     @Test
     fun `generate page without extending tag`() {
         val page = Html {
-            Div {
-                Text("Hello World!")
+            Body {
+                Div {
+                    Text("Hello World!")
+                }
             }
         }
-        val expected = "<div>Hello World!</div>"
+        val expected = "<body><div>Hello World!</div></body>"
+        println(page.innerHtml().normalize())
         assert(page.innerHtml().normalize() == expected)
     }
 
     @Test
     fun `generate text only page`() {
         val page = Html {
-            Text("Hello World!")
+            Body {
+                Text("Hello World!")
+            }
         }
-        val expected = "Hello World!"
+        val expected = "<body>Hello World!</body>"
+        println(page.innerHtml().normalize())
         assert(page.innerHtml().normalize() == expected)
     }
 
@@ -34,44 +41,54 @@ class PagesTests {
     fun `generate page using non extension function`() {
         val html = Html {}
         val page = { root: Html ->
-            root.Div {
-                Text("Hello World!")
+            root.Body {
+                Div {
+                    Text("Hello World!")
+                }
             }
         }
-        val expected = "<div>Hello World!</div>"
-        assert(page(html).innerHtml().normalize() == expected)
+        val expected = "<body><div>Hello World!</div></body>"
+        val result = page(html).innerHtml().normalize()
+        println(result)
+        assert(result == expected)
     }
 
     @Test
     fun `generate page1`() {
         val html = Html {}
-        val page = html.page1()
-        val expected = "<div>Hello from Page 1.</div>"
+        val page = html.Body().page1()
+        val expected = "<body></body><div>Hello from Page 1.</div>"
+        println(page.innerHtml().normalize())
         assert(page.innerHtml().normalize() == expected)
     }
 
     @Test
     fun `generate page1 with lambda`() {
         val page = Html {
-            page1()
+            Body {
+                page1()
+            }
         }
-        val expected = "<div>Hello from Page 1.</div>"
+        val expected = "<body><div>Hello from Page 1.</div></body>"
+        println(page.innerHtml().normalize())
         assert(page.innerHtml().normalize() == expected)
     }
 
     @Test
     fun `generate page2`() {
         val html = Html {}
-        val page = html.page2()
-        val expected = "<div>Hello from Page 2.</div>"
+        val page = html.Body().page2()
+        val expected = "<body></body><div>Hello from Page 2.</div>"
+        println(page.innerHtml().normalize())
         assert(page.innerHtml().normalize() == expected)
     }
 
     @Test
     fun `generate page3`() {
         val html = Html {}
-        val page = html.page3()
-        val expected = "<div>Hello from Page 3.</div>"
+        val page = html.Body().page3()
+        val expected = "<body></body><div>Hello from Page 3.</div>"
+        println(page.innerHtml().normalize())
         assert(page.innerHtml().normalize() == expected)
     }
 }

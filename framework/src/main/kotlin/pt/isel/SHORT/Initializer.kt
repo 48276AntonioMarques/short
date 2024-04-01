@@ -9,9 +9,11 @@ import org.http4k.routing.bind
 import org.http4k.routing.routes
 import org.http4k.server.Http4kServer
 import org.http4k.server.asServer
+import pt.isel.SHORT.config.templateUserAgentRequirements
 import pt.isel.SHORT.html.Html
 import pt.isel.SHORT.html.Tag
 import pt.isel.SHORT.html.element.Body
+import pt.isel.SHORT.request.UserAgent
 
 private val logger = KotlinLogging.logger {}
 
@@ -74,7 +76,13 @@ fun runSHORT(sourceManagerClass: Class<Application>, args: Array<String>): Http4
     // Register new routes
     logger.debug { "Registering exposed paths..." }
     val exposedPaths = routes(
-        "/" bind Method.GET to { _: Request ->
+        "/" bind Method.GET to { request: Request ->
+            val userAgent = request.header("User-Agent")
+            // Verifying aggregation mode
+            val requirements = templateUserAgentRequirements
+            if (requirements.verifyUserAgentCompatibility(userAgent, UserAgent.Criteria.GREATER_THAN_OR_EQUAL)) {
+                webApp.enableLegacyAggregation()
+            }
             Response(Status.OK).body(webApp.toHtml())
         }
     )

@@ -5,7 +5,6 @@ import pt.isel.SHORT.html.Attribute
 import pt.isel.SHORT.html.Tag
 import pt.isel.SHORT.html.attribute.`class`
 import pt.isel.SHORT.html.element.Div
-import pt.isel.SHORT.html.element.Style
 import pt.isel.SHORT.html.element.Text
 import pt.isel.tictactoe.components.Button
 import pt.isel.tictactoe.components.SideBar
@@ -39,7 +38,7 @@ fun Tag.home() = apply {
         }
         SideBar()
     }
-    Style("/css/styles.css")
+    // Style("/css/styles.css")
     // TODO: Do imports like this using <link> tags
     // Style("http://online-fonts.com/sites/default/files/css/css_FjK2FbyVynhbQbZZ9qcrvQ8TlBGq_P7UJPLEzp3bt9o.css?delta=0&amp;language=en&amp;theme=fontsonline_theme&amp;include=eJx9zEEKwCAMBdELWTySRE01oIn0pwtv3-4L3Q6PwYbzjJnA4TR1mA5RTt55cmzDMo0Dvt_YfkC5ZDlCoeWl03c3rd6Do6h4ogpW8AOhvjBl")
 }

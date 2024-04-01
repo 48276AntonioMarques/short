@@ -1,5 +1,6 @@
 package pt.isel.SHORT.html
 
-sealed interface Element {
+open interface Element {
     fun toHtml(): String
+    fun innerHtml(): String
 }
