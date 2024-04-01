@@ -1,13 +1,14 @@
-<html><head><script>var pages = {}
-
-function registerPage(url, renderFunction) {
-    pages[url] = renderFunction
-}
-
-function loadPage(url) {
-    const page = pages[url]
-    if (page) {
-        document.getElementById("app").innerHTML = page()
+<html><head><script>function loadPage(url) {
+    const templates = document.getElementsByTagName("template")
+    const template = templates["page-" + url]
+    if (template) {
+        const page = template.content.cloneNode(true)
+        const app = document.getElementById("app")
+        page.childNodes.forEach(node => { app.appendChild(node) })
+    }
+    else {
+        // TODO: 404 page
+        console.log("Page not found: " + url)
     }
 }
 
@@ -15,7 +16,7 @@ function navigate(url) {
     window.history.pushState({}, '', url)
     loadPage(url)
 }
-</script><script>registerPage("/", () => { return `<div>Hello from Page 1.</div>`})</script><script>registerPage("/page2", () => { return `<div>Hello from Page 2.</div>`})</script></head><body><div id="app"></div></body><script>function checkTemplateSupport() {
+</script><template id="page-/"><div>Hello from Page 1.</div></template><template id="page-/page2"><div>Hello from Page 2.</div></template></head><body><div id="app"></div></body><script>function checkTemplateSupport() {
     if ("content" in document.createElement("template")) {
 
     }
