@@ -16,3 +16,7 @@ function navigate(url) {
     window.history.pushState({}, '', url)
     loadPage(url)
 }
+
+window.addEventListener("load", () => {
+    loadPage(window.location.pathname)
+})

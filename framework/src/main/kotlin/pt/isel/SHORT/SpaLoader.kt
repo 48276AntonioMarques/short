@@ -6,6 +6,11 @@ import java.net.URL
 class SpaLoader : ResourceLoader {
     override fun load(path: String): URL? {
         // In here there's no access to Request or Response
-        return URL("http://localhost:9000/")
+        val url = when {
+            path.startsWith("public") -> "http://localhost:9000/${path.drop(6)}"
+            path.startsWith("/public") -> "http://localhost:9000/${path.drop(7)}"
+            else -> "http://localhost:9000/"
+        }
+        return URL(url)
     }
 }
