@@ -49,28 +49,31 @@ fun runSHORT(sourceManagerClass: Class<Application>, args: Array<String>): Http4
         throw RuntimeException("Couldn't create an instance of the source manager", e)
     }
 
+    // Generate the loading page
+    logger.debug { "Generating loading page..." }
+    var loadingScreen: Tag? = null
+    val root = Html {
+        Body {
+            loadingScreen = sourceManager.getLoadingScreen(this)
+        }
+    }
+    val loadingPage = if (loadingScreen == null) {
+        { _ : Request -> Response(Status(102, "Processing")).body("Server is starting.") }
+    } else {
+        { _ : Request -> Response(Status.OK).body(root.toHtml()) }
+    }
+
     // Register loading page
     logger.debug { "Registering loading page..." }
-    val loadingPath = routes(
-        "/" bind Method.GET to { _: Request ->
-            var loadingScreen: Tag? = null
-            val root = Html {
-                Body {
-                    loadingScreen = sourceManager.getLoadingScreen(this)
-                }
-            }
-            if (loadingScreen == null) {
-                Response(Status(102, "Processing")).body("Server is starting.")
-            } else {
-                Response(Status.OK).body(root.toHtml())
-            }
-        }
-    )
+    val loadingPath = routes("/" bind Method.GET to loadingPage)
 
     // Launch temporary server
     logger.debug { "Starting temporary server..." }
     val tempServer = loadingPath.asServer(sourceManager.getServerConfig()).start()
     logger.info { "Temporary server started at port ${tempServer.port()}." }
+
+    // TODO: Add a way to artificially delay the server start in here (for debugging purposes)
+    //Thread.sleep(10000)
 
     // Generate the web app
     logger.debug { "Generating web app..." }
