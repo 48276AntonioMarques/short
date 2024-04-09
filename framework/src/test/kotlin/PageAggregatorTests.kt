@@ -72,7 +72,8 @@ class PageAggregatorTests {
         val expectedPath = "expected/PageAggregatorTests/NoInput_Legacy.html"
         val expectedResult = ClassLoader.getSystemResource(expectedPath).readText().normalize()
         val actualResult = htmlPage.toHtml().normalize()
-        println(markTextDiff2(actualResult, expectedResult))
+        println(actualResult)
+        //println(markTextDiff2(actualResult, expectedResult))
         assert(actualResult == expectedResult)
     }
 
