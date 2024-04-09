@@ -2,16 +2,17 @@ package pt.isel.SHORT.html
 
 import pt.isel.SHORT.AggregationMode
 
-class Html(
-    tag: String,
-    attributes: List<Attribute>,
-    children: List<Element>
-) : Element {
-    val tag = Tag(tag, attributes, children)
-    var aggregation = AggregationMode.LEGACY
+class Html : Element {
+    var tag = Tag("html", emptyList(), emptyList())
+        private set
+    var aggregationMode: AggregationMode = AggregationMode.TEMPLATE
+        private set
 
-    fun enableLegacyAggregation() {
-        aggregation = AggregationMode.LEGACY
+    fun using(aggregationMode: AggregationMode): Html {
+        val newHtml = Html()
+        newHtml.tag = tag
+        newHtml.aggregationMode = aggregationMode
+        return newHtml
     }
 
     override fun toHtml(): String {
@@ -24,4 +25,4 @@ class Html(
 }
 
 fun Html(content: Html.() -> Unit) =
-    Html("html", emptyList(), emptyList()).apply(content)
+    Html().apply(content)
