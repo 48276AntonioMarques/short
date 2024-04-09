@@ -24,7 +24,8 @@ fun generateElements(elements: List<Pair<String, String>>): List<Pair<String, St
     // TODO: Format description
     return elements.map { (element, description) ->
         val capitalizedElement = element.replaceFirstChar { c -> c.uppercaseChar() }
-        Pair(capitalizedElement,
+        Pair(
+            capitalizedElement,
             """
                package pt.isel.SHORT.html.element
     
