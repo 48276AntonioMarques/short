@@ -5,6 +5,7 @@ import pt.isel.SHORT.html.Attribute
 import pt.isel.SHORT.html.Html
 import pt.isel.SHORT.html.Tag
 import pt.isel.SHORT.html.attribute.id
+import pt.isel.SHORT.html.attribute.src
 import pt.isel.SHORT.html.element.Body
 import pt.isel.SHORT.html.element.Div
 import pt.isel.SHORT.html.element.Head
@@ -115,13 +116,25 @@ fun getPages(classNames: List<String>): List<PageFactory> {
  */
 fun aggregatePages(pages: List<PageFactory>): Html {
     return Html {
+        // Check template support MUST be the first script
+        // since it will reload in legacy mode if not supported.
+        // TODO: Add a header to force the legacy version
+        tag.Script(attributes = Attribute.src("/scripts/templateChecker.js"))
         Head {
             onRequest {
-                when (this@Html.aggregation) {
+                when (this@Html.aggregationMode) {
                     AggregationMode.TEMPLATE ->
-                        Script("/scripts/router.js")
+                        Script {
+                            Text {
+                                getResource("/scripts/router.js").readText()
+                            }
+                        }
                     else ->
-                        Script("/scripts/router-legacy.js")
+                        Script {
+                            Text {
+                                getResource("/scripts/router-legacy.js").readText()
+                            }
+                        }
                 }
             }
             // Script("/scripts/requester.js")
@@ -130,9 +143,9 @@ fun aggregatePages(pages: List<PageFactory>): Html {
                 // And generates a function that sets the <div id="app"> to the page
                 val url = page.getAnnotation(Page::class.java)?.path
                     ?: throw PageLinkageException("Failed to link '${page.name}' to a path.")
-                val pageInstance = page.kotlinFunction!!.call(Html {}.tag) as Tag
+                val pageInstance = page.kotlinFunction!!.call(Html().tag) as Tag
                 onRequest {
-                    when (this@Html.aggregation) {
+                    when (this@Html.aggregationMode) {
                         AggregationMode.TEMPLATE -> {
                             Template(
                                 attributes = Attribute.id("page-$url")
@@ -152,12 +165,11 @@ fun aggregatePages(pages: List<PageFactory>): Html {
         Body {
             Div(attributes = Attribute.id("app"))
         }
-        // If template is not supported should use legacy version
-        // TODO: Add a header to force the legacy version
-        tag.Script("/scripts/templateChecker.js")
         tag.Script {
-            // TODO: Change "/" to the value fetched from the URL
-            "loadPage(\"/\")"
+            Text {
+                // TODO: Change "/" to the value fetched from the URL
+                "loadPage(\"/\")"
+            }
         }
     }
 }

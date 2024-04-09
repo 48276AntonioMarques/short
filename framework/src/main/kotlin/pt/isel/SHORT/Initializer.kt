@@ -1,11 +1,16 @@
 package pt.isel.SHORT
 
 import io.github.oshai.kotlinlogging.KotlinLogging
-import org.http4k.core.*
-import org.http4k.core.ContentType.Companion.TEXT_HTML
+import org.http4k.core.Method
+import org.http4k.core.Request
+import org.http4k.core.Response
+import org.http4k.core.Status
+import org.http4k.core.then
 import org.http4k.filter.CachingFilters
-import org.http4k.routing.*
 import org.http4k.routing.ResourceLoader.Companion.Classpath
+import org.http4k.routing.bind
+import org.http4k.routing.routes
+import org.http4k.routing.static
 import org.http4k.server.Http4kServer
 import org.http4k.server.asServer
 import pt.isel.SHORT.config.templateUserAgentRequirements
@@ -49,6 +54,7 @@ fun runSHORT(sourceManagerClass: Class<Application>, args: Array<String>): Http4
     }
 
     // Declare public content
+    // TODO: Verify this does allow hack it to access all files in /resources
     val public = routes(
         "/" bind CachingFilters.Response.NoCache()
             .then(static(Classpath("public/")))
@@ -63,9 +69,9 @@ fun runSHORT(sourceManagerClass: Class<Application>, args: Array<String>): Http4
         }
     }
     val loadingPage = if (loadingScreen == null) {
-        { _ : Request -> Response(Status(102, "Processing")).body("Server is starting.") }
+        { _: Request -> Response(Status(102, "Processing")).body("Server is starting.") }
     } else {
-        { _ : Request -> Response(Status.OK).body(root.toHtml()) }
+        { _: Request -> Response(Status.OK).body(root.toHtml()) }
     }
 
     // Register loading page
@@ -78,7 +84,7 @@ fun runSHORT(sourceManagerClass: Class<Application>, args: Array<String>): Http4
     logger.info { "Temporary server started at port ${tempServer.port()}." }
 
     // TODO: Add a way to artificially delay the server start in here (for debugging purposes)
-    //Thread.sleep(10000)
+    // Thread.sleep(10000)
 
     // Generate the web app
     logger.debug { "Generating web app..." }
@@ -89,13 +95,23 @@ fun runSHORT(sourceManagerClass: Class<Application>, args: Array<String>): Http4
     val exposedPaths = routes(
         public,
         "/" bind Method.GET to { request: Request ->
-            val userAgent = request.header("User-Agent")
-            // Verifying aggregation mode
-            val requirements = templateUserAgentRequirements
-            if (requirements.verifyUserAgentCompatibility(userAgent, UserAgent.Criteria.GREATER_THAN_OR_EQUAL)) {
-                webApp.enableLegacyAggregation()
+            val aggregationMode = try {
+                // Check if the request as a header that forces the legacy mode
+                when (request.query("Aggregation")) {
+                    "LEGACY" -> throw TemplateAggregationException("Legacy mode forced")
+                }
+
+                // Check if the browser is compatible with template aggregation mode
+                val userAgent = request.header("User-Agent")
+                val requirements = templateUserAgentRequirements
+                if (requirements.verifyUserAgentCompatibility(userAgent, UserAgent.Criteria.LESS_THAN)) {
+                    throw TemplateAggregationException("User agent not supported")
+                }
+                AggregationMode.TEMPLATE
+            } catch (e: TemplateAggregationException) {
+                AggregationMode.LEGACY
             }
-            Response(Status.OK).body(webApp.toHtml())
+            Response(Status.OK).body(webApp.using(aggregationMode).toHtml())
         }
     )
 

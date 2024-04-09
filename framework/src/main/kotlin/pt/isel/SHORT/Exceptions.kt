@@ -31,3 +31,8 @@ class JavaScriptException(message: String) : RuntimeException(message)
  * Exception thrown when the browser is not supported.
  */
 class BrowserNotSupportedException(message: String) : RuntimeException(message)
+
+/**
+ * Exception thrown when the template aggregation mode is not supported.
+ */
+class TemplateAggregationException(message: String) : RuntimeException(message)
