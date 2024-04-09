@@ -32,8 +32,11 @@ inline fun <reified T : Application> runSHORT(args: Array<String>) {
 }
 
 /**
+ * Starts a SHORT application using the given [sourceManagerClass] and [args].
+ * The [sourceManagerClass] must be a subclass of [Application].
  * Create a new instance of [sourceManagerClass]. The context will be loaded from the overridden methods
  * The instance can have more function that will be used to inject dependencies in the pages
+ * @return the server that is running the application.
  */
 fun runSHORT(sourceManagerClass: Class<Application>, args: Array<String>): Http4kServer {
     // Instantiate the sources manager

@@ -3,7 +3,17 @@ package pt.isel.SHORT.request
 import pt.isel.SHORT.BrowserNotSupportedException
 import pt.isel.SHORT.request.Browser.Companion.Version as BrowserVersion
 
+/**
+ * Represents the Header User Agent from the HTTP request
+ */
 object UserAgent {
+
+    /**
+     * Represents all the browsers that are supported by a certain feature
+     * @param browsers the browsers that are supported
+     * Each browser is represented by a [Browser] object
+     * @see Browser
+     */
     class Requirements(vararg browsers: Browser) {
         private val browsers = browsers.toList()
 
@@ -56,6 +66,10 @@ object UserAgent {
         }
     }
 
+    /**
+     * Represents the criteria wanted when comparing the browser versions.
+     * For instance, if the criteria is [LESS_THAN] the browser version must be less than the required version.
+     */
     enum class Criteria {
         LESS_THAN,
         LESS_THAN_OR_EQUAL,

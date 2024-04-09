@@ -2,18 +2,43 @@ package pt.isel.SHORT.request
 
 import pt.isel.SHORT.BrowserNotSupportedException
 
+/**
+ * Represents a browser.
+ * @property product the browser product name.
+ * @property version the browser version.
+ */
 interface Browser {
     val product: String
     val version: Version
     companion object {
+
+        /**
+         * Represents the Format of the browser.
+         * @property DESKTOP the browser is a desktop browser.
+         * @property MOBILE the browser is a mobile browser.
+         */
         enum class Format {
             DESKTOP,
             MOBILE
         }
 
+        /**
+         * Represents the version of the browser.
+         * The versioning is done in the following format: major.minor.patch
+         * Some browsers may not follow exactly this format.
+         * @property major the major version.
+         * @property minor the minor version.
+         * @property patch the patch version.
+         */
         data class Version(val major: Int, val minor: Int, val patch: Int) {
             companion object {
 
+                /**
+                 * Creates a Version from a string.
+                 * Any missing part of the version will be considered as 0.
+                 * @param version the version string.
+                 * @return the Version object.
+                 */
                 fun fromString(version: String): Version {
                     val versionParts = version.split(".").map { it.toInt() }
                     return Version(
@@ -24,6 +49,11 @@ interface Browser {
                 }
             }
 
+            /**
+             * Compares two versions.
+             * @param other the other version.
+             * @return a negative integer, zero, or a positive integer as this version is less than, equal to, or greater than the specified version.
+             */
             operator fun compareTo(other: Version): Int {
                 return when {
                     major != other.major -> major - other.major
@@ -35,10 +65,16 @@ interface Browser {
     }
 }
 
+/**
+ * This is a helper function to get a value from a list or return 0 if the index is out of bounds.
+ */
 private fun List<Int>.getOrZero(index: Int): Int {
     return if (index < this.size) this[index] else 0
 }
 
+/**
+ * Creates a Browser from a string.
+ */
 fun String.toBrowser(version: Browser.Companion.Version, format: Browser.Companion.Format): Browser {
     return when (this) {
         "Chrome" -> {

@@ -13,6 +13,9 @@ import pt.isel.SHORT.request.SamsungInternet
 import pt.isel.SHORT.request.UserAgent
 import pt.isel.SHORT.request.WebViewAndroid
 
+/**
+ * Minimum browser requirements for the template client router and components.
+ */
 val templateUserAgentRequirements = UserAgent.Requirements(
     Chrome(26, 0, 0),
     Edge(13, 0, 0),
