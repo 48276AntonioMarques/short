@@ -1,12 +1,11 @@
 package pt.isel.SHORT
 
 import io.github.oshai.kotlinlogging.KotlinLogging
-import org.http4k.core.Method
-import org.http4k.core.Request
-import org.http4k.core.Response
-import org.http4k.core.Status
-import org.http4k.routing.bind
-import org.http4k.routing.routes
+import org.http4k.core.*
+import org.http4k.core.ContentType.Companion.TEXT_HTML
+import org.http4k.filter.CachingFilters
+import org.http4k.routing.*
+import org.http4k.routing.ResourceLoader.Companion.Classpath
 import org.http4k.server.Http4kServer
 import org.http4k.server.asServer
 import pt.isel.SHORT.config.templateUserAgentRequirements
@@ -49,6 +48,12 @@ fun runSHORT(sourceManagerClass: Class<Application>, args: Array<String>): Http4
         throw RuntimeException("Couldn't create an instance of the source manager", e)
     }
 
+    // Declare public content
+    val public = routes(
+        "/" bind CachingFilters.Response.NoCache()
+            .then(static(Classpath("public/")))
+    )
+
     // Generate the loading page
     logger.debug { "Generating loading page..." }
     var loadingScreen: Tag? = null
@@ -65,7 +70,7 @@ fun runSHORT(sourceManagerClass: Class<Application>, args: Array<String>): Http4
 
     // Register loading page
     logger.debug { "Registering loading page..." }
-    val loadingPath = routes("/" bind Method.GET to loadingPage)
+    val loadingPath = routes(public, "/" bind Method.GET to loadingPage)
 
     // Launch temporary server
     logger.debug { "Starting temporary server..." }
@@ -82,6 +87,7 @@ fun runSHORT(sourceManagerClass: Class<Application>, args: Array<String>): Http4
     // Register new routes
     logger.debug { "Registering exposed paths..." }
     val exposedPaths = routes(
+        public,
         "/" bind Method.GET to { request: Request ->
             val userAgent = request.header("User-Agent")
             // Verifying aggregation mode
