@@ -10,6 +10,7 @@ import org.http4k.filter.CachingFilters
 import org.http4k.routing.ResourceLoader.Companion.Classpath
 import org.http4k.routing.bind
 import org.http4k.routing.routes
+import org.http4k.routing.singlePageApp
 import org.http4k.routing.static
 import org.http4k.server.Http4kServer
 import org.http4k.server.asServer
@@ -112,7 +113,8 @@ fun runSHORT(sourceManagerClass: Class<Application>, args: Array<String>): Http4
                 AggregationMode.LEGACY
             }
             Response(Status.OK).body(webApp.using(aggregationMode).toHtml())
-        }
+        },
+        singlePageApp(SpaLoader())
     )
 
     // Stop the temporary server
