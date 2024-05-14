@@ -3,7 +3,6 @@ package pt.isel.tictactoe.components
 import pt.isel.SHORT.component.Component
 import pt.isel.SHORT.html.Attribute
 import pt.isel.SHORT.html.Tag
-import pt.isel.SHORT.html.addAll
 import pt.isel.SHORT.html.attribute.`class`
 import pt.isel.SHORT.html.element.Div
 import pt.isel.SHORT.html.element.Text
