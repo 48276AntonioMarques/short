@@ -3,7 +3,7 @@ package pt.isel.SHORT.html.element
 import pt.isel.SHORT.html.Attribute
 import pt.isel.SHORT.html.Tag
 
- /**
+/**
  * Represents the HTML <meter> tag.
  * Description: Represents either a scalar value within a known range or a fractional value.
  */

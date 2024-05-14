@@ -3,7 +3,7 @@ package pt.isel.SHORT.html.element
 import pt.isel.SHORT.html.Attribute
 import pt.isel.SHORT.html.Tag
 
- /**
+/**
  * Represents the HTML <header> tag.
  * Description: Represents introductory content, typically a group of introductory or navigational aids. It may contain some heading elements but also a logo, a search form, an author name, and other elements.
  */

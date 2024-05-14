@@ -32,7 +32,7 @@ fun generateElements(elements: List<Pair<String, String>>): List<Pair<String, St
                import pt.isel.SHORT.html.Attribute
                import pt.isel.SHORT.html.Tag
     
-                /**
+               /**
                 * Represents the HTML <$element> tag.
                 * Description: $description
                 */
