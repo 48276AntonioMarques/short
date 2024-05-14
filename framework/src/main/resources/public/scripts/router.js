@@ -4,7 +4,13 @@ function loadPage(url) {
     if (template) {
         const page = template.content.cloneNode(true)
         const app = document.getElementById("app")
-        page.childNodes.forEach(node => { app.appendChild(node) })
+        while (app.firstChild) {
+            app.removeChild(app.firstChild)
+        }
+        for(let child of page.childNodes) {
+            let clone = child.cloneNode(true);
+            app.appendChild(clone);
+        }
     }
     else {
         // TODO: 404 page
