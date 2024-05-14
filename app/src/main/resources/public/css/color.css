@@ -1,0 +1,80 @@
+:root {
+    --bg-color-1: #1C2C3A;
+    --bg-color-2: #1F3D4E;
+    --bg-color-3: #21425A;
+    --bg-color-4: #2A536E;
+    --bg-color-5: #326788;
+
+    --primary-color-1: #246142;
+    --primary-color-2: #2C7650;
+    --primary-color-3: #389464;
+    --primary-color-4: #47A072;
+    --primary-color-5: #57A77F;
+
+    --secondary-color-1: #E4A935;
+    --secondary-color-2: #E8B34C;
+    --secondary-color-3: #EAB95C;
+    --secondary-color-4: #EAC071;
+    --secondary-color-5: #EAC98A;
+}
+
+.bg-color-1 {
+    background-color: var(--bg-color-1);
+}
+
+.bg-color-2 {
+    background-color: var(--bg-color-2);
+}
+
+.bg-color-3 {
+    background-color: var(--bg-color-3);
+}
+
+
+.bg-color-4 {
+    background-color: var(--bg-color-4);
+}
+
+.bg-color-5 {
+    background-color: var(--bg-color-5);
+}
+
+.primary-color-1 {
+    background-color: var(--primary-color-1);
+}
+
+.primary-color-2 {
+    background-color: var(--primary-color-2);
+}
+
+.primary-color-3 {
+    background-color: var(--primary-color-3);
+}
+
+.primary-color-4 {
+    background-color: var(--primary-color-4);
+}
+
+.primary-color-5 {
+    background-color: var(--primary-color-5);
+}
+
+.secondary-color-1 {
+    background-color: var(--secondary-color-1);
+}
+
+.secondary-color-2 {
+    background-color: var(--secondary-color-2);
+}
+
+.secondary-color-3 {
+    background-color: var(--secondary-color-3);
+}
+
+.secondary-color-4 {
+    background-color: var(--secondary-color-4);
+}
+
+.secondary-color-5 {
+    background-color: var(--secondary-color-5);
+}
