@@ -3,7 +3,7 @@ package pt.isel.SHORT.html.element
 import pt.isel.SHORT.html.Attribute
 import pt.isel.SHORT.html.Tag
 
-/**
+ /**
  * Represents the HTML <tr> tag.
  * Description: Defines a row of cells in a table. The row's cells can then be established using a mix of td (data cell) and th (header cell) elements.
  */

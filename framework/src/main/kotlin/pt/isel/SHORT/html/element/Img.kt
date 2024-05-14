@@ -3,7 +3,7 @@ package pt.isel.SHORT.html.element
 import pt.isel.SHORT.html.Attribute
 import pt.isel.SHORT.html.Tag
 
-/**
+ /**
  * Represents the HTML <img> tag.
  * Description: Embeds an image into the document.
  */

@@ -3,7 +3,7 @@ package pt.isel.SHORT.html.element
 import pt.isel.SHORT.html.Attribute
 import pt.isel.SHORT.html.Tag
 
-/**
+ /**
  * Represents the HTML <sup> tag.
  * Description: Specifies inline text which is to be displayed as superscript for solely typographical reasons. Superscripts are usually rendered with a raised baseline using smaller text.
  */

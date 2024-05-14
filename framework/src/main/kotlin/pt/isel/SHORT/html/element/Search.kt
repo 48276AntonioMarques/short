@@ -3,7 +3,7 @@ package pt.isel.SHORT.html.element
 import pt.isel.SHORT.html.Attribute
 import pt.isel.SHORT.html.Tag
 
-/**
+ /**
  * Represents the HTML <search> tag.
  * Description: Represents a part that contains a set of form controls or other content related to performing a search or filtering operation.
  */

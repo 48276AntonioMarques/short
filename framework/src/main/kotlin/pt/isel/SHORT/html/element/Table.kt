@@ -3,7 +3,7 @@ package pt.isel.SHORT.html.element
 import pt.isel.SHORT.html.Attribute
 import pt.isel.SHORT.html.Tag
 
-/**
+ /**
  * Represents the HTML <table> tag.
  * Description: Represents tabular data—that is, information presented in a two-dimensional table comprised of rows and columns of cells containing data.
  */

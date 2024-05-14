@@ -8,7 +8,7 @@ import kotlin.test.Test
 class GenerateHtmlRun {
     @Test
     fun generateHtml() {
-        val blacklist = listOf("html", "head", "body", "base", "link", "meta", "title", "noscript", "template")
+        val blacklist = listOf("html", "head", "body", "base", "meta", "title", "noscript", "template")
         val elements = getElements(ELEMENTS_SOURCE, blacklist)
         val files = generateElements(elements)
 
