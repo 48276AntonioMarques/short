@@ -17,6 +17,6 @@ fun Tag.Button(text: String, color: String, onClick: () -> Unit) =
 
 fun Tag.Button(text: String) = Button(text) {}
 
-fun Tag.Button(text : String, color: String) = Button(text, color) {}
+fun Tag.Button(text: String, color: String) = Button(text, color) {}
 
 fun Tag.Button(text: String, onClick: () -> Unit) = Button(text, "", onClick)

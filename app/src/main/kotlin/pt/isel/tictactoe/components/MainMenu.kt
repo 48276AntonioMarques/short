@@ -16,15 +16,13 @@ fun Tag.MainMenu() = apply {
     ) {
         Div(
             attributes = Attribute.`class`("title")
-        )
-        {
-            Div (
+        ) {
+            Div(
                 attributes = Attribute.`class`("title-text")
-            )
-            {
+            ) {
                 Text("Tic Tac Toe")
             }
-            Div (
+            Div(
                 attributes = Attribute.`class`("title-bar")
             )
         }
@@ -32,10 +30,9 @@ fun Tag.MainMenu() = apply {
             attributes = Attribute.`class`("menu")
         ) {
             Button("PLAY", "secondary-color-5")
-            Div (
+            Div(
                 attributes = Attribute.`class`("menu-line")
-            )
-            {
+            ) {
                 Button("SIGN IN", "secondary-color-4")
                 Button("LOG IN", "secondary-color-3")
             }
