@@ -1,6 +1,7 @@
 package pt.isel.tictactoe.pages
 
 import pt.isel.SHORT.Page
+import pt.isel.SHORT.css.Import
 import pt.isel.SHORT.html.Attribute
 import pt.isel.SHORT.html.Tag
 import pt.isel.SHORT.html.attribute.`class`
@@ -11,6 +12,7 @@ import pt.isel.tictactoe.components.SideBar
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
+@Import("/css/styles.css")
 @Page("/")
 fun Tag.home() = apply {
     Div(
