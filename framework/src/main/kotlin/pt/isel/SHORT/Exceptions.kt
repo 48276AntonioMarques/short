@@ -36,3 +36,8 @@ class BrowserNotSupportedException(message: String) : RuntimeException(message)
  * Exception thrown when the template aggregation mode is not supported.
  */
 class TemplateAggregationException(message: String) : RuntimeException(message)
+
+/**
+ * Exception thrown when User Agent do not require any browser.
+ */
+class NoRequirementException(message: String) : RuntimeException(message)

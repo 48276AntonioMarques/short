@@ -1,12 +1,12 @@
-package pt.isel.SHORT.html.element
+package pt.isel.SHORT.html.attribute
 
 import pt.isel.SHORT.html.Attribute
-import pt.isel.SHORT.html.Tag
+import pt.isel.SHORT.html.add
 
 /**
- * Represents the HTML <summary> tag.
- * Description: Specifies a summary, caption, or legend for a details element's disclosure box. Clicking the summary element toggles the state of the parent details element open and closed.
+ * Represents the HTML summary attribute.
+ * Description: 
+ * Supported elements: <table>
  */
-fun Tag.Summary(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(prototype("summary", attributes, content))
-}
+fun Attribute.Companion.summary(value: String) = add("summary", value)
+fun List<Attribute>.summary(value: String) = add("summary", value)

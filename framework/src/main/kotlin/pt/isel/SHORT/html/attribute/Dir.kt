@@ -1,12 +1,12 @@
-package pt.isel.SHORT.html.element
+package pt.isel.SHORT.html.attribute
 
 import pt.isel.SHORT.html.Attribute
-import pt.isel.SHORT.html.Tag
+import pt.isel.SHORT.html.add
 
 /**
- * Represents the HTML <dir> tag.
- * Description: Container for a directory of files and/or folders, potentially with styles and icons applied by the user agent. Do not use this obsolete element; instead, you should use the ul element for lists, including lists of files.
+ * Represents the HTML dir attribute.
+ * Description:  Defines the text direction. Allowed values are ltr (Left-To-Right) or rtl (Right-To-Left) 
+ * Supported elements: <Global attribute>
  */
-fun Tag.Dir(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(prototype("dir", attributes, content))
-}
+fun Attribute.Companion.dir(value: String) = add("dir", value)
+fun List<Attribute>.dir(value: String) = add("dir", value)

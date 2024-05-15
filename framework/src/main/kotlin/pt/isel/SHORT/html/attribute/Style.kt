@@ -1,12 +1,12 @@
-package pt.isel.SHORT.html.element
+package pt.isel.SHORT.html.attribute
 
 import pt.isel.SHORT.html.Attribute
-import pt.isel.SHORT.html.Tag
+import pt.isel.SHORT.html.add
 
 /**
- * Represents the HTML <style> tag.
- * Description: Contains style information for a document or part of a document. It contains CSS, which is applied to the contents of the document containing this element.
+ * Represents the HTML style attribute.
+ * Description: Defines CSS styles which will override styles previously set.
+ * Supported elements: <Global attribute>
  */
-fun Tag.Style(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(prototype("style", attributes, content))
-}
+fun Attribute.Companion.style(value: String) = add("style", value)
+fun List<Attribute>.style(value: String) = add("style", value)

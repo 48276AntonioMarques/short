@@ -1,12 +1,12 @@
-package pt.isel.SHORT.html.element
+package pt.isel.SHORT.html.attribute
 
 import pt.isel.SHORT.html.Attribute
-import pt.isel.SHORT.html.Tag
+import pt.isel.SHORT.html.add
 
 /**
- * Represents the HTML <data> tag.
- * Description: Links a given piece of content with a machine-readable translation. If the content is time- or date-related, thetime element must be used.
+ * Represents the HTML data attribute.
+ * Description: Specifies the URL of the resource.
+ * Supported elements: <object>
  */
-fun Tag.Data(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(prototype("data", attributes, content))
-}
+fun Attribute.Companion.data(value: String) = add("data", value)
+fun List<Attribute>.data(value: String) = add("data", value)
