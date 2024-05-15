@@ -5,7 +5,7 @@ import pt.isel.SHORT.html.add
 
 /**
  * Represents the HTML preload attribute.
- * Description:  Indicates whether the whole resource, parts of it or nothing should be preloaded. 
+ * Description: Indicates whether the whole resource, parts of it or nothing should be preloaded.
  * Supported elements: < audio, video >
  */
 fun Attribute.Companion.preload(value: String) = add("preload", value)

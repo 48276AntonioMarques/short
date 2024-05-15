@@ -5,7 +5,7 @@ import pt.isel.SHORT.html.add
 
 /**
  * Represents the HTML headers attribute.
- * Description:  IDs of the th elements which applies to this element. 
+ * Description: IDs of the th elements which applies to this element.
  * Supported elements: <td>, <th>
  */
 fun Attribute.Companion.headers(value: String) = add("headers", value)

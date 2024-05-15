@@ -5,8 +5,7 @@ import pt.isel.SHORT.html.add
 
 /**
  * Represents the HTML step attribute.
- * Description: 
- * Supported elements: <input>
+ * Description: * Supported elements: <input>
  */
 fun Attribute.Companion.step(value: String) = add("step", value)
 fun List<Attribute>.step(value: String) = add("step", value)

@@ -8,5 +8,5 @@ import pt.isel.SHORT.html.add
  * Description: Defines a pragma directive.
  * Supported elements: <meta>
  */
-fun Attribute.Companion.http-equiv(value: String) = add("http-equiv", value)
-fun List<Attribute>.http-equiv(value: String) = add("http-equiv", value)
+fun Attribute.Companion.httpEquiv(value: String) = add("http-equiv", value)
+fun List<Attribute>.httpEquiv(value: String) = add("http-equiv", value)

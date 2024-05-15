@@ -8,5 +8,5 @@ import pt.isel.SHORT.html.add
  * Description: Specifies the URL of the resource.
  * Supported elements: <object>
  */
-fun Attribute.Companion.data(value: String) = add("data", value)
-fun List<Attribute>.data(value: String) = add("data", value)
+fun Attribute.Companion.`data`(value: String) = add("data", value)
+fun List<Attribute>.`data`(value: String) = add("data", value)

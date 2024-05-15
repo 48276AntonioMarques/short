@@ -67,11 +67,11 @@ fun getAttributesFromTables(tables: List<String>): List<Attribute> {
 }
 
 fun generateAttributes(attributes: List<Attribute>): List<Pair<String, String>> {
-    // TODO: Format description
     return attributes.map { (name, elements, description) ->
-        val capitalizedAttribute = name.replaceFirstChar { c -> c.uppercaseChar() }
+        val formatedName = formatName(name)
+        val functionName = wrapReservedWords(formatedName)
         Pair(
-            capitalizedAttribute,
+            formatedName.replaceFirstChar { c -> c.uppercaseChar() },
             """
                 package pt.isel.SHORT.html.attribute
                 
@@ -83,19 +83,118 @@ fun generateAttributes(attributes: List<Attribute>): List<Pair<String, String>> 
                  * Description: ${formatText(description)}
                  * Supported elements: ${formatText(elements.map { "<$it>" }.joinToString(", "))}
                  */
-                fun Attribute.Companion.$name(value: String) = add("$name", value)
-                fun List<Attribute>.$name(value: String) = add("$name", value)
+                fun Attribute.Companion.$functionName(value: String) = add("$name", value)
+                fun List<Attribute>.$functionName(value: String) = add("$name", value)
+                
             """.trimIndent()
         )
     }
 }
 
+fun formatName(name: String): String {
+    return name
+        .replace("*", "any")
+        .replace(Regex("-[A-z]")) { match ->
+            match
+                .value
+                .replace("-", "")
+                .replaceFirstChar { c -> c.uppercaseChar() }
+        }
+}
+
 fun formatText(text: String): String {
     var output = text
         .replace("\n", " ")
-        .replace("\t", "")
+        .replace("\t", " ")
+        .trim()
     while (output.contains("  ")) {
         output = output.replace("  ", " ")
     }
     return output
+}
+
+fun wrapReservedWords(name: String): String {
+    val reservedWords = listOf(
+        "as",
+        "is",
+        "as?",
+        "break",
+        "class",
+        "continue",
+        "do",
+        "else",
+        "false",
+        "for",
+        "fun",
+        "if",
+        "in",
+        "is",
+        "!in",
+        "!is",
+        "null",
+        "object",
+        "package",
+        "return",
+        "super",
+        "this",
+        "throw",
+        "true",
+        "try",
+        "typealias",
+        "typeof",
+        "val",
+        "var",
+        "when",
+        "while",
+        "by",
+        "catch",
+        "constructor",
+        "delegate",
+        "dynamic",
+        "field",
+        "file",
+        "finally",
+        "get",
+        "import",
+        "init",
+        "param",
+        "property",
+        "receiveris",
+        "set",
+        "setparam",
+        "value",
+        "where",
+        "abstract",
+        "actual",
+        "annotation",
+        "companion",
+        "const",
+        "crossinline",
+        "data",
+        "enum",
+        "expect",
+        "external",
+        "final",
+        "infix",
+        "inline",
+        "inner",
+        "internal",
+        "lateinit",
+        "noinline",
+        "open",
+        "operator",
+        "out",
+        "override",
+        "private",
+        "protected",
+        "public",
+        "reified",
+        "sealed",
+        "suspend",
+        "tailrec",
+        "vararg",
+        "field",
+        "it"
+    )
+    return if (reservedWords.contains(name)) "`$name`" else name
 }

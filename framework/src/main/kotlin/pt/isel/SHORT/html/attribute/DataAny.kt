@@ -8,5 +8,5 @@ import pt.isel.SHORT.html.add
  * Description: Lets you attach custom attributes to an HTML element.
  * Supported elements: <Global attribute>
  */
-fun Attribute.Companion.data-*(value: String) = add("data-*", value)
-fun List<Attribute>.data-*(value: String) = add("data-*", value)
+fun Attribute.Companion.dataAny(value: String) = add("data-*", value)
+fun List<Attribute>.dataAny(value: String) = add("data-*", value)

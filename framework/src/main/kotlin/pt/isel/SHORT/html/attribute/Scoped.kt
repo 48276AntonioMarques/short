@@ -5,8 +5,7 @@ import pt.isel.SHORT.html.add
 
 /**
  * Represents the HTML scoped attribute.
- * Description: 
- * Supported elements: <style>
+ * Description: * Supported elements: <style>
  */
 fun Attribute.Companion.scoped(value: String) = add("scoped", value)
 fun List<Attribute>.scoped(value: String) = add("scoped", value)

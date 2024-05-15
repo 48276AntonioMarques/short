@@ -5,7 +5,7 @@ import pt.isel.SHORT.html.add
 
 /**
  * Represents the HTML integrity attribute.
- * Description:  Specifies a Subresource Integrity value that allows browsers to verify what they fetch. 
+ * Description: Specifies a Subresource Integrity value that allows browsers to verify what they fetch.
  * Supported elements: <link>, <script>
  */
 fun Attribute.Companion.integrity(value: String) = add("integrity", value)

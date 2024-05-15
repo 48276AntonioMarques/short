@@ -5,7 +5,7 @@ import pt.isel.SHORT.html.add
 
 /**
  * Represents the HTML content attribute.
- * Description:  A value associated with http-equiv or name depending on the context. 
+ * Description: A value associated with http-equiv or name depending on the context.
  * Supported elements: <meta>
  */
 fun Attribute.Companion.content(value: String) = add("content", value)

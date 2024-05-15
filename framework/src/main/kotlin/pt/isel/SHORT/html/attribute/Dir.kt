@@ -5,7 +5,7 @@ import pt.isel.SHORT.html.add
 
 /**
  * Represents the HTML dir attribute.
- * Description:  Defines the text direction. Allowed values are ltr (Left-To-Right) or rtl (Right-To-Left) 
+ * Description: Defines the text direction. Allowed values are ltr (Left-To-Right) or rtl (Right-To-Left)
  * Supported elements: <Global attribute>
  */
 fun Attribute.Companion.dir(value: String) = add("dir", value)

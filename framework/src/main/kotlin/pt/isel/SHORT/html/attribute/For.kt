@@ -8,5 +8,5 @@ import pt.isel.SHORT.html.add
  * Description: Describes elements which belongs to this one.
  * Supported elements: < label, output >
  */
-fun Attribute.Companion.for(value: String) = add("for", value)
-fun List<Attribute>.for(value: String) = add("for", value)
+fun Attribute.Companion.`for`(value: String) = add("for", value)
+fun List<Attribute>.`for`(value: String) = add("for", value)

@@ -5,8 +5,7 @@ import pt.isel.SHORT.html.add
 
 /**
  * Represents the HTML dirname attribute.
- * Description: 
- * Supported elements: < input, textarea >
+ * Description: * Supported elements: < input, textarea >
  */
 fun Attribute.Companion.dirname(value: String) = add("dirname", value)
 fun List<Attribute>.dirname(value: String) = add("dirname", value)

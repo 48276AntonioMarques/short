@@ -6,7 +6,7 @@ import kotlin.test.Test
 class GenerateAttributeTest {
     @Test
     fun generateAttributes() {
-        val blacklist = listOf("class")
+        val blacklist = emptyList<String>()
         val attributes = getAttributes(ATTRIBUTES_SOURCE, blacklist)
         val files = generateAttributes(attributes)
 

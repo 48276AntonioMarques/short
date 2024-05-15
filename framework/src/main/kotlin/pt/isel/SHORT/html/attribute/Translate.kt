@@ -5,7 +5,7 @@ import pt.isel.SHORT.html.add
 
 /**
  * Represents the HTML translate attribute.
- * Description:  Specify whether an element's attribute values and the values of its Text node children are to be translated when the page is localized, or whether to leave them unchanged. 
+ * Description: Specify whether an element's attribute values and the values of its Text node children are to be translated when the page is localized, or whether to leave them unchanged.
  * Supported elements: <Global attribute>
  */
 fun Attribute.Companion.translate(value: String) = add("translate", value)

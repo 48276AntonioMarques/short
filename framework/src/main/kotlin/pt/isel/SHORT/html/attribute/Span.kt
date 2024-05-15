@@ -5,8 +5,7 @@ import pt.isel.SHORT.html.add
 
 /**
  * Represents the HTML span attribute.
- * Description: 
- * Supported elements: < col, colgroup >
+ * Description: * Supported elements: < col, colgroup >
  */
 fun Attribute.Companion.span(value: String) = add("span", value)
 fun List<Attribute>.span(value: String) = add("span", value)

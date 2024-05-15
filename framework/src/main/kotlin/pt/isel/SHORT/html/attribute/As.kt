@@ -8,5 +8,5 @@ import pt.isel.SHORT.html.add
  * Description: Specifies the type of content being loaded by the link.
  * Supported elements: <link>
  */
-fun Attribute.Companion.as(value: String) = add("as", value)
-fun List<Attribute>.as(value: String) = add("as", value)
+fun Attribute.Companion.`as`(value: String) = add("as", value)
+fun List<Attribute>.`as`(value: String) = add("as", value)

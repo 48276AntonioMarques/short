@@ -8,5 +8,5 @@ import pt.isel.SHORT.html.add
  * Description: List of supported charsets.
  * Supported elements: <form>
  */
-fun Attribute.Companion.accept-charset(value: String) = add("accept-charset", value)
-fun List<Attribute>.accept-charset(value: String) = add("accept-charset", value)
+fun Attribute.Companion.acceptCharset(value: String) = add("accept-charset", value)
+fun List<Attribute>.acceptCharset(value: String) = add("accept-charset", value)
