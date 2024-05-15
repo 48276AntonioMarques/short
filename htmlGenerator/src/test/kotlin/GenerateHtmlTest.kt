@@ -10,6 +10,7 @@ class GenerateHtmlTest {
         val elements = getElements(ELEMENTS_SOURCE, blacklist)
         val files = generateElements(elements)
 
+        println("Elements: ${elements.size}")
         files.forEach { file ->
             println(file.first)
             println("#".repeat(20))
