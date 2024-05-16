@@ -15,10 +15,12 @@ import org.http4k.routing.static
 import org.http4k.server.Http4kServer
 import org.http4k.server.asServer
 import pt.isel.SHORT.config.templateUserAgentRequirements
+import pt.isel.SHORT.html.Body
 import pt.isel.SHORT.html.Html
 import pt.isel.SHORT.html.Tag
-import pt.isel.SHORT.html.element.Body
 import pt.isel.SHORT.request.UserAgent
+
+const val INIT_DELAY = "INIT_DELAY"
 
 private val logger = KotlinLogging.logger {}
 
@@ -69,10 +71,12 @@ fun runSHORT(sourceManagerClass: Class<Application>, args: Array<String>): Http4
             loadingScreen = sourceManager.getLoadingScreen(this)
         }
     }
+
+    val loadingStatus = Status(200, "Loading...")
     val loadingPage = if (loadingScreen == null) {
-        { _: Request -> Response(Status(102, "Processing")).body("Server is starting.") }
+        { _: Request -> Response(loadingStatus).body("Server is starting.").header("Status", "Loading...") }
     } else {
-        { _: Request -> Response(Status.OK).body(root.toHtml()) }
+        { _: Request -> Response(loadingStatus).body(root.toHtml()) }
     }
 
     // Register loading page
@@ -84,8 +88,11 @@ fun runSHORT(sourceManagerClass: Class<Application>, args: Array<String>): Http4
     val tempServer = loadingPath.asServer(sourceManager.getServerConfig()).start()
     logger.info { "Temporary server started at port ${tempServer.port()}." }
 
-    // TODO: Add a way to artificially delay the server start in here (for debugging purposes)
-    // Thread.sleep(10000)
+    // DON'T START THE SERVER IF DEBUG_TEMPORARY_SERVER IS SET
+    if (args.contains("INIT_DELAY")) {
+        logger.debug { "Waiting for user input to start server..." }
+        readlnOrNull()
+    }
 
     // Generate the web app
     logger.debug { "Generating web app..." }
@@ -98,15 +105,27 @@ fun runSHORT(sourceManagerClass: Class<Application>, args: Array<String>): Http4
         "/" bind Method.GET to { request: Request ->
             val aggregationMode = try {
                 // Check if the request as a header that forces the legacy mode
-                when (request.query("Aggregation")) {
-                    "LEGACY" -> throw TemplateAggregationException("Legacy mode forced")
+                when (request.header("Aggregation")) {
+                    "LEGACY" -> throw TemplateAggregationException("Legacy mode forced.")
                 }
 
                 // Check if the browser is compatible with template aggregation mode
-                val userAgent = request.header("User-Agent")
+                val header = request.header("User-Agent")
+                header ?: throw TemplateAggregationException("User agent not found.")
+                val agent = UserAgent(header)
+
                 val requirements = templateUserAgentRequirements
-                if (requirements.verifyUserAgentCompatibility(userAgent, UserAgent.Criteria.LESS_THAN)) {
-                    throw TemplateAggregationException("User agent not supported")
+                val isSupported = requirements.all { requirement ->
+                    try {
+                        agent >= requirement
+                    } catch (e: NoRequirementException) {
+                        // If the user agent does not require current browser
+                        // Then it doesn't matter if it is supported
+                        true
+                    }
+                }
+                if (!isSupported) {
+                    throw TemplateAggregationException("Version not supported.")
                 }
                 AggregationMode.TEMPLATE
             } catch (e: TemplateAggregationException) {

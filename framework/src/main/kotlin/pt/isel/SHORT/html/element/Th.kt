@@ -1,7 +1,9 @@
 package pt.isel.SHORT.html.element
 
 import pt.isel.SHORT.html.Attribute
+import pt.isel.SHORT.html.HtmlReceiver
 import pt.isel.SHORT.html.Tag
+import pt.isel.SHORT.html.prototype
 
 /**
  * Represents the HTML <th> tag.

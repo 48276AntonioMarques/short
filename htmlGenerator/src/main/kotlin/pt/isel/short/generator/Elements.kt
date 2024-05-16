@@ -6,6 +6,7 @@ import org.http4k.core.Request
 
 const val ELEMENTS_SOURCE = "https://developer.mozilla.org/en-US/docs/Web/HTML/Element"
 const val ELEMENTS_OUTPUT = "./../framework/src/main/kotlin/pt/isel/SHORT/html/element/"
+const val VOID_ELEMENTS = "area, base, br, col, embed, hr, img, input, link, meta, source, track, wbr"
 
 fun getElements(source: String, blacklist: List<String>): List<Pair<String, String>> {
     val client = ApacheClient()
@@ -57,22 +58,35 @@ fun getElementsFromTables(tables: List<String>): List<Pair<String, String>> {
 }
 
 fun generateElements(elements: List<Pair<String, String>>): List<Pair<String, String>> {
+    val voidElements = VOID_ELEMENTS.split(", ")
     return elements.map { (element, description) ->
         val capitalizedElement = element.replaceFirstChar { c -> c.uppercaseChar() }
+        val importElement = if (voidElements.contains(element)) {
+            "import pt.isel.SHORT.html.VoidElement"
+        } else {
+            "import pt.isel.SHORT.html.prototype"
+        }
+        val newElement = if (voidElements.contains(element)) {
+            "VoidElement(\"$element\", attributes)"
+        } else {
+            "prototype(\"$element\", attributes, content)"
+        }
         Pair(
             capitalizedElement,
             """
                package pt.isel.SHORT.html.element
     
                import pt.isel.SHORT.html.Attribute
+               import pt.isel.SHORT.html.HtmlReceiver
                import pt.isel.SHORT.html.Tag
+               $importElement
     
                /**
                 * Represents the HTML <$element> tag.
                 * Description: $description
                 */
                fun Tag.$capitalizedElement(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-                   appendChild(prototype("$element", attributes, content))
+                   appendChild($newElement)
                }
     
             """.trimIndent()

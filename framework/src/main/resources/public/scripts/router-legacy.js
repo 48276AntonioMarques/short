@@ -7,7 +7,7 @@ function registerPage(url, renderFunction) {
 function loadPage(url) {
     const page = pages[url]
     if (page) {
-        document.getElementById("app").innerHTML = page()
+        document.body.innerHTML = page()
     }
 }
 

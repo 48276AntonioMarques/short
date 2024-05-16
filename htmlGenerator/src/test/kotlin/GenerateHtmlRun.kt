@@ -8,12 +8,20 @@ import kotlin.test.Test
 class GenerateHtmlRun {
     @Test
     fun generateHtml() {
-        val blacklist = listOf("html", "head", "body", "meta", "title", "noscript", "template")
+        val blacklist = listOf("html", "head", "body")
         val elements = getElements(ELEMENTS_SOURCE, blacklist)
         val files = generateElements(elements)
 
-        files.forEach { file ->
-            File("$ELEMENTS_OUTPUT/${file.first}.kt").writeText(file.second)
+        var count = 0
+        try {
+            files.forEach { file ->
+                print("Generating: ${file.first}...")
+                File("$ELEMENTS_OUTPUT/${file.first}.kt").writeText(file.second)
+                println("\rGenerated: ${file.first}.")
+                count++
+            }
+        } finally {
+            println("Generated: $count files.")
         }
     }
 }

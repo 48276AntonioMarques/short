@@ -1,10 +1,10 @@
 import Pages.page1
 import Pages.page2
 import Pages.page3
+import pt.isel.SHORT.html.Body
 import pt.isel.SHORT.html.Html
-import pt.isel.SHORT.html.element.Body
+import pt.isel.SHORT.html.Text
 import pt.isel.SHORT.html.element.Div
-import pt.isel.SHORT.html.element.Text
 import kotlin.test.Test
 
 class PagesTests {

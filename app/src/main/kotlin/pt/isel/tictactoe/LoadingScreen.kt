@@ -2,13 +2,13 @@ package pt.isel.tictactoe
 
 import pt.isel.SHORT.html.Attribute
 import pt.isel.SHORT.html.Tag
+import pt.isel.SHORT.html.Text
 import pt.isel.SHORT.html.attribute.id
 import pt.isel.SHORT.html.attribute.src
 import pt.isel.SHORT.html.element.Div
 import pt.isel.SHORT.html.element.Img
 import pt.isel.SHORT.html.element.Script
 import pt.isel.SHORT.html.element.Style
-import pt.isel.SHORT.html.element.Text
 
 fun Tag.loadingScreen() =
     Div(

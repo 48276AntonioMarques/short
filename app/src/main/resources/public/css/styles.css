@@ -3,9 +3,6 @@ body {
     background-color: var(--bg-color-1);
     margin: 0px;
     color: white;
-}
-
-#app {
     display: flex;
     flex-direction: row;
     align-items: center;

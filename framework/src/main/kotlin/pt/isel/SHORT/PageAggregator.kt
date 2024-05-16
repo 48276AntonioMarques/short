@@ -3,18 +3,17 @@ package pt.isel.SHORT
 import pt.isel.SHORT.css.Import
 import pt.isel.SHORT.events.onRequest
 import pt.isel.SHORT.html.Attribute
+import pt.isel.SHORT.html.Body
+import pt.isel.SHORT.html.Head
 import pt.isel.SHORT.html.Html
 import pt.isel.SHORT.html.Tag
+import pt.isel.SHORT.html.Text
 import pt.isel.SHORT.html.add
 import pt.isel.SHORT.html.attribute.id
 import pt.isel.SHORT.html.attribute.src
-import pt.isel.SHORT.html.element.Body
-import pt.isel.SHORT.html.element.Div
-import pt.isel.SHORT.html.element.Head
 import pt.isel.SHORT.html.element.Link
 import pt.isel.SHORT.html.element.Script
 import pt.isel.SHORT.html.element.Template
-import pt.isel.SHORT.html.element.Text
 import java.lang.reflect.Method
 import kotlin.reflect.jvm.kotlinFunction
 
@@ -134,15 +133,12 @@ fun aggregatePages(pages: List<PageFactory>): Html {
                 val attributes = Attribute.add("type", import.type).add("href", import.path).toMutableList()
                 val finalAttributes = if (import.relation.isNotBlank()) {
                     attributes.add("rel", import.relation)
-                }
-                else {
+                } else {
                     attributes
                 }
                 Link(finalAttributes)
             }
         }
-        Body {
-            Div(attributes = Attribute.id("app"))
-        }
+        Body()
     }
 }

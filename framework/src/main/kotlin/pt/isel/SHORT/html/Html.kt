@@ -26,3 +26,11 @@ class Html : Element {
 
 fun Html(content: Html.() -> Unit) =
     Html().apply(content)
+
+fun Html.Head(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = tag.apply {
+    appendChild(prototype("head", attributes, content))
+}
+
+fun Html.Body(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = tag.apply {
+    appendChild(prototype("body", attributes, content))
+}

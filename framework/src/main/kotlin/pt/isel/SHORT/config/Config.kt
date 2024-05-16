@@ -10,13 +10,12 @@ import pt.isel.SHORT.request.OperaAndroid
 import pt.isel.SHORT.request.Safari
 import pt.isel.SHORT.request.SafariIos
 import pt.isel.SHORT.request.SamsungInternet
-import pt.isel.SHORT.request.UserAgent
 import pt.isel.SHORT.request.WebViewAndroid
 
 /**
  * Minimum browser requirements for the template client router and components.
  */
-val templateUserAgentRequirements = UserAgent.Requirements(
+val templateUserAgentRequirements = listOf(
     Chrome(26, 0, 0),
     Edge(13, 0, 0),
     Firefox(22, 0, 0),

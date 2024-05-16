@@ -3,7 +3,7 @@ function loadPage(url) {
     const template = templates["page-" + url]
     if (template) {
         const page = template.content.cloneNode(true)
-        const app = document.getElementById("app")
+        const app = document.body
         while (app.firstChild) {
             app.removeChild(app.firstChild)
         }
