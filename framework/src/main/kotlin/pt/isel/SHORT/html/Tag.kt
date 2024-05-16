@@ -2,7 +2,6 @@ package pt.isel.SHORT.html
 
 import pt.isel.SHORT.JavaScriptException
 import pt.isel.SHORT.component.Variable
-import pt.isel.SHORT.html.element.HtmlReceiver
 
 open class Tag(
     internal val tag: String,
@@ -49,10 +48,9 @@ open class Tag(
             }
         }
         return try {
-            if (attr.isEmpty()) {
-                "<${copy.tag}>${copy.innerHtml()}</${copy.tag}>"
-            } else {
-                "<${copy.tag} ${attr.joinToString(" ")}>${copy.innerHtml()}</${copy.tag}>"
+            when {
+                attr.isEmpty() -> "<${copy.tag}>${copy.innerHtml()}</${copy.tag}>"
+                else -> "<${copy.tag} ${attr.joinToString(" ")}>${copy.innerHtml()}</${copy.tag}>"
             }
         } catch (jse: JavaScriptException) {
             // TODO: Log error on client

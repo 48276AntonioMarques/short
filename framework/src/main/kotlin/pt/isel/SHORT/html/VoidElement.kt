@@ -3,8 +3,6 @@ package pt.isel.SHORT.html
 /**
  * Represents a void element in HTML
  * Implementation according to the [HTML Living Standard](https://html.spec.whatwg.org/multipage/syntax.html#void-elements)
- * Termination with "/" is ignored in HTML5 but is kept for compatibility with XHTML
- * as stated on the [Void element - MDN Web Docs Glossary: Definitions of Web-related terms | MDN](https://developer.mozilla.org/en-US/docs/Glossary/Void_element)
  */
 class VoidElement(
     internal val tag: String,
@@ -13,8 +11,8 @@ class VoidElement(
     override fun toHtml(): String {
         val attr = attributes.toHtml()
         return when {
-            attr.isEmpty() -> "<$tag/>"
-            else -> "<$tag $attr/>"
+            attr.isEmpty() -> "<$tag>"
+            else -> "<$tag $attr>"
         }
     }
 
