@@ -1,9 +1,9 @@
 package pt.isel.SHORT.html.element
 
-import pt.isel.SHORT.html.Attribute
-import pt.isel.SHORT.html.HtmlReceiver
-import pt.isel.SHORT.html.Tag
-import pt.isel.SHORT.html.prototype
+import pt.isel.SHORT.html.base.attribute.Attribute
+import pt.isel.SHORT.html.base.element.HtmlReceiver
+import pt.isel.SHORT.html.base.element.Tag
+import pt.isel.SHORT.html.base.element.prototype
 
 /**
  * Represents the HTML <table> tag.
