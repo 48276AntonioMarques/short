@@ -1,19 +1,21 @@
 package pt.isel.SHORT
 
-import pt.isel.SHORT.css.Import
-import pt.isel.SHORT.events.onRequest
-import pt.isel.SHORT.html.Attribute
-import pt.isel.SHORT.html.Body
-import pt.isel.SHORT.html.Head
-import pt.isel.SHORT.html.Html
-import pt.isel.SHORT.html.Tag
-import pt.isel.SHORT.html.Text
-import pt.isel.SHORT.html.add
+import pt.isel.SHORT.html.attribute.href
 import pt.isel.SHORT.html.attribute.id
+import pt.isel.SHORT.html.attribute.rel
 import pt.isel.SHORT.html.attribute.src
+import pt.isel.SHORT.html.attribute.type
+import pt.isel.SHORT.html.base.Body
+import pt.isel.SHORT.html.base.Head
+import pt.isel.SHORT.html.base.Html
+import pt.isel.SHORT.html.base.Text
+import pt.isel.SHORT.html.base.attribute.Attribute
+import pt.isel.SHORT.html.base.css.Import
+import pt.isel.SHORT.html.base.element.Tag
 import pt.isel.SHORT.html.element.Link
 import pt.isel.SHORT.html.element.Script
 import pt.isel.SHORT.html.element.Template
+import pt.isel.SHORT.serverEvents.onRequest
 import java.lang.reflect.Method
 import kotlin.reflect.jvm.kotlinFunction
 
@@ -130,9 +132,9 @@ fun aggregatePages(pages: List<PageFactory>): Html {
                 }
             }
             uniqueImports.forEach { import ->
-                val attributes = Attribute.add("type", import.type).add("href", import.path).toMutableList()
+                val attributes = Attribute.type(import.type).href(import.path)
                 val finalAttributes = if (import.relation.isNotBlank()) {
-                    attributes.add("rel", import.relation)
+                    attributes.rel(import.relation)
                 } else {
                     attributes
                 }

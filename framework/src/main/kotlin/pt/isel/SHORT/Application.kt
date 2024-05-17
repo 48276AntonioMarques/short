@@ -2,7 +2,7 @@ package pt.isel.SHORT
 
 import org.http4k.server.Jetty
 import org.http4k.server.ServerConfig
-import pt.isel.SHORT.html.Tag
+import pt.isel.SHORT.html.base.element.Tag
 
 open class Application(val args: Array<String>) {
 

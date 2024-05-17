@@ -5,7 +5,7 @@ import pt.isel.SHORT.AggregationMode
 import pt.isel.SHORT.PageFactory
 import pt.isel.SHORT.aggregatePages
 import pt.isel.SHORT.getPages
-import pt.isel.SHORT.html.Tag
+import pt.isel.SHORT.html.base.element.Tag
 import kotlin.reflect.jvm.javaMethod
 import kotlin.test.Test
 

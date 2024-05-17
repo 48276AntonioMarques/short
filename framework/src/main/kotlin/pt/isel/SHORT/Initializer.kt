@@ -15,9 +15,9 @@ import org.http4k.routing.static
 import org.http4k.server.Http4kServer
 import org.http4k.server.asServer
 import pt.isel.SHORT.config.templateUserAgentRequirements
-import pt.isel.SHORT.html.Body
-import pt.isel.SHORT.html.Html
-import pt.isel.SHORT.html.Tag
+import pt.isel.SHORT.html.base.Body
+import pt.isel.SHORT.html.base.Html
+import pt.isel.SHORT.html.base.element.Tag
 import pt.isel.SHORT.request.UserAgent
 
 const val INIT_DELAY = "INIT_DELAY"

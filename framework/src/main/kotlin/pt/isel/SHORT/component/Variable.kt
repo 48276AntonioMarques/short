@@ -1,6 +1,6 @@
 package pt.isel.SHORT.component
 
-import pt.isel.SHORT.html.Tag
+import pt.isel.SHORT.html.base.element.Tag
 
 fun <T : Any> Tag.Var(value: T) =
     Variable(value).also { appendVariable(it as Variable<Any>) }
