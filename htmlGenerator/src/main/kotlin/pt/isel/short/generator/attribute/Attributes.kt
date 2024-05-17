@@ -75,11 +75,11 @@ fun generateAttributes(attributes: List<Attribute>): List<Pair<String, String>> 
         val functionName = wrapReservedWords(formatedName)
         val documentation =
             """
-            /**
-             * Represents the HTML $name attribute.
-             * Description: ${formatText(description)}
-             * Supported elements: ${formatText(elements.map { "<$it>" }.joinToString(", "))}
-             */"""
+                /**
+                 * Represents the HTML $name attribute.
+                 * Description: ${formatText(description)}.
+                 * Supported elements: ${formatText(elements.map { "<$it>" }.joinToString(", "))}
+                 */"""
         Pair(
             formatedName.replaceFirstChar { c -> c.uppercaseChar() },
             """
