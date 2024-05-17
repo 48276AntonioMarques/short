@@ -1,7 +1,6 @@
 body {
     font-family: 'Arial Rounded MT Bold', sans-serif;
     background-color: var(--bg-color-1);
-    margin: 0px;
     color: white;
     display: flex;
     flex-direction: row;
@@ -41,7 +40,7 @@ body {
     align-items: center;
     justify-content: space-evenly;
     height: 100%;
-    width: 50%;
+    width: 80%;
     margin: 0px;
 }
 
@@ -50,6 +49,7 @@ body {
     flex-direction: column;
     font-size: 5em;
     padding: 5% 0px 5% 0px;
+    user-select: none;
 }
 
 .title-text {
@@ -103,4 +103,5 @@ body {
     width: 50%;
     border-radius: 2em;
     cursor: pointer;
+    user-select: none;
 }

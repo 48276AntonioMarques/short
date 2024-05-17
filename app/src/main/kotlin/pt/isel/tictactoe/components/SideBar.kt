@@ -1,9 +1,9 @@
 package pt.isel.tictactoe.components
 
 import pt.isel.SHORT.component.Component
-import pt.isel.SHORT.html.Attribute
-import pt.isel.SHORT.html.Tag
 import pt.isel.SHORT.html.attribute.`class`
+import pt.isel.SHORT.html.base.attribute.Attribute
+import pt.isel.SHORT.html.base.element.Tag
 import pt.isel.SHORT.html.element.Div
 
 @Component

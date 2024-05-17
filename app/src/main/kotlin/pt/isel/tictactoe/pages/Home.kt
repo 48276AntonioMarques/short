@@ -1,8 +1,8 @@
 package pt.isel.tictactoe.pages
 
 import pt.isel.SHORT.Page
-import pt.isel.SHORT.css.Import
-import pt.isel.SHORT.html.Tag
+import pt.isel.SHORT.html.base.css.Import
+import pt.isel.SHORT.html.base.element.Tag
 import pt.isel.tictactoe.components.MainMenu
 import pt.isel.tictactoe.components.SideBar
 
