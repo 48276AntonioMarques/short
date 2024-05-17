@@ -1,12 +1,10 @@
-package pt.isel.tictactoe.components
+package pt.isel.tictactoe.element
 
-import pt.isel.SHORT.component.Component
 import pt.isel.SHORT.html.attribute.`class`
 import pt.isel.SHORT.html.base.attribute.Attribute
 import pt.isel.SHORT.html.base.element.Tag
 import pt.isel.SHORT.html.element.Div
 
-@Component
 fun Tag.SideBar() = apply {
     Div(attributes = Attribute.`class`("sidebar")) {
         val leafCount = 7
