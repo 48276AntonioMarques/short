@@ -1,8 +1,12 @@
-package pt.isel.short.generator
+package pt.isel.short.generator.element
 
 import org.http4k.client.ApacheClient
 import org.http4k.core.Method
 import org.http4k.core.Request
+import pt.isel.short.generator.attribute.formatText
+import pt.isel.short.generator.clearScripts
+import pt.isel.short.generator.getTables
+import pt.isel.short.generator.getTags
 
 const val ELEMENTS_SOURCE = "https://developer.mozilla.org/en-US/docs/Web/HTML/Element"
 const val ELEMENTS_OUTPUT = "./../framework/src/main/kotlin/pt/isel/SHORT/html/element/"
@@ -62,32 +66,32 @@ fun generateElements(elements: List<Pair<String, String>>): List<Pair<String, St
     return elements.map { (element, description) ->
         val capitalizedElement = element.replaceFirstChar { c -> c.uppercaseChar() }
         val importElement = if (voidElements.contains(element)) {
-            "import pt.isel.SHORT.html.VoidElement"
+            "import pt.isel.SHORT.html.base.element.VoidTag"
         } else {
-            "import pt.isel.SHORT.html.prototype"
+            "import pt.isel.SHORT.html.base.element.prototype"
         }
         val newElement = if (voidElements.contains(element)) {
-            "VoidElement(\"$element\", attributes)"
+            "VoidTag(\"$element\", attributes)"
         } else {
             "prototype(\"$element\", attributes, content)"
         }
         Pair(
             capitalizedElement,
             """
-               package pt.isel.SHORT.html.element
-    
-               import pt.isel.SHORT.html.Attribute
-               import pt.isel.SHORT.html.HtmlReceiver
-               import pt.isel.SHORT.html.Tag
-               $importElement
-    
-               /**
-                * Represents the HTML <$element> tag.
-                * Description: $description
-                */
-               fun Tag.$capitalizedElement(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
+                package pt.isel.SHORT.html.element
+                
+                import pt.isel.SHORT.html.base.attribute.Attribute
+                import pt.isel.SHORT.html.base.element.HtmlReceiver
+                import pt.isel.SHORT.html.base.element.Tag
+                $importElement
+                
+                /**
+                 * Represents the HTML <$element> tag.
+                 * Description: ${formatText(description)}
+                 */
+                fun Tag.$capitalizedElement(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
                    appendChild($newElement)
-               }
+                }
     
             """.trimIndent()
         )

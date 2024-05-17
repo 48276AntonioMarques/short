@@ -1,7 +1,9 @@
-import pt.isel.short.generator.ATTRIBUTES_OUTPUT
-import pt.isel.short.generator.ATTRIBUTES_SOURCE
-import pt.isel.short.generator.generateAttributes
-import pt.isel.short.generator.getAttributes
+package pt.isel.SHORT.generator.attribute
+
+import pt.isel.short.generator.attribute.ATTRIBUTES_OUTPUT
+import pt.isel.short.generator.attribute.ATTRIBUTES_SOURCE
+import pt.isel.short.generator.attribute.generateAttributes
+import pt.isel.short.generator.attribute.getAttributes
 import java.io.File
 import kotlin.test.Test
 

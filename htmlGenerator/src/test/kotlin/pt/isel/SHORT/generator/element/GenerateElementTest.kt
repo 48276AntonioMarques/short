@@ -1,9 +1,11 @@
-import pt.isel.short.generator.ELEMENTS_SOURCE
-import pt.isel.short.generator.generateElements
-import pt.isel.short.generator.getElements
+package pt.isel.SHORT.generator.element
+
+import pt.isel.short.generator.element.ELEMENTS_SOURCE
+import pt.isel.short.generator.element.generateElements
+import pt.isel.short.generator.element.getElements
 import kotlin.test.Test
 
-class GenerateHtmlTest {
+class GenerateElementTest {
     @Test
     fun generateHtml() {
         val blacklist = listOf("html", "head", "body")

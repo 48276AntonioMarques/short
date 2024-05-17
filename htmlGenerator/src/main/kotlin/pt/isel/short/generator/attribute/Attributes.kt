@@ -1,8 +1,11 @@
-package pt.isel.short.generator
+package pt.isel.short.generator.attribute
 
 import org.http4k.client.ApacheClient
 import org.http4k.core.Method
 import org.http4k.core.Request
+import pt.isel.short.generator.clearScripts
+import pt.isel.short.generator.getTables
+import pt.isel.short.generator.getTags
 
 const val ATTRIBUTES_SOURCE = "https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes"
 const val ATTRIBUTES_OUTPUT = "./../framework/src/main/kotlin/pt/isel/SHORT/html/attribute/"
@@ -70,20 +73,23 @@ fun generateAttributes(attributes: List<Attribute>): List<Pair<String, String>> 
     return attributes.map { (name, elements, description) ->
         val formatedName = formatName(name)
         val functionName = wrapReservedWords(formatedName)
+        val documentation =
+            """
+            /**
+             * Represents the HTML $name attribute.
+             * Description: ${formatText(description)}
+             * Supported elements: ${formatText(elements.map { "<$it>" }.joinToString(", "))}
+             */"""
         Pair(
             formatedName.replaceFirstChar { c -> c.uppercaseChar() },
             """
                 package pt.isel.SHORT.html.attribute
                 
-                import pt.isel.SHORT.html.Attribute
-                import pt.isel.SHORT.html.add
-
-                /**
-                 * Represents the HTML $name attribute.
-                 * Description: ${formatText(description)}
-                 * Supported elements: ${formatText(elements.map { "<$it>" }.joinToString(", "))}
-                 */
+                import pt.isel.SHORT.html.base.attribute.Attribute
+                import pt.isel.SHORT.html.base.attribute.add
+                $documentation
                 fun Attribute.Companion.$functionName(value: String) = add("$name", value)
+                $documentation
                 fun List<Attribute>.$functionName(value: String) = add("$name", value)
                 
             """.trimIndent()
