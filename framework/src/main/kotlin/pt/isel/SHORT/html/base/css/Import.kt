@@ -1,4 +1,4 @@
-package pt.isel.SHORT.css
+package pt.isel.SHORT.html.base.css
 
 /**
  * This annotation is used to reference a file required by component.

@@ -1,4 +1,4 @@
-package pt.isel.SHORT.html
+package pt.isel.SHORT.html.base.element
 
 open interface Element {
     fun toHtml(): String

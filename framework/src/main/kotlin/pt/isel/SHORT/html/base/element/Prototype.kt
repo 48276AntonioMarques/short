@@ -1,7 +1,8 @@
-package pt.isel.SHORT.html
+package pt.isel.SHORT.html.base.element
 
 import pt.isel.SHORT.component.Component
 import pt.isel.SHORT.html.attribute.id
+import pt.isel.SHORT.html.base.attribute.Attribute
 
 typealias HtmlReceiver = Tag.() -> Unit
 

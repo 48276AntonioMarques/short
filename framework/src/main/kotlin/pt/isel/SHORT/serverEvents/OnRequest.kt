@@ -1,7 +1,7 @@
-package pt.isel.SHORT.events
+package pt.isel.SHORT.serverEvents
 
-import pt.isel.SHORT.html.HtmlReceiver
-import pt.isel.SHORT.html.Tag
+import pt.isel.SHORT.html.base.element.HtmlReceiver
+import pt.isel.SHORT.html.base.element.Tag
 
 /**
  * This allows to write code that will be executed when the client requests the application.

@@ -1,4 +1,7 @@
-package pt.isel.SHORT.html
+package pt.isel.SHORT.html.base
+
+import pt.isel.SHORT.html.base.element.Element
+import pt.isel.SHORT.html.base.element.Tag
 
 class TextClass(val content: String) : Element {
     override fun toHtml(): String = content

@@ -1,7 +1,8 @@
-package pt.isel.SHORT.html
+package pt.isel.SHORT.html.base.element
 
 import pt.isel.SHORT.JavaScriptException
 import pt.isel.SHORT.component.Variable
+import pt.isel.SHORT.html.base.attribute.Attribute
 
 open class Tag(
     internal val tag: String,
