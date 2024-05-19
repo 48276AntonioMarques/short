@@ -1,15 +1,13 @@
-package pt.isel.SHORT.generator.attribute
+package pt.isel.short.generator
 
 import pt.isel.short.generator.attribute.ATTRIBUTES_OUTPUT
 import pt.isel.short.generator.attribute.ATTRIBUTES_SOURCE
 import pt.isel.short.generator.attribute.generateAttributes
 import pt.isel.short.generator.attribute.getAttributes
 import java.io.File
-import kotlin.test.Test
 
-class GenerateAttributeRun {
-    @Test
-    fun generateAttributes() {
+class GenerateAttributeRun: Generator {
+    override fun generate() {
         val blacklist = emptyList<String>()
         val attributes = getAttributes(ATTRIBUTES_SOURCE, blacklist)
         val files = generateAttributes(attributes)

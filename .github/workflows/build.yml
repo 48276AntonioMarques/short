@@ -10,6 +10,6 @@ jobs:
       with:
         distribution: 'adopt'
         java-version: '17'
-    - name: Build with Gradle
-      run: ./gradlew build
+    - name: Lint Project
+      run: ./gradlew ktlintMainSourceSetFormat ktlintMainSourceSetCheck ktlintTestSourceSetFormat ktlintTestSourceSetCheck
 

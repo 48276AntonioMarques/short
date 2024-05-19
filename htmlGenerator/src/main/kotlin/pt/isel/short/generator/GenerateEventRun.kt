@@ -1,15 +1,13 @@
-package pt.isel.SHORT.generator.event
+package pt.isel.short.generator
 
 import pt.isel.short.generator.event.EVENTS_OUTPUT
 import pt.isel.short.generator.event.EVENTS_SOURCE
 import pt.isel.short.generator.event.generateEvents
 import pt.isel.short.generator.event.getEvents
 import java.io.File
-import kotlin.test.Test
 
-class GenerateEventRun {
-    @Test
-    fun generateEvents() {
+class GenerateEventRun: Generator {
+    override fun generate() {
         val blacklist = emptyList<String>()
         val events = getEvents(EVENTS_SOURCE, blacklist)
         val files = generateEvents(events)

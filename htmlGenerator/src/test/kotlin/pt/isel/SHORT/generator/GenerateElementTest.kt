@@ -1,4 +1,4 @@
-package pt.isel.SHORT.generator.element
+package pt.isel.SHORT.generator
 
 import pt.isel.short.generator.element.ELEMENTS_SOURCE
 import pt.isel.short.generator.element.generateElements

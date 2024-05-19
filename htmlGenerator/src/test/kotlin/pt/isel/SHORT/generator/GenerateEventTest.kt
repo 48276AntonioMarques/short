@@ -1,4 +1,4 @@
-package pt.isel.SHORT.generator.event
+package pt.isel.SHORT.generator
 
 import pt.isel.short.generator.event.EVENTS_SOURCE
 import pt.isel.short.generator.event.generateEvents
