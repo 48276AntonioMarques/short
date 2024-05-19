@@ -4,7 +4,7 @@ import pt.isel.SHORT.html.attribute.`class`
 import pt.isel.SHORT.html.base.Text
 import pt.isel.SHORT.html.base.attribute.Attribute
 import pt.isel.SHORT.html.base.element.Tag
-import pt.isel.SHORT.html.base.event.EventHandler
+import pt.isel.SHORT.client.EventHandler
 import pt.isel.SHORT.html.element.Div
 import pt.isel.SHORT.html.event.onclick
 
