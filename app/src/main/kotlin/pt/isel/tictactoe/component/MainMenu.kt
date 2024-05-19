@@ -1,8 +1,8 @@
 package pt.isel.tictactoe.component
 
+import pt.isel.SHORT.client.EventHandler
 import pt.isel.SHORT.component.Component
 import pt.isel.SHORT.html.base.element.Tag
-import pt.isel.SHORT.client.EventHandler
 import pt.isel.tictactoe.element.Button
 import pt.isel.tictactoe.element.Center
 import pt.isel.tictactoe.element.Menu
