@@ -3,9 +3,6 @@ package pt.isel.short.generator.event
 import org.http4k.client.ApacheClient
 import org.http4k.core.Method
 import org.http4k.core.Request
-import pt.isel.short.generator.attribute.formatName
-import pt.isel.short.generator.attribute.formatText
-import pt.isel.short.generator.attribute.wrapReservedWords
 import pt.isel.short.generator.clearScripts
 import pt.isel.short.generator.getTables
 import pt.isel.short.generator.getTags
@@ -57,35 +54,5 @@ fun getEventsFromTables(tables: List<String>): List<Event> {
 }
 
 fun generateEvents(events: List<Event>): List<Pair<String, String>> {
-    return events.map { (name, value, description) ->
-        val formatedName = formatName(name)
-        val functionName = wrapReservedWords(formatedName)
-        val state = if (description.contains("Deprecated")) {
-            "@Deprecated(\"This event is deprecated.\")\n                "
-        } else {
-            ""
-        }
-        val documentation =
-            """
-                /**
-                 * Represents the HTML $name event.
-                 * Description: ${formatText(description)}.
-                 * @param value $value
-                 */"""
-        Pair(
-            formatedName.replaceFirstChar { c -> c.uppercaseChar() },
-            """
-                package pt.isel.SHORT.html.event
-
-                import pt.isel.SHORT.html.base.attribute.Attribute
-                import pt.isel.SHORT.html.base.event.EventHandler
-                import pt.isel.SHORT.html.base.event.add
-                $documentation
-                ${state}fun Attribute.Companion.$functionName(value: EventHandler) = add("$name", value)
-                $documentation
-                ${state}fun List<Attribute>.$functionName(value: EventHandler) = add("$name", value)
-
-            """.trimIndent()
-        )
-    }
+    return events.map { event -> event.generateFile() }
 }
