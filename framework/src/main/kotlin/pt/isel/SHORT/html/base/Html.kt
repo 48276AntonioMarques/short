@@ -27,6 +27,9 @@ class Html : Element {
             }
             Script {
                 Text {
+                    "/*Global script*/"
+                }
+                Text {
                     scope.globalScript.toHtml()
                 }
             }
