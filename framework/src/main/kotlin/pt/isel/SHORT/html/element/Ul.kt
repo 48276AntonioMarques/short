@@ -10,5 +10,5 @@ import pt.isel.SHORT.html.base.element.prototype
  * Description: Represents an unordered list of items, typically rendered as a bulleted list.
  */
 fun Tag.Ul(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(prototype("ul", attributes, content))
+    appendChild(prototype("ul", attributes, scope, content))
 }

@@ -10,5 +10,5 @@ import pt.isel.SHORT.html.base.element.prototype
  * Description: Used to contain frame elements.
  */
 fun Tag.Frameset(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(prototype("frameset", attributes, content))
+    appendChild(prototype("frameset", attributes, scope, content))
 }

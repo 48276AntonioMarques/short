@@ -10,5 +10,5 @@ import pt.isel.SHORT.html.base.element.prototype
  * Description: Renders the enclosed text at a font size one level larger than the surrounding text (medium becomes large, for example). The size is capped at the browser's maximum permitted font size.
  */
 fun Tag.Big(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(prototype("big", attributes, content))
+    appendChild(prototype("big", attributes, scope, content))
 }

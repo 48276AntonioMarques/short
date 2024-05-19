@@ -10,5 +10,5 @@ import pt.isel.SHORT.html.base.element.prototype
  * Description: Represents a caption for an item in a user interface.
  */
 fun Tag.Label(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(prototype("label", attributes, content))
+    appendChild(prototype("label", attributes, scope, content))
 }

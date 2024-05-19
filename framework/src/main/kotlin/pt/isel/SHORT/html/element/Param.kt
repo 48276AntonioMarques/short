@@ -10,5 +10,5 @@ import pt.isel.SHORT.html.base.element.prototype
  * Description: Defines parameters for an object element.
  */
 fun Tag.Param(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(prototype("param", attributes, content))
+    appendChild(prototype("param", attributes, scope, content))
 }

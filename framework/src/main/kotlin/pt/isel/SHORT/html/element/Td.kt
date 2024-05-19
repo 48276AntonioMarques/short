@@ -10,5 +10,5 @@ import pt.isel.SHORT.html.base.element.prototype
  * Description: A child of the tr element, it defines a cell of a table that contains data.
  */
 fun Tag.Td(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(prototype("td", attributes, content))
+    appendChild(prototype("td", attributes, scope, content))
 }

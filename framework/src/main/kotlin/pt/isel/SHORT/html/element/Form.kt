@@ -10,5 +10,5 @@ import pt.isel.SHORT.html.base.element.prototype
  * Description: Represents a document section containing interactive controls for submitting information.
  */
 fun Tag.Form(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(prototype("form", attributes, content))
+    appendChild(prototype("form", attributes, scope, content))
 }

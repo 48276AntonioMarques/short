@@ -10,5 +10,5 @@ import pt.isel.SHORT.html.base.element.prototype
  * Description: Represent six levels of section headings. h1 is the highest section level and h6 is the lowest.
  */
 fun Tag.H4(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(prototype("h4", attributes, content))
+    appendChild(prototype("h4", attributes, scope, content))
 }

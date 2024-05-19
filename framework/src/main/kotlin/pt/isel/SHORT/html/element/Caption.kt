@@ -10,5 +10,5 @@ import pt.isel.SHORT.html.base.element.prototype
  * Description: Specifies the caption (or title) of a table.
  */
 fun Tag.Caption(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(prototype("caption", attributes, content))
+    appendChild(prototype("caption", attributes, scope, content))
 }

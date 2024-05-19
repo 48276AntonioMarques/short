@@ -10,5 +10,5 @@ import pt.isel.SHORT.html.base.element.prototype
  * Description: Defines the document's title that is shown in a browser's title bar or a page's tab. It only contains text; tags within the element are ignored.
  */
 fun Tag.Title(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(prototype("title", attributes, content))
+    appendChild(prototype("title", attributes, scope, content))
 }

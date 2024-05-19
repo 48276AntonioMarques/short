@@ -10,5 +10,5 @@ import pt.isel.SHORT.html.base.element.prototype
  * Description: Represents an ordered list of items — typically rendered as a numbered list.
  */
 fun Tag.Ol(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(prototype("ol", attributes, content))
+    appendChild(prototype("ol", attributes, scope, content))
 }

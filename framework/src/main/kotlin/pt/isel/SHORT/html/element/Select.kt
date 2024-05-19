@@ -10,5 +10,5 @@ import pt.isel.SHORT.html.base.element.prototype
  * Description: Represents a control that provides a menu of options.
  */
 fun Tag.Select(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(prototype("select", attributes, content))
+    appendChild(prototype("select", attributes, scope, content))
 }

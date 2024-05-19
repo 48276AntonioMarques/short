@@ -10,5 +10,5 @@ import pt.isel.SHORT.html.base.element.prototype
  * Description: Defines a group of columns within a table.
  */
 fun Tag.Colgroup(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(prototype("colgroup", attributes, content))
+    appendChild(prototype("colgroup", attributes, scope, content))
 }

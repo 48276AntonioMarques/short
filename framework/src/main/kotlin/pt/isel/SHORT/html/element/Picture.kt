@@ -10,5 +10,5 @@ import pt.isel.SHORT.html.base.element.prototype
  * Description: Contains zero or more source elements and one img element to offer alternative versions of an image for different display/device scenarios.
  */
 fun Tag.Picture(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(prototype("picture", attributes, content))
+    appendChild(prototype("picture", attributes, scope, content))
 }

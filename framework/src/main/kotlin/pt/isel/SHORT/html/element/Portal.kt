@@ -10,5 +10,5 @@ import pt.isel.SHORT.html.base.element.prototype
  * Description: Enables the embedding of another HTML page into the current one to enable smoother navigation into new pages.
  */
 fun Tag.Portal(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(prototype("portal", attributes, content))
+    appendChild(prototype("portal", attributes, scope, content))
 }

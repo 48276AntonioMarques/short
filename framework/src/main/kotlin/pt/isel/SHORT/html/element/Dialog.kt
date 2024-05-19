@@ -10,5 +10,5 @@ import pt.isel.SHORT.html.base.element.prototype
  * Description: Represents a dialog box or other interactive component, such as a dismissible alert, inspector, or subwindow.
  */
 fun Tag.Dialog(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(prototype("dialog", attributes, content))
+    appendChild(prototype("dialog", attributes, scope, content))
 }

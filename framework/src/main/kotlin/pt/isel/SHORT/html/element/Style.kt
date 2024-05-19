@@ -10,5 +10,5 @@ import pt.isel.SHORT.html.base.element.prototype
  * Description: Contains style information for a document or part of a document. It contains CSS, which is applied to the contents of the document containing this element.
  */
 fun Tag.Style(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(prototype("style", attributes, content))
+    appendChild(prototype("style", attributes, scope, content))
 }

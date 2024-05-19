@@ -10,5 +10,5 @@ import pt.isel.SHORT.html.base.element.prototype
  * Description: Encapsulates a set of table rows (tr elements), indicating that they comprise the body of a table's (main) data.
  */
 fun Tag.Tbody(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(prototype("tbody", attributes, content))
+    appendChild(prototype("tbody", attributes, scope, content))
 }

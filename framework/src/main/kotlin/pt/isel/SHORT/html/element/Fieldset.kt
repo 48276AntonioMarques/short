@@ -10,5 +10,5 @@ import pt.isel.SHORT.html.base.element.prototype
  * Description: Used to group several controls as well as labels (label) within a web form.
  */
 fun Tag.Fieldset(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(prototype("fieldset", attributes, content))
+    appendChild(prototype("fieldset", attributes, scope, content))
 }

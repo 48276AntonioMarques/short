@@ -10,5 +10,5 @@ import pt.isel.SHORT.html.base.element.prototype
  * Description: Places a strikethrough (horizontal line) over text.
  */
 fun Tag.Strike(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(prototype("strike", attributes, content))
+    appendChild(prototype("strike", attributes, scope, content))
 }

@@ -10,5 +10,5 @@ import pt.isel.SHORT.html.base.element.prototype
  * Description: Represents text which is marked or highlighted for reference or notation purposes due to the marked passage's relevance in the enclosing context.
  */
 fun Tag.Mark(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(prototype("mark", attributes, content))
+    appendChild(prototype("mark", attributes, scope, content))
 }

@@ -10,5 +10,5 @@ import pt.isel.SHORT.html.base.element.prototype
  * Description: Used with area elements to define an image map (a clickable link area).
  */
 fun Tag.Map(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(prototype("map", attributes, content))
+    appendChild(prototype("map", attributes, scope, content))
 }

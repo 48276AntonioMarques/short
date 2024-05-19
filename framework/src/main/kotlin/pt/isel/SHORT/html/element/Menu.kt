@@ -10,5 +10,5 @@ import pt.isel.SHORT.html.base.element.prototype
  * Description: A semantic alternative to ul, but treated by browsers (and exposed through the accessibility tree) as no different than ul. It represents an unordered list of items (which are represented by li elements).
  */
 fun Tag.Menu(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(prototype("menu", attributes, content))
+    appendChild(prototype("menu", attributes, scope, content))
 }

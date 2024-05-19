@@ -10,5 +10,5 @@ import pt.isel.SHORT.html.base.element.prototype
  * Description: Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.
  */
 fun Tag.Progress(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(prototype("progress", attributes, content))
+    appendChild(prototype("progress", attributes, scope, content))
 }

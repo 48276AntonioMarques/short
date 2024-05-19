@@ -10,5 +10,5 @@ import pt.isel.SHORT.html.base.element.prototype
  * Description: Represents an external resource, which can be treated as an image, a nested browsing context, or a resource to be handled by a plugin.
  */
 fun Tag.Object(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(prototype("object", attributes, content))
+    appendChild(prototype("object", attributes, scope, content))
 }

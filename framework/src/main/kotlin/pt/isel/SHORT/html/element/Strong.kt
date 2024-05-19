@@ -10,5 +10,5 @@ import pt.isel.SHORT.html.base.element.prototype
  * Description: Indicates that its contents have strong importance, seriousness, or urgency. Browsers typically render the contents in bold type.
  */
 fun Tag.Strong(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(prototype("strong", attributes, content))
+    appendChild(prototype("strong", attributes, scope, content))
 }

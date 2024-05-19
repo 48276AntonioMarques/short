@@ -10,5 +10,5 @@ import pt.isel.SHORT.html.base.element.prototype
  * Description: Represents a range of text that has been added to a document. You can use the del element to similarly represent a range of text that has been deleted from the document.
  */
 fun Tag.Ins(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(prototype("ins", attributes, content))
+    appendChild(prototype("ins", attributes, scope, content))
 }

@@ -10,5 +10,5 @@ import pt.isel.SHORT.html.base.element.prototype
  * Description: Allows authors to clearly indicate a sequence of characters that compose an acronym or abbreviation for a word.
  */
 fun Tag.Acronym(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(prototype("acronym", attributes, content))
+    appendChild(prototype("acronym", attributes, scope, content))
 }

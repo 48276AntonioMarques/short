@@ -10,5 +10,5 @@ import pt.isel.SHORT.html.base.element.prototype
  * Description: Represents a heading grouped with any secondary content, such as subheadings, an alternative title, or a tagline.
  */
 fun Tag.Hgroup(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(prototype("hgroup", attributes, content))
+    appendChild(prototype("hgroup", attributes, scope, content))
 }

@@ -10,5 +10,5 @@ import pt.isel.SHORT.html.base.element.prototype
  * Description: Represents an abbreviation or acronym.
  */
 fun Tag.Abbr(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(prototype("abbr", attributes, content))
+    appendChild(prototype("abbr", attributes, scope, content))
 }

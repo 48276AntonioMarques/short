@@ -10,5 +10,5 @@ import pt.isel.SHORT.html.base.element.prototype
  * Description: Represents either a scalar value within a known range or a fractional value.
  */
 fun Tag.Meter(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(prototype("meter", attributes, content))
+    appendChild(prototype("meter", attributes, scope, content))
 }

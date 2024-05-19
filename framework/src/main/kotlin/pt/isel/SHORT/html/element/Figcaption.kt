@@ -10,5 +10,5 @@ import pt.isel.SHORT.html.base.element.prototype
  * Description: Represents a caption or legend describing the rest of the contents of its parent figure element.
  */
 fun Tag.Figcaption(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(prototype("figcaption", attributes, content))
+    appendChild(prototype("figcaption", attributes, scope, content))
 }

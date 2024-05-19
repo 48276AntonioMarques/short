@@ -10,5 +10,5 @@ import pt.isel.SHORT.html.base.element.prototype
  * Description: Represents a part that contains a set of form controls or other content related to performing a search or filtering operation.
  */
 fun Tag.Search(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(prototype("search", attributes, content))
+    appendChild(prototype("search", attributes, scope, content))
 }

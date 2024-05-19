@@ -10,5 +10,5 @@ import pt.isel.SHORT.html.base.element.prototype
  * Description: Defines a section of HTML to be inserted if a script type on the page is unsupported or if scripting is currently turned off in the browser.
  */
 fun Tag.Noscript(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(prototype("noscript", attributes, content))
+    appendChild(prototype("noscript", attributes, scope, content))
 }

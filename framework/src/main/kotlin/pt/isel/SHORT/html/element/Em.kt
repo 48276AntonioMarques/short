@@ -10,5 +10,5 @@ import pt.isel.SHORT.html.base.element.prototype
  * Description: Marks text that has stress emphasis. The em element can be nested, with each nesting level indicating a greater degree of emphasis.
  */
 fun Tag.Em(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(prototype("em", attributes, content))
+    appendChild(prototype("em", attributes, scope, content))
 }

@@ -73,7 +73,7 @@ fun generateElements(elements: List<Pair<String, String>>): List<Pair<String, St
         val newElement = if (voidElements.contains(element)) {
             "VoidTag(\"$element\", attributes)"
         } else {
-            "prototype(\"$element\", attributes, content)"
+            "prototype(\"$element\", attributes, scope, content)"
         }
         Pair(
             capitalizedElement,
@@ -90,7 +90,7 @@ fun generateElements(elements: List<Pair<String, String>>): List<Pair<String, St
                  * Description: ${formatText(description)}
                  */
                 fun Tag.$capitalizedElement(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-                   appendChild($newElement)
+                    appendChild($newElement)
                 }
     
             """.trimIndent()

@@ -10,5 +10,5 @@ import pt.isel.SHORT.html.base.element.prototype
  * Description: Indicates that the enclosed HTML provides contact information for a person or people, or for an organization.
  */
 fun Tag.Address(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(prototype("address", attributes, content))
+    appendChild(prototype("address", attributes, scope, content))
 }

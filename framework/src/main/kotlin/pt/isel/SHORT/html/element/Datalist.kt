@@ -10,5 +10,5 @@ import pt.isel.SHORT.html.base.element.prototype
  * Description: Contains a set of option elements that represent the permissible or recommended options available to choose from within other controls.
  */
 fun Tag.Datalist(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(prototype("datalist", attributes, content))
+    appendChild(prototype("datalist", attributes, scope, content))
 }

@@ -10,5 +10,5 @@ import pt.isel.SHORT.html.base.element.prototype
  * Description: Represents a caption for the content of its parent fieldset.
  */
 fun Tag.Legend(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(prototype("legend", attributes, content))
+    appendChild(prototype("legend", attributes, scope, content))
 }

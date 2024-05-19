@@ -10,5 +10,5 @@ import pt.isel.SHORT.html.base.element.prototype
  * Description: Creates a grouping of options within a select element.
  */
 fun Tag.Optgroup(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(prototype("optgroup", attributes, content))
+    appendChild(prototype("optgroup", attributes, scope, content))
 }

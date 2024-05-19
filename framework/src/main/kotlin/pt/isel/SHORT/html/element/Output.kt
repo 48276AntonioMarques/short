@@ -10,5 +10,5 @@ import pt.isel.SHORT.html.base.element.prototype
  * Description: Container element into which a site or app can inject the results of a calculation or the outcome of a user action.
  */
 fun Tag.Output(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(prototype("output", attributes, content))
+    appendChild(prototype("output", attributes, scope, content))
 }

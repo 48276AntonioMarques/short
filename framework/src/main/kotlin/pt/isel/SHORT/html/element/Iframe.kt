@@ -10,5 +10,5 @@ import pt.isel.SHORT.html.base.element.prototype
  * Description: Represents a nested browsing context, embedding another HTML page into the current one.
  */
 fun Tag.Iframe(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(prototype("iframe", attributes, content))
+    appendChild(prototype("iframe", attributes, scope, content))
 }

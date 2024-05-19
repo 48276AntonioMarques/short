@@ -10,5 +10,5 @@ import pt.isel.SHORT.html.base.element.prototype
  * Description: Provides the description, definition, or value for the preceding term (dt) in a description list (dl).
  */
 fun Tag.Dd(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(prototype("dd", attributes, content))
+    appendChild(prototype("dd", attributes, scope, content))
 }
