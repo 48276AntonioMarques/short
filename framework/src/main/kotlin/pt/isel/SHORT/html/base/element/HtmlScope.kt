@@ -1,16 +1,14 @@
 package pt.isel.SHORT.html.base.element
 
-import pt.isel.SHORT.client.JavaScript
-import pt.isel.SHORT.html.base.Html
 import pt.isel.SHORT.client.EventHandler
 import pt.isel.SHORT.client.EventScope
-import pt.isel.SHORT.serverEvents.DocumentReadyEvent
+import pt.isel.SHORT.client.JavaScript
+import pt.isel.SHORT.html.base.Html
 
 class HtmlScope(val html: Html) {
     val globalScript: JavaScript = JavaScript()
 
     private val eventHandlers: MutableList<Pair<String, EventHandler>> = mutableListOf()
-    private val documentReadyEvents: MutableList<DocumentReadyEvent> = mutableListOf()
 
     private fun generateEventID(): String {
         val validChars = ('0'..'9') + ('A'..'Z') + ('a'..'z')
@@ -18,16 +16,8 @@ class HtmlScope(val html: Html) {
         do {
             // Generate a random ID
             id = "eH" + (1..10).map { validChars.random() }.joinToString("")
-        } while(eventHandlers.any { it.first == id })
+        } while (eventHandlers.any { it.first == id })
         return id
-    }
-
-    fun registerDocReadyEvent(docReadyEvent: DocumentReadyEvent) {
-        documentReadyEvents.add(docReadyEvent)
-    }
-
-    fun runDocReadyEvents() {
-        documentReadyEvents.forEach { it.run() }
     }
 
     fun registerHandler(eventHandler: EventHandler): String {

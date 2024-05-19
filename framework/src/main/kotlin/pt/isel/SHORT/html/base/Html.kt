@@ -1,28 +1,36 @@
 package pt.isel.SHORT.html.base
 
 import pt.isel.SHORT.AggregationMode
-import pt.isel.SHORT.html.base.attribute.Attribute
 import pt.isel.SHORT.html.base.element.Element
 import pt.isel.SHORT.html.base.element.HtmlReceiver
 import pt.isel.SHORT.html.base.element.HtmlScope
 import pt.isel.SHORT.html.base.element.Tag
-import pt.isel.SHORT.html.base.element.prototype
+import pt.isel.SHORT.html.base.element.loadHtmlContent
 import pt.isel.SHORT.html.element.Script
-import pt.isel.SHORT.serverEvents.onDocumentReady
 
 class Html : Element {
     val scope = HtmlScope(this)
 
     val tag = Tag("html", emptyList(), scope, emptyList())
-    var head: Tag? = null
-        private set
-    var body: Tag? = null
-        private set
+    val head = Tag("head", emptyList(), scope, emptyList())
+    val body = Tag("body", emptyList(), scope, emptyList())
 
     init {
-        // In here the tag is already created
-        // So we can already run the events from onDocumentReady
-        scope.runDocReadyEvents()
+        tag.appendChild(head)
+        tag.appendChild(body)
+        // In here all the tags already exist and are ready to be used
+        Head {
+            Script {
+                Text {
+                    scope.eventHandlersToHtml()
+                }
+            }
+            Script {
+                Text {
+                    scope.globalScript.toHtml()
+                }
+            }
+        }
     }
 
     var aggregationMode: AggregationMode = AggregationMode.TEMPLATE
@@ -31,14 +39,6 @@ class Html : Element {
     fun using(aggregationMode: AggregationMode): Html {
         this.aggregationMode = aggregationMode
         return this
-    }
-
-    fun setHead(head: Tag) {
-        this.head = head
-    }
-
-    fun setBody(body: Tag) {
-        this.body = body
     }
 
     override fun toHtml(): String {
@@ -53,30 +53,18 @@ class Html : Element {
 fun Html(content: Html.() -> Unit) =
     Html().apply(content)
 
-fun Html.Head(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = tag.apply {
-    val head = prototype("head", attributes, scope, content)
-    val eventHandlers = Script {
-        onDocumentReady {
-            Text {
-                scope.eventHandlersToHtml()
-            }
+fun Html.Head(content: HtmlReceiver? = null): Tag {
+    return this.head.apply {
+        if (content != null) {
+            loadHtmlContent(content)
         }
     }
-    head.appendChild(eventHandlers)
-    val globalScript = Script {
-        onDocumentReady {
-            Text {
-                scope.globalScript.toHtml()
-            }
-        }
-    }
-    head.appendChild(globalScript)
-    appendChild(head)
-    setHead(head)
 }
 
-fun Html.Body(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = tag.apply {
-    val body = prototype("body", attributes, scope, content)
-    appendChild(body)
-    setBody(body)
+fun Html.Body(content: HtmlReceiver? = null): Tag {
+    return this.body.apply {
+        if (content != null) {
+            loadHtmlContent(content)
+        }
+    }
 }

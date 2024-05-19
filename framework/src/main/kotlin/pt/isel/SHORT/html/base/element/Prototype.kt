@@ -14,23 +14,29 @@ fun prototype(
 ): Tag {
     val node = Tag(tag, attributes, scope, emptyList())
     if (content != null) {
-        // This cast is safe but not checked by the compiler because the type is erased
-        val contentFunction = content.javaClass
-        val components = contentFunction.annotations.filterIsInstance<Component>()
-        val isComponent = components.isNotEmpty()
-
-        if (components.size > 1) {
-            throw IllegalArgumentException("Component annotation can only be used once per function")
-        }
-
-        // Only run content if it is not a component
-        // Or if legacy mode is enabled
-        // TODO: Verify if client is legacy
-        if (isComponent) {
-            return Tag("component", Attribute.id("component-${contentFunction.name}"), scope, emptyList())
-        } else {
-            node.content(scope)
-        }
+        return node.loadHtmlContent(content)
     }
     return node
+}
+
+fun Tag.loadHtmlContent(content: HtmlReceiver): Tag {
+    // This cast is safe but not checked by the compiler because the type is erased
+    val contentFunction = content.javaClass
+    val components = contentFunction.annotations.filterIsInstance<Component>()
+    val isComponent = components.isNotEmpty()
+
+    if (components.size > 1) {
+        throw IllegalArgumentException("Component annotation can only be used once per function")
+    }
+
+    // Only run content if it is not a component
+    // Or if legacy mode is enabled
+    // TODO: Verify if client is legacy
+    return if (isComponent) {
+        Tag("component", Attribute.id("component-${contentFunction.name}"), scope, emptyList())
+    } else {
+        this.apply {
+            content(scope)
+        }
+    }
 }
