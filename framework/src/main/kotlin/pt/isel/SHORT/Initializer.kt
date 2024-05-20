@@ -14,11 +14,9 @@ import org.http4k.routing.singlePageApp
 import org.http4k.routing.static
 import org.http4k.server.Http4kServer
 import org.http4k.server.asServer
-import pt.isel.SHORT.config.templateUserAgentRequirements
 import pt.isel.SHORT.html.base.Body
 import pt.isel.SHORT.html.base.Html
 import pt.isel.SHORT.html.base.element.Tag
-import pt.isel.SHORT.request.UserAgent
 
 const val INIT_DELAY = "INIT_DELAY"
 
@@ -103,35 +101,7 @@ fun runSHORT(sourceManagerClass: Class<Application>, args: Array<String>): Http4
     val exposedPaths = routes(
         public,
         "/" bind Method.GET to { request: Request ->
-            val aggregationMode = try {
-                // Check if the request as a header that forces the legacy mode
-                when (request.header("Aggregation")) {
-                    "LEGACY" -> throw TemplateAggregationException("Legacy mode forced.")
-                }
-
-                // Check if the browser is compatible with template aggregation mode
-                val header = request.header("User-Agent")
-                header ?: throw TemplateAggregationException("User agent not found.")
-                val agent = UserAgent(header)
-
-                val requirements = templateUserAgentRequirements
-                val isSupported = requirements.all { requirement ->
-                    try {
-                        agent >= requirement
-                    } catch (e: NoRequirementException) {
-                        // If the user agent does not require current browser
-                        // Then it doesn't matter if it is supported
-                        true
-                    }
-                }
-                if (!isSupported) {
-                    throw TemplateAggregationException("Version not supported.")
-                }
-                AggregationMode.TEMPLATE
-            } catch (e: TemplateAggregationException) {
-                AggregationMode.LEGACY
-            }
-            Response(Status.OK).body(webApp.using(aggregationMode).toHtml())
+            Response(Status.OK).body(webApp.toHtml())
         },
         singlePageApp(SpaLoader())
     )

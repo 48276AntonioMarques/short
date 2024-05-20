@@ -2,7 +2,6 @@ package pt.isel.SHORT
 
 /**
  * Exception thrown when the class loader fails to load a class.
-
  */
 class ClassLoaderException(message: String, cause: Throwable) : RuntimeException(message, cause)
 
@@ -26,18 +25,3 @@ class ResourceNotFoundException(message: String) : RuntimeException(message)
  * Exception thrown when cause is handled but the client should be notified.
  */
 class JavaScriptException(message: String) : RuntimeException(message)
-
-/**
- * Exception thrown when the browser is not supported.
- */
-class BrowserNotSupportedException(message: String) : RuntimeException(message)
-
-/**
- * Exception thrown when the template aggregation mode is not supported.
- */
-class TemplateAggregationException(message: String) : RuntimeException(message)
-
-/**
- * Exception thrown when User Agent do not require any browser.
- */
-class NoRequirementException(message: String) : RuntimeException(message)

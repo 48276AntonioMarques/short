@@ -6,7 +6,7 @@ import pt.isel.short.generator.attribute.generateAttributes
 import pt.isel.short.generator.attribute.getAttributes
 import java.io.File
 
-class GenerateAttributeRun: Generator {
+class GenerateAttributeRun : Generator {
     override fun generate() {
         val blacklist = emptyList<String>()
         val attributes = getAttributes(ATTRIBUTES_SOURCE, blacklist)

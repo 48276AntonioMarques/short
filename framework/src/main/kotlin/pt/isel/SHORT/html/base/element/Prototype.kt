@@ -30,8 +30,6 @@ fun Tag.loadHtmlContent(content: HtmlReceiver): Tag {
     }
 
     // Only run content if it is not a component
-    // Or if legacy mode is enabled
-    // TODO: Verify if client is legacy
     return if (isComponent) {
         Tag("component", Attribute.id("component-${contentFunction.name}"), scope, emptyList())
     } else {

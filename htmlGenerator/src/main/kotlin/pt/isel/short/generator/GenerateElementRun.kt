@@ -6,7 +6,7 @@ import pt.isel.short.generator.element.generateElements
 import pt.isel.short.generator.element.getElements
 import java.io.File
 
-class GenerateElementRun: Generator {
+class GenerateElementRun : Generator {
     override fun generate() {
         val blacklist = listOf("html", "head", "body")
         val elements = getElements(ELEMENTS_SOURCE, blacklist)

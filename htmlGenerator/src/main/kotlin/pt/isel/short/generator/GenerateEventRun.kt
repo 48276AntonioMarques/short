@@ -6,7 +6,7 @@ import pt.isel.short.generator.event.generateEvents
 import pt.isel.short.generator.event.getEvents
 import java.io.File
 
-class GenerateEventRun: Generator {
+class GenerateEventRun : Generator {
     override fun generate() {
         val blacklist = emptyList<String>()
         val events = getEvents(EVENTS_SOURCE, blacklist)

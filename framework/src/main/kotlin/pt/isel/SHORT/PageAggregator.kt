@@ -106,19 +106,10 @@ fun aggregatePages(pages: List<PageFactory>): Html {
                     ?: throw PageLinkageException("Failed to link '${page.name}' to a path.")
                 val pageInstance = page.kotlinFunction!!.call(Html().tag) as Tag
                 onRequest {
-                    when (this@Html.aggregationMode) {
-                        AggregationMode.TEMPLATE -> {
-                            Template(
-                                attributes = Attribute.id("page-$url")
-                            ) {
-                                Text { pageInstance.innerHtml() }
-                            }
-                        }
-                        AggregationMode.LEGACY -> {
-                            Script {
-                                Text { "registerPage(\"$url\", () => { return `${pageInstance.innerHtml()}`})" }
-                            }
-                        }
+                    Template(
+                        attributes = Attribute.id("page-$url")
+                    ) {
+                        Text { pageInstance.innerHtml() }
                     }
                 }
 

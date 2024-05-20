@@ -21,7 +21,6 @@ class HtmlScope(val html: Html) {
     }
 
     fun registerHandler(eventHandler: EventHandler): String {
-        // FIXME: Each time the page is reloaded, the events are added again
         val id = generateEventID()
         eventHandlers.add(Pair(id, eventHandler))
         return id
