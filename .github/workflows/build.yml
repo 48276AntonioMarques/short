@@ -10,7 +10,8 @@ jobs:
       with:
         distribution: 'adopt'
         java-version: '17'
+        cache: gradle
     - name: Lint Project
       run: ./gradlew ktlintMainSourceSetFormat ktlintMainSourceSetCheck ktlintTestSourceSetFormat ktlintTestSourceSetCheck
     - name: Build Project
-      run: ./gradlew build
+      run: ./gradlew classes testClasses assemble

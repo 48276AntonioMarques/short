@@ -100,7 +100,7 @@ fun runSHORT(sourceManagerClass: Class<Application>, args: Array<String>): Http4
     logger.debug { "Registering exposed paths..." }
     val exposedPaths = routes(
         public,
-        "/" bind Method.GET to { request: Request ->
+        "/" bind Method.GET to { _: Request ->
             Response(Status.OK).body(webApp.toHtml())
         },
         singlePageApp(SpaLoader())
