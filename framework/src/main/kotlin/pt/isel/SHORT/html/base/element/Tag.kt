@@ -13,7 +13,6 @@ open class Tag(
     children: List<Element>
 ) : Element {
     private val children = children.toMutableList()
-    private val events = mutableListOf<HtmlReceiver>()
 
     private val _variables = mutableListOf<Variable<Any>>()
 
@@ -32,13 +31,6 @@ open class Tag(
         return this
     }
 
-    fun appendEvent(event: HtmlReceiver) {
-        val tag = Tag("tag", emptyList(), scope, emptyList())
-        tag.event(scope)
-        println("Appending event: ${tag.toHtml()})")
-        events += event
-    }
-
     fun appendVariable(variable: Variable<Any>) {
         _variables += variable
     }
@@ -50,13 +42,7 @@ open class Tag(
      *  @param innerHtml the inner HTML of the element
      */
     override fun toHtml(): String {
-        // IMPORTANT: Events MUST be invoked before innerHtml
-        val copy = Tag(tag, attributes, scope, children)
-        events.forEach { event ->
-            copy.event(scope)
-        }
-
-        val attr = copy.attributes.mapNotNull { attribute ->
+        val attr = attributes.mapNotNull { attribute ->
             try {
                 attribute.toHtml()
             } catch (jse: JavaScriptException) {
@@ -66,11 +52,10 @@ open class Tag(
                 null
             }
         }
+
         return try {
-            when {
-                attr.isEmpty() -> "<${copy.tag}>${copy.innerHtml()}</${copy.tag}>"
-                else -> "<${copy.tag} ${attr.joinToString(" ")}>${copy.innerHtml()}</${copy.tag}>"
-            }
+            val attributesString = if (attr.isNotEmpty()) " ${attr.joinToString(" ")}" else ""
+            "<$tag$attributesString>${innerHtml()}</$tag>"
         } catch (jse: JavaScriptException) {
             JsScope(scope.globalScript) {
                 console.log("Error while generating tag: ${jse.message}")

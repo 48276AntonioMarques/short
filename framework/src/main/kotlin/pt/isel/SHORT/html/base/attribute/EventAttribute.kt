@@ -7,9 +7,6 @@ class EventAttribute(override val name: String, override val value: EventHandler
     private var eventID = ""
 
     fun register(scope: HtmlScope) {
-        // val eventScope = EventScope()
-        // val event = eventScope.value()
-        // println("Registering event handler: $event")
         eventID = scope.registerHandler(value)
     }
 

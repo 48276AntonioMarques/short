@@ -17,6 +17,7 @@ class HtmlScope(val html: Html) {
             // Generate a random ID
             id = "eH" + (1..10).map { validChars.random() }.joinToString("")
         } while (eventHandlers.any { it.first == id })
+        println("Generated event ID: $id")
         return id
     }
 
@@ -31,7 +32,7 @@ class HtmlScope(val html: Html) {
             val eventScope = EventScope()
             eventScope.handler()
             val eventHtml = eventScope.toHtml()
-            eventHtml.also { println("Event HTML ($id): $it") }
+            "function $id(event) {$eventHtml};"
         }
     }
 }

@@ -8,8 +8,6 @@ open class JavaScript {
     val console = Console(script)
 
     fun toHtml(): String {
-        script.insert(0, "/*Client Script*/")
-        println(script.toString())
         return script.toString()
     }
 }

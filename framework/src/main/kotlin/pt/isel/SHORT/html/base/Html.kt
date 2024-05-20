@@ -1,12 +1,10 @@
 package pt.isel.SHORT.html.base
 
-import pt.isel.SHORT.AggregationMode
 import pt.isel.SHORT.html.base.element.Element
 import pt.isel.SHORT.html.base.element.HtmlReceiver
 import pt.isel.SHORT.html.base.element.HtmlScope
 import pt.isel.SHORT.html.base.element.Tag
 import pt.isel.SHORT.html.base.element.loadHtmlContent
-import pt.isel.SHORT.html.element.Script
 
 class Html : Element {
     val scope = HtmlScope(this)
@@ -18,30 +16,6 @@ class Html : Element {
     init {
         tag.appendChild(head)
         tag.appendChild(body)
-        // In here all the tags already exist and are ready to be used
-        Head {
-            Script {
-                Text {
-                    scope.eventHandlersToHtml()
-                }
-            }
-            Script {
-                Text {
-                    "/*Global script*/"
-                }
-                Text {
-                    scope.globalScript.toHtml()
-                }
-            }
-        }
-    }
-
-    var aggregationMode: AggregationMode = AggregationMode.TEMPLATE
-        private set
-
-    fun using(aggregationMode: AggregationMode): Html {
-        this.aggregationMode = aggregationMode
-        return this
     }
 
     override fun toHtml(): String {
