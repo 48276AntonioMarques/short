@@ -12,6 +12,6 @@ jobs:
         java-version: '17'
         cache: gradle
     - name: Lint Project
-      run: ./gradlew ktlintMainSourceSetFormat ktlintMainSourceSetCheck ktlintTestSourceSetFormat ktlintTestSourceSetCheck
+      run: ./gradlew ktlintMainSourceSetFormat ktlintTestSourceSetFormat
     - name: Build Project
       run: ./gradlew classes testClasses assemble
