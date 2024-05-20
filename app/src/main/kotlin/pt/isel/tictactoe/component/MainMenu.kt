@@ -13,7 +13,7 @@ import pt.isel.tictactoe.element.Title
 fun Tag.MainMenu() = apply {
     val signIn: EventHandler = {
         console.log("Signing in...")
-        println("Registering Sign In event")
+        call("navigate", "/signin")
     }
 
     Center {
