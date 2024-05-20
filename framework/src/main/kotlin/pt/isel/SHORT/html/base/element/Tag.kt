@@ -14,11 +14,12 @@ open class Tag(
 ) : Element {
     private val children = children.toMutableList()
 
-    private val _variables = mutableListOf<Variable<Any>>()
-
     init {
         attributes.forEach { attribute ->
             if (attribute is EventAttribute) {
+                if (tag == "input") {
+                    println("Event attribute in input")
+                }
                 attribute.register(scope)
             }
         }
@@ -29,10 +30,6 @@ open class Tag(
     fun appendChild(child: Element): Element {
         children += child
         return this
-    }
-
-    fun appendVariable(variable: Variable<Any>) {
-        _variables += variable
     }
 
     /** Function to convert a tag to HTML in the format:

@@ -3,15 +3,37 @@ package pt.isel.SHORT.component
 import pt.isel.SHORT.html.base.element.Tag
 
 fun <T : Any> Tag.Var(value: T) =
-    Variable(value).also { appendVariable(it as Variable<Any>) }
+    Variable(value).also { variable ->
+        val id = scope.appendVariable(variable as Variable<Any>)
+        variable.setID(id)
+    }
 
 class Variable<T>(value: T) {
-
+    var reference = ""
+        private set
     private var _value = value
-    val value: String
-        get() = {
-            "code to get value"
-        }()
+    val value: String // This must be an object
+        get() = "code to get value"
+
+    fun setID(id: String) {
+        reference = id
+    }
+
+    /**
+     * Function to set the value of the variable
+     * @param value the value to be set
+     * This function will set the value of the variable based on the value of another variable
+     */
+    fun setValue(value: Variable<T>) {
+    }
+
+    /**
+     * Function to set the value of the variable
+     * @param value the value to be set
+     * This function will statically set the value of the variable
+     */
+    fun setValue(value: T) {
+    }
 
     class Condition(val a: Variable<*>, val b: Variable<*>) {
         infix fun then(block: () -> Unit): Condition {

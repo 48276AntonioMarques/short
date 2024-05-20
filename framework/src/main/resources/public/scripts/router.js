@@ -11,16 +11,20 @@ function loadPage(url) {
             let clone = child.cloneNode(true);
             app.appendChild(clone);
         }
+        return true
     }
     else {
         // TODO: 404 page
         console.log("Page not found: " + url)
+        return false
     }
 }
 
 function navigate(url) {
-    window.history.pushState({}, '', url)
-    loadPage(url)
+    const success = loadPage(url)
+    if (success) {
+        window.history.pushState({}, '', url)
+    }
 }
 
 window.addEventListener("load", () => {
