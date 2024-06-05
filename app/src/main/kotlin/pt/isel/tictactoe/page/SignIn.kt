@@ -2,15 +2,12 @@ package pt.isel.tictactoe.page
 
 import pt.isel.SHORT.Page
 import pt.isel.SHORT.client.EventHandler
-import pt.isel.SHORT.component.Var
-import pt.isel.SHORT.component.Variable
 import pt.isel.SHORT.html.attribute.`class`
 import pt.isel.SHORT.html.base.Text
 import pt.isel.SHORT.html.base.attribute.Attribute
 import pt.isel.SHORT.html.base.element.Tag
 import pt.isel.SHORT.html.element.Div
 import pt.isel.SHORT.html.element.Input
-import pt.isel.SHORT.html.event.onchange
 import pt.isel.tictactoe.element.Button
 import pt.isel.tictactoe.element.Center
 import pt.isel.tictactoe.element.Menu

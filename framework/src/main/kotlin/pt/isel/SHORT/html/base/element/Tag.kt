@@ -2,7 +2,6 @@ package pt.isel.SHORT.html.base.element
 
 import pt.isel.SHORT.JavaScriptException
 import pt.isel.SHORT.client.JsScope
-import pt.isel.SHORT.component.Variable
 import pt.isel.SHORT.html.base.attribute.Attribute
 import pt.isel.SHORT.html.base.attribute.EventAttribute
 
