@@ -33,7 +33,8 @@ object ClassManager {
 
         return lines.flatMap { entry: String ->
             return@flatMap if (entry.endsWith(".class")) {
-                listOf<String>("$packageName.${entry.replace(".class", "")}")
+                val prefix = if (packageName.isEmpty()) "" else "$packageName."
+                listOf<String>("$prefix${entry.replace(".class", "")}")
             } else {
                 searchClasses(if (packageName.isEmpty()) entry else "$packageName.$entry")
             }

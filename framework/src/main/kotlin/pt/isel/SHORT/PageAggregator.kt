@@ -47,6 +47,7 @@ fun generateWebApp(): WebApp {
 fun getPages(classNames: List<String>): List<PageFactory> {
     return classNames.flatMap { className ->
         return@flatMap try {
+            println("Loading class: $className")
             Class.forName(className).methods.filter { m ->
                 m.isAnnotationPresent(Page::class.java)
             }.map { page ->

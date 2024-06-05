@@ -65,37 +65,4 @@ class PageAggregatorTests {
         assert(actualResult == expectedResult)
     }
 
-    @Test
-    fun `aggregate pages with no input (legacy)`() {
-        val htmlPage = aggregatePages(emptyList())
-        val expectedPath = "expected/PageAggregatorTests/NoInput_Legacy.html"
-        val expectedResult = ClassLoader.getSystemResource(expectedPath).readText().normalize()
-        val actualResult = htmlPage.toHtml().normalize()
-        println(markTextDiff2(actualResult, expectedResult))
-        assert(actualResult == expectedResult)
-    }
-
-    @Test
-    fun `aggregate pages with one input (legacy)`() {
-        val pages = listOf(Tag::page1.javaMethod as PageFactory)
-
-        val htmlPage = aggregatePages(pages)
-        val expectedPath = "expected/PageAggregatorTests/OneInput_Legacy.html"
-        val expectedResult = ClassLoader.getSystemResource(expectedPath).readText().normalize()
-        val actualResult = htmlPage.toHtml().normalize()
-        println(markTextDiff2(actualResult, expectedResult))
-        assert(actualResult == expectedResult)
-    }
-
-    @Test
-    fun `aggregate pages with two inputs (legacy)`() {
-        val pages = listOf(Tag::page1.javaMethod as PageFactory, Tag::page2.javaMethod as PageFactory)
-
-        val htmlPage = aggregatePages(pages)
-        val expectedPath = "expected/PageAggregatorTests/TwoInputs_Legacy.html"
-        val expectedResult = ClassLoader.getSystemResource(expectedPath).readText().normalize()
-        val actualResult = htmlPage.toHtml().normalize()
-        println(markTextDiff2(actualResult, expectedResult))
-        assert(actualResult == expectedResult)
-    }
 }

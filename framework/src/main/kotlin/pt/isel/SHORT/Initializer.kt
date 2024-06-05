@@ -96,14 +96,17 @@ fun runSHORT(sourceManagerClass: Class<Application>, args: Array<String>): Http4
     logger.debug { "Generating web app..." }
     val webApp = generateWebApp()
 
+
     // Register new routes
     logger.debug { "Registering exposed paths..." }
+    val serverConfig = sourceManager.getServerConfig()
+
     val exposedPaths = routes(
         public,
         "/" bind Method.GET to { _: Request ->
             Response(Status.OK).body(webApp.toHtml())
         },
-        singlePageApp(SpaLoader())
+        singlePageApp(SpaLoader(tempServer.port()))
     )
 
     // Stop the temporary server

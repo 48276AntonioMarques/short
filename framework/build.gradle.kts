@@ -3,7 +3,7 @@ plugins {
 }
 
 group = "pt.isel.short"
-version = "0.4.1-pre_beta"
+version = "0.4.3-pre_beta"
 
 repositories {
     mavenCentral()
@@ -25,5 +25,5 @@ tasks.test {
 }
 
 kotlin {
-    jvmToolchain(8)
+    jvmToolchain(17)
 }
