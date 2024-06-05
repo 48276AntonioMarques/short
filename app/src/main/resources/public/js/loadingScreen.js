@@ -9,8 +9,11 @@ async function checkLoadingState() {
         location.reload()
     }
     else {
-        setTimeout(checkLoadingState, 1000)
+        start()
     }
 }
 
-checkLoadingState()
+function start() {
+    setTimeout(checkLoadingState, 1000)
+}
+start()
