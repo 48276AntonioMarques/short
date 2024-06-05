@@ -11,21 +11,22 @@ import pt.isel.tictactoe.element.Title
 
 @Component
 fun Tag.MainMenu() = apply {
-    val signIn: EventHandler = {
-        console.log("Signing in...")
-        call("navigate", "/sign")
-    }
+    val play: EventHandler = { call("navigate", "/play") }
+    val signUp: EventHandler = { call("navigate", "/sign") }
+    val logIn: EventHandler = { call("navigate", "/login") }
+    val leaderboard: EventHandler = { call("navigate", "/leaderboard") }
+    val about: EventHandler = { call("navigate", "/about") }
 
     Center {
         Title("Tic Tac Toe")
         Menu {
-            Button("PLAY", "secondary-color-5")
-            MenuLine() {
-                Button("SIGN IN", "secondary-color-4", signIn)
-                Button("LOG IN", "secondary-color-3")
+            Button("PLAY", "secondary-color-5", play)
+            MenuLine {
+                Button("SIGN IN", "secondary-color-4", signUp)
+                Button("LOG IN", "secondary-color-3", logIn)
             }
-            Button("LEADERBOARD", "secondary-color-2")
-            Button("...", "secondary-color-1")
+            Button("LEADERBOARD", "secondary-color-2", leaderboard)
+            Button("...", "secondary-color-1", about)
         }
     }
 }
