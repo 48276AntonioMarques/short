@@ -64,5 +64,4 @@ class PageAggregatorTests {
         println(markTextDiff2(actualResult, expectedResult))
         assert(actualResult == expectedResult)
     }
-
 }
