@@ -3,7 +3,7 @@ package pt.isel.SHORT.html.base.element
 import pt.isel.SHORT.client.EventHandler
 import pt.isel.SHORT.client.EventScope
 import pt.isel.SHORT.client.JavaScript
-import pt.isel.SHORT.component.Variable
+import pt.isel.SHORT.client.Variable
 import pt.isel.SHORT.html.base.Html
 
 class HtmlScope(val html: Html) {
@@ -25,7 +25,6 @@ class HtmlScope(val html: Html) {
     private fun <T> addValue(list: MutableList<Pair<String, T>>, prefix: String, value: T): String {
         val id = "$prefix${generateID(list)}"
         list.add(Pair(id, value))
-        println("Generated ID: $id")
         return id
     }
 
@@ -33,12 +32,23 @@ class HtmlScope(val html: Html) {
 
     fun eventHandlersToHtml(): String {
         return eventHandlers.joinToString("") { (id, handler) ->
-            val eventScope = EventScope()
+            val eventScope = EventScope(html.tag)
             eventScope.handler()
             val eventHtml = eventScope.toHtml()
             "function $id(event) {$eventHtml};"
         }
     }
 
-    fun appendVariable(variable: Variable<Any>) = addValue(variables, "var", variable)
+    fun variablesToHtml(): String {
+        return "const _SHORT_VARIABLES_ = {" + variables.joinToString(",") { (id, variable) ->
+            "'$id': ${variable.defaultValue}"
+        } + "};"
+    }
+
+    fun <T> newVariable(value: T): Variable<T> {
+        val id = "var" + generateID(variables)
+        val variable = Variable(id, value)
+        variables.add(Pair(id, variable as Variable<Any>))
+        return variable
+    }
 }

@@ -108,6 +108,10 @@ class Console(private val script: StringBuilder) {
         script.append("console.log(\"$message\");")
     }
 
+    fun <T> log(variable: Variable<T>) {
+        script.append("console.log(${variable.reference});")
+    }
+
     /**
      * Displays tabular data as a table.
      */

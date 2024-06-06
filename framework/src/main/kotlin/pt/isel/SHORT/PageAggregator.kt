@@ -105,7 +105,6 @@ fun aggregatePages(pages: List<PageFactory>): Html {
                     scope.eventHandlersToHtml()
                 }
             }
-
             // Global script (used to log server errors on tag.toHtml function)
             Script {
                 Text {
@@ -113,6 +112,11 @@ fun aggregatePages(pages: List<PageFactory>): Html {
                 }
                 Text {
                     scope.globalScript.toHtml()
+                }
+            }
+            Script {
+                Text {
+                    scope.variablesToHtml()
                 }
             }
         }

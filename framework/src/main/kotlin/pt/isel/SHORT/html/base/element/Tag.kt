@@ -16,9 +16,6 @@ open class Tag(
     init {
         attributes.forEach { attribute ->
             if (attribute is EventAttribute) {
-                if (tag == "input") {
-                    println("Event attribute in input")
-                }
                 attribute.register(scope)
             }
         }
