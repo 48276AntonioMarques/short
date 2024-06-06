@@ -8,7 +8,7 @@ import pt.isel.short.generator.getTables
 import pt.isel.short.generator.getTags
 
 const val EVENTS_SOURCE = "https://www.w3schools.com/tags/ref_eventattributes.asp"
-const val EVENTS_OUTPUT = "./../framework/src/main/kotlin/pt/isel/SHORT/html/event/"
+const val EVENTS_OUTPUT = "./framework/src/main/kotlin/pt/isel/SHORT/html/event/"
 
 fun getEvents(source: String, blacklist: List<String>): List<Event> {
     val client = ApacheClient()

@@ -10,5 +10,5 @@ import pt.isel.SHORT.html.base.element.VoidTag
  * Description: Produces a line break in text (carriage-return). It is useful for writing a poem or an address, where the division of lines is significant.
  */
 fun Tag.Br(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(VoidTag("br", attributes))
+    appendChild(VoidTag("br", attributes, scope))
 }

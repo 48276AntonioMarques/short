@@ -10,5 +10,5 @@ import pt.isel.SHORT.html.base.element.VoidTag
  * Description: Defines one or more columns in a column group represented by its implicit or explicit parent colgroup element. The col element is only valid as a child of a colgroup element that has no span attribute defined.
  */
 fun Tag.Col(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(VoidTag("col", attributes))
+    appendChild(VoidTag("col", attributes, scope))
 }

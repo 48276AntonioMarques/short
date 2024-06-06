@@ -8,7 +8,7 @@ import pt.isel.short.generator.getTables
 import pt.isel.short.generator.getTags
 
 const val ATTRIBUTES_SOURCE = "https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes"
-const val ATTRIBUTES_OUTPUT = "./../framework/src/main/kotlin/pt/isel/SHORT/html/attribute/"
+const val ATTRIBUTES_OUTPUT = "./framework/src/main/kotlin/pt/isel/SHORT/html/attribute/"
 
 fun getAttributes(source: String, blacklist: List<String>): List<Attribute> {
     val client = ApacheClient()

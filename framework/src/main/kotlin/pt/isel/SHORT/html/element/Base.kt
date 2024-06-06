@@ -10,5 +10,5 @@ import pt.isel.SHORT.html.base.element.VoidTag
  * Description: Specifies the base URL to use for all relative URLs in a document. There can be only one such element in a document.
  */
 fun Tag.Base(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(VoidTag("base", attributes))
+    appendChild(VoidTag("base", attributes, scope))
 }

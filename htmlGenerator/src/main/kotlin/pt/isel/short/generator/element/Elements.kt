@@ -9,7 +9,7 @@ import pt.isel.short.generator.getTables
 import pt.isel.short.generator.getTags
 
 const val ELEMENTS_SOURCE = "https://developer.mozilla.org/en-US/docs/Web/HTML/Element"
-const val ELEMENTS_OUTPUT = "./../framework/src/main/kotlin/pt/isel/SHORT/html/element/"
+const val ELEMENTS_OUTPUT = "./framework/src/main/kotlin/pt/isel/SHORT/html/element/"
 const val VOID_ELEMENTS = "area, base, br, col, embed, hr, img, input, link, meta, source, track, wbr"
 
 fun getElements(source: String, blacklist: List<String>): List<Pair<String, String>> {
@@ -71,7 +71,7 @@ fun generateElements(elements: List<Pair<String, String>>): List<Pair<String, St
             "import pt.isel.SHORT.html.base.element.prototype"
         }
         val newElement = if (voidElements.contains(element)) {
-            "VoidTag(\"$element\", attributes)"
+            "VoidTag(\"$element\", attributes, scope)"
         } else {
             "prototype(\"$element\", attributes, scope, content)"
         }

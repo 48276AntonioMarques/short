@@ -10,5 +10,5 @@ import pt.isel.SHORT.html.base.element.VoidTag
  * Description: Defines an area inside an image map that has predefined clickable areas. An image map allows geometric areas on an image to be associated with hyperlink.
  */
 fun Tag.Area(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(VoidTag("area", attributes))
+    appendChild(VoidTag("area", attributes, scope))
 }

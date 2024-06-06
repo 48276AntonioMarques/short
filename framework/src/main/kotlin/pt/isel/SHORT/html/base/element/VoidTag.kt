@@ -1,6 +1,7 @@
 package pt.isel.SHORT.html.base.element
 
 import pt.isel.SHORT.html.base.attribute.Attribute
+import pt.isel.SHORT.html.base.attribute.EventAttribute
 import pt.isel.SHORT.html.base.attribute.toHtml
 
 /**
@@ -9,8 +10,18 @@ import pt.isel.SHORT.html.base.attribute.toHtml
  */
 class VoidTag(
     internal val tag: String,
-    internal val attributes: List<Attribute>
+    internal val attributes: List<Attribute>,
+    internal val scope: HtmlScope
 ) : Element {
+
+    init {
+        attributes.forEach { attribute ->
+            if (attribute is EventAttribute) {
+                attribute.register(scope)
+            }
+        }
+    }
+
     override fun toHtml(): String {
         val attr = attributes.toHtml()
         return when {

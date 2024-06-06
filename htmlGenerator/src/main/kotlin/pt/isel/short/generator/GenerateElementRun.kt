@@ -12,6 +12,8 @@ class GenerateElementRun : Generator {
         val elements = getElements(ELEMENTS_SOURCE, blacklist)
         val files = generateElements(elements)
 
+        val dir = File("./")
+        println(dir.absolutePath)
         var count = 0
         try {
             files.forEach { file ->
@@ -20,8 +22,11 @@ class GenerateElementRun : Generator {
                 println("\rGenerated: ${file.first}.")
                 count++
             }
+        } catch (e: Exception) {
+            println()
+            throw e
         } finally {
-            println("Generated: $count files.")
+            println("Generated: $count files.   ")
         }
     }
 }

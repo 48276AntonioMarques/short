@@ -10,5 +10,5 @@ import pt.isel.SHORT.html.base.element.VoidTag
  * Description: Represents a word break opportunity—a position within text where the browser may optionally break a line, though its line-breaking rules would not otherwise create a break at that location.
  */
 fun Tag.Wbr(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(VoidTag("wbr", attributes))
+    appendChild(VoidTag("wbr", attributes, scope))
 }

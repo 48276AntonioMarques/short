@@ -10,5 +10,5 @@ import pt.isel.SHORT.html.base.element.VoidTag
  * Description: Represents a thematic break between paragraph-level elements: for example, a change of scene in a story, or a shift of topic within a section.
  */
 fun Tag.Hr(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(VoidTag("hr", attributes))
+    appendChild(VoidTag("hr", attributes, scope))
 }

@@ -10,5 +10,5 @@ import pt.isel.SHORT.html.base.element.VoidTag
  * Description: Embeds an image into the document.
  */
 fun Tag.Img(attributes: List<Attribute> = emptyList(), content: HtmlReceiver? = null): Tag = apply {
-    appendChild(VoidTag("img", attributes))
+    appendChild(VoidTag("img", attributes, scope))
 }
