@@ -7,12 +7,12 @@ import pt.isel.SHORT.html.base.attribute.Attribute
 import pt.isel.SHORT.html.base.element.Tag
 import pt.isel.SHORT.html.element.Div
 import pt.isel.SHORT.html.element.Input
-import pt.isel.SHORT.html.event.onchange
+import pt.isel.SHORT.html.event.oninput
 
 fun Tag.InputLine(text: String, color: String, onChange: EventHandler) = apply {
     Div(Attribute.`class`("input-container $color")) {
         Text { text }
-        Input(Attribute.onchange(onChange))
+        Input(Attribute.oninput(onChange))
     }
 }
 

@@ -1,9 +1,12 @@
 package pt.isel.tictactoe.page
 
 import pt.isel.SHORT.Page
+import pt.isel.SHORT.client.compare
 import pt.isel.SHORT.client.EventHandler
-import pt.isel.SHORT.component.Var
-import pt.isel.SHORT.component.Variable
+import pt.isel.SHORT.client.Var
+import pt.isel.SHORT.client.Variable
+import pt.isel.SHORT.client.equal
+import pt.isel.SHORT.client.switch
 import pt.isel.SHORT.html.base.element.Tag
 import pt.isel.tictactoe.element.AuthLine
 import pt.isel.tictactoe.element.Center
@@ -36,21 +39,36 @@ fun Tag.AuthPage(option: AuthOption) = apply {
             val password = Var("")
             val pwdCheck = Var("")
 
-            fun genOnChange(variable: Variable<String>): EventHandler = { variable.setValue(event.target.value) }
+            fun genOnInput(variable: Variable<String>): EventHandler = {
+                set(variable, event.target.value)
+            }
 
-            val onUsernameChange = genOnChange(username)
-            val onPasswordChange = genOnChange(password)
-            val onPwdCheckChange = genOnChange(pwdCheck)
+            val onUsernameInput = genOnInput(username)
+            val onPasswordInput = genOnInput(password)
+            val onPwdCheckInput = genOnInput(pwdCheck)
 
             val signUp: EventHandler = {
-                console.log(username.value)
-                console.log(password.value)
-                console.log(pwdCheck.value)
+                console.log("Signing up...")
+                val admin = Var("admin")
+                compare(username equal admin, {
+                    console.log("Admin")
+                }) {
+                    console.log("Not Admin")
+                }
             }
 
             val logIn: EventHandler = {
-                console.log(username.value)
-                console.log(password.value)
+                switch(username) {
+                    case("admin") {
+                        console.log("Admin")
+                    }
+                    case("manager") {
+                        console.log("Manager")
+                    }
+                    default {
+                        console.log("User")
+                    }
+                }
             }
 
             val action = when (option) {
@@ -58,11 +76,11 @@ fun Tag.AuthPage(option: AuthOption) = apply {
                 AuthOption.LOG_IN -> logIn
             }
 
-            InputLine("Username:", "secondary-color-5", onUsernameChange)
-            // InputLine("Password:", "secondary-color-4", onPasswordChange)
+            InputLine("Username:", "secondary-color-5", onUsernameInput)
+            InputLine("Password:", "secondary-color-4", onPasswordInput)
 
             if (option == AuthOption.SIGN_UP) {
-                // InputLine("Verify Password:", "secondary-color-3", onPwdCheckChange)
+                InputLine("Verify Password:", "secondary-color-3", onPwdCheckInput)
             }
 
             AuthLine(option, action)
