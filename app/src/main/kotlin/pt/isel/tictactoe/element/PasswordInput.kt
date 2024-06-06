@@ -10,17 +10,17 @@ import pt.isel.SHORT.html.element.Div
 import pt.isel.SHORT.html.element.Input
 import pt.isel.SHORT.html.event.oninput
 
-fun Tag.InputLine(text: String, type: String, color: String, onChange: EventHandler) = apply {
+private const val TYPE = "password"
+
+fun Tag.PasswordInputLine(text: String, color: String, onChange: EventHandler) = apply {
     Div(Attribute.`class`("input-container $color")) {
         Text { text }
-        Input(Attribute.oninput(onChange).type(type))
+        Input(Attribute.oninput(onChange).type(TYPE))
     }
 }
 
-fun Tag.InputLine(text: String, color: String) = InputLine(text, "", color) {}
+fun Tag.PasswordInputLine(text: String, color: String) = InputLine(text, color) {}
 
-fun Tag.InputLine(text: String, onChange: EventHandler) = InputLine(text, "", "", onChange)
+fun Tag.PasswordInputLine(text: String, onChange: EventHandler) = InputLine(text, "", onChange)
 
-fun Tag.InputLine(text: String, color: String, onChange: EventHandler) = InputLine(text, "", color, onChange)
-
-fun Tag.InputLine(text: String) = InputLine(text, "")
+fun Tag.PasswordInputLine(text: String) = InputLine(text, "")

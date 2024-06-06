@@ -1,10 +1,10 @@
 package pt.isel.tictactoe.page
 
 import pt.isel.SHORT.Page
-import pt.isel.SHORT.client.compare
 import pt.isel.SHORT.client.EventHandler
 import pt.isel.SHORT.client.Var
 import pt.isel.SHORT.client.Variable
+import pt.isel.SHORT.client.compare
 import pt.isel.SHORT.client.equal
 import pt.isel.SHORT.client.switch
 import pt.isel.SHORT.html.base.element.Tag
@@ -12,6 +12,7 @@ import pt.isel.tictactoe.element.AuthLine
 import pt.isel.tictactoe.element.Center
 import pt.isel.tictactoe.element.InputLine
 import pt.isel.tictactoe.element.Menu
+import pt.isel.tictactoe.element.PasswordInputLine
 import pt.isel.tictactoe.element.SideBar
 import pt.isel.tictactoe.element.Title
 
@@ -48,12 +49,16 @@ fun Tag.AuthPage(option: AuthOption) = apply {
             val onPwdCheckInput = genOnInput(pwdCheck)
 
             val signUp: EventHandler = {
-                console.log("Signing up...")
-                val admin = Var("admin")
-                compare(username equal admin, {
-                    console.log("Admin")
+                compare(password equal pwdCheck, {
+                    console.log("Signing up...")
+                    val admin = Var("admin")
+                    compare(username equal admin, {
+                        console.log("Admin")
+                    }) {
+                        console.log("Not Admin")
+                    }
                 }) {
-                    console.log("Not Admin")
+                    console.log("Passwords don't match")
                 }
             }
 
@@ -77,10 +82,10 @@ fun Tag.AuthPage(option: AuthOption) = apply {
             }
 
             InputLine("Username:", "secondary-color-5", onUsernameInput)
-            InputLine("Password:", "secondary-color-4", onPasswordInput)
+            PasswordInputLine("Password:", "secondary-color-4", onPasswordInput)
 
             if (option == AuthOption.SIGN_UP) {
-                InputLine("Verify Password:", "secondary-color-3", onPwdCheckInput)
+                PasswordInputLine("Verify Password:", "secondary-color-3", onPwdCheckInput)
             }
 
             AuthLine(option, action)

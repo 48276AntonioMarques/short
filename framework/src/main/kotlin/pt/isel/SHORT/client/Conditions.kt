@@ -1,6 +1,5 @@
 package pt.isel.SHORT.client
 
-
 class Comparison<T>(private val condition: Condition<T>, private val onSuccess: JsHandler, private val onFailure: JsHandler? = null) {
 
     private val script = StringBuilder()
@@ -48,7 +47,6 @@ class Condition<T>(val a: Variable<T>, val b: Variable<T>, val comparison: Condi
     fun toHtml(): String {
         return "${a.reference} ${comparison.html} ${b.reference}"
     }
-
 }
 
 infix fun <T> Variable<T>.equal(other: Variable<T>) = Condition(this, other, ConditionType.EQUAL)

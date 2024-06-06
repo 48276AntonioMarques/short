@@ -3,7 +3,7 @@ plugins {
 }
 
 group = "pt.isel.short"
-version = "0.4.3-pre_beta"
+version = "0.4.4-beta"
 
 repositories {
     mavenCentral()
