@@ -1,0 +1,49 @@
+.title {
+    display: flex;
+    flex-direction: column;
+    font-size: 5em;
+    padding: 5% 0px 5% 0px;
+    user-select: none;
+}
+
+.title-text {
+    color: white;
+}
+
+.title-bar {
+    display: flex;
+    width: 100%;
+    height: 10px;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: max-content;
+    width: 100%;
+    margin: 0px;
+}
+
+.menu-line {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: calc(50% + 3.5em);
+}
+
+.menu-line > :first-child {
+    width: 30%
+}
+
+.menu-line > :last-child {
+    width: 70%
+}
+
+.line-65 {
+    width: calc(65% + 3em);
+}

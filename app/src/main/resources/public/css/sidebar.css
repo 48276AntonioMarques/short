@@ -1,0 +1,22 @@
+.sidebar {
+    margin-top: 0px;
+    top: 0px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-evenly;
+    min-height: 100%;
+    width: fit-content;
+    padding: 0px 5% 0px 5%;
+    overflow: hidden;
+}
+
+.leaf {
+    display: block;
+    flex-shrink: 0;
+    height: 75px;
+    width: 75px;
+    border-radius: 50% 0px 50% 0px;
+    cursor: pointer;
+}

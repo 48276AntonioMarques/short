@@ -9,6 +9,10 @@ import pt.isel.tictactoe.element.SideBar
 @Import("stylesheet", "text/css", "/css/fonts.css")
 @Import("stylesheet", "text/css", "/css/color.css")
 @Import("stylesheet", "text/css", "/css/styles.css")
+@Import("stylesheet", "text/css", "/css/sidebar.css")
+@Import("stylesheet", "text/css", "/css/menu.css")
+@Import("stylesheet", "text/css", "/css/button.css")
+@Import("stylesheet", "text/css", "/css/input.css")
 @Page("/")
 fun Tag.home() = apply {
     SideBar()

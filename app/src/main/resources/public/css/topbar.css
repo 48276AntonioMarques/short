@@ -1,0 +1,12 @@
+.topbar {
+    display: flex;
+    flex-shrink: 0;
+    width: calc(80% - 5em);
+    height: 5em;
+    border-radius: 2.5em 0px 2.5em 0px;
+    cursor: pointer;
+    background-color: var(--primary-color-1);
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}

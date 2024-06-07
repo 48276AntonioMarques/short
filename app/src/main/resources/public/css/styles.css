@@ -11,132 +11,21 @@ body {
     margin: 0px;
 }
 
-.sidebar {
-    margin-top: 0px;
-    top: 0px;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    align-items: center;
-    justify-content: space-evenly;
-    min-height: 100%;
-    width: fit-content;
-    padding: 0px 5% 0px 5%;
-    overflow: hidden;
-}
-
-.leaf {
-    display: block;
-    flex-shrink: 0;
-    height: 75px;
-    width: 75px;
-    border-radius: 50% 0px 50% 0px;
-    cursor: pointer;
-}
-
 .center {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
     height: 100%;
-    width: 80%;
-    margin: 0px;
+    width: 60%;
+    margin: 0px 10% 0px 10%;
 }
 
-.title {
-    display: flex;
-    flex-direction: column;
-    font-size: 5em;
-    padding: 5% 0px 5% 0px;
-    user-select: none;
-}
 
-.title-text {
-    color: white;
-}
-
-.title-bar {
-    display: flex;
-    width: 100%;
-    height: 10px;
-    background-color: white;
-    border-radius: 5px;
-}
-
-.menu {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: max-content;
-    width: 100%;
-    margin: 0px;
-}
-
-.menu-line {
+.line {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    width: calc(50% + 3.5em);
-}
-
-.menu-line > :first-child {
-    width: 30%
-}
-
-.menu-line > :last-child {
-    width: 70%
-}
-
-.button {
-    flex-grow: 1;
-    font-size: 2em;
-    display: flex;
-    flex-wrap: nowrap;
-    text-wrap: nowrap;
-    color: white;
-    justify-content: center;
-    padding: 0.25em 0.5em 0.25em 0.5em;
-    margin: 0.25em;
-    width: 50%;
-    border-radius: 2em;
-    cursor: pointer;
-    user-select: none;
-}
-
-
-.input-container {
-    flex-grow: 1;
-    font-size: 2em;
-    display: flex;
-    flex-wrap: nowrap;
-    text-wrap: nowrap;
-    color: white;
-    justify-content: center;
-    padding: 0.25em 0.5em 0.25em 0.5em;
-    margin: 0.25em;
-    width: 65%;
-    border-radius: 2em;
-    cursor: pointer;
-    user-select: none;
-}
-
-.line-65 {
-    width: calc(65% + 3em);
-}
-
-input {
-    width: 25%;
-    font-size: 1em;
-    flex-grow: 100;
-    background-color: transparent;
-    color: white;
-    border: none;
-    border-bottom: white solid;
-}
-
-input:focus {
-    outline: none;
+    width: 100%;
 }

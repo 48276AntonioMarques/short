@@ -1,0 +1,29 @@
+.button {
+    flex-grow: 1;
+    font-size: 2em;
+    display: flex;
+    flex-wrap: nowrap;
+    text-wrap: nowrap;
+    color: white;
+    justify-content: center;
+    padding: 0.25em 0.5em 0.25em 0.5em;
+    margin: 0.25em;
+    width: 50%;
+    border-radius: 2em;
+    cursor: pointer;
+    user-select: none;
+    filter: brightness(100%);
+}
+
+.input-container:has(.button) {
+    cursor: pointer;
+}
+
+.button:hover {
+    filter: brightness(85%);
+    transition: filter 0.3s;
+}
+
+.button:active {
+   box-shadow: inset 1px 1px 10px #333;
+}
