@@ -1,5 +1,6 @@
 package pt.isel.SHORT
 
+import pt.isel.SHORT.html.attribute.charset
 import pt.isel.SHORT.html.attribute.href
 import pt.isel.SHORT.html.attribute.id
 import pt.isel.SHORT.html.attribute.rel
@@ -13,6 +14,7 @@ import pt.isel.SHORT.html.base.attribute.Attribute
 import pt.isel.SHORT.html.base.css.Import
 import pt.isel.SHORT.html.base.element.Tag
 import pt.isel.SHORT.html.element.Link
+import pt.isel.SHORT.html.element.Meta
 import pt.isel.SHORT.html.element.Script
 import pt.isel.SHORT.html.element.Template
 import java.lang.reflect.Method
@@ -75,6 +77,7 @@ fun getPages(classNames: List<String>): List<PageFactory> {
 fun aggregatePages(pages: List<PageFactory>): Html {
     return Html {
         Head {
+            Meta(attributes = Attribute.charset("UTF-8"))
             Script(attributes = Attribute.src("/scripts/router.js"))
             // Script(attributes = Attribute.src("/scripts/requester.js"))
 

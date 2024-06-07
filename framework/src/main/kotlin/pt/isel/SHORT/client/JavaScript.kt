@@ -26,7 +26,12 @@ open class JavaScript {
      * (e.g. Function from a js library)
      */
     fun call(function: String, vararg args: String) {
-        val argString = if (args.isNotEmpty()) "\"${args.joinToString("\", |")}\"" else ""
+        val argString = if (args.isNotEmpty()) {
+            args.joinToString(", ") { arg -> "\"${arg}\"" }.replace("\n", "")
+        }
+        else {
+            ""
+        }
         script.append("$function($argString);")
     }
 

@@ -18,8 +18,6 @@ import pt.isel.SHORT.html.base.Body
 import pt.isel.SHORT.html.base.Html
 import pt.isel.SHORT.html.base.element.Tag
 
-const val INIT_DELAY = "INIT_DELAY"
-
 private val logger = KotlinLogging.logger {}
 
 typealias WebApp = Html
