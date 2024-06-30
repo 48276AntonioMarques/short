@@ -5,18 +5,19 @@ class Comparison<T>(private val condition: Condition<T>, private val onSuccess: 
     private val script = StringBuilder()
 
     fun toHtml(): String {
-        val success = JavaScript()
+        val success = UnAwareJavaScript()
         success.onSuccess()
         script.append("if(${condition.toHtml()})")
         script.append("{${success.toHtml()}}")
         if (onFailure != null) {
-            val failure = JavaScript()
+            val failure = UnAwareJavaScript()
             onFailure.let { onFailure -> failure.onFailure() }
             script.append("else {${failure.toHtml()}}")
         }
         return script.toString()
     }
 
+    infix fun otherwise(onFailure: JsHandler) = Comparison(condition, onSuccess, onFailure)
     fun onFailure(onFailure: JsHandler) = Comparison(condition, onSuccess, onFailure)
 }
 
@@ -32,6 +33,12 @@ fun <T> JavaScript.compare(condition: Condition<T>, onSuccess: JsHandler, onFail
     return comparison
 }
 
+infix fun <T> JavaScript.compare(comparison: Comparison<T>): Comparison<T> {
+    append(comparison.toHtml())
+    return comparison
+}
+
+
 enum class ConditionType(val html: String) {
     EQUAL("=="),
     NOT_EQUAL("!="),
@@ -43,9 +50,13 @@ enum class ConditionType(val html: String) {
     STRICT_NOT_EQUAL("!==");
 }
 
-class Condition<T>(val a: Variable<T>, val b: Variable<T>, val comparison: ConditionType) {
+class Condition<T>(private val a: Variable<T>, private val b: Variable<T>, private val comparison: ConditionType) {
     fun toHtml(): String {
         return "${a.reference} ${comparison.html} ${b.reference}"
+    }
+
+    infix fun then(onSuccess: JsHandler): Comparison<T> {
+        return Comparison(this, onSuccess)
     }
 }
 

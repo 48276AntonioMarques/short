@@ -2,7 +2,7 @@ package pt.isel.SHORT.client
 
 class Loop<T>(private val condition: Condition<T>, private val block: JsHandler) {
     fun toHtml(): String {
-        val context = JavaScript()
+        val context = UnAwareJavaScript()
         context.block()
         return "while (${condition.toHtml()}){${context.toHtml()}};"
     }

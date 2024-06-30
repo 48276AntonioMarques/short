@@ -9,11 +9,15 @@ import org.http4k.core.then
 import org.http4k.filter.CachingFilters
 import org.http4k.routing.ResourceLoader.Companion.Classpath
 import org.http4k.routing.bind
+import org.http4k.routing.path
 import org.http4k.routing.routes
 import org.http4k.routing.singlePageApp
 import org.http4k.routing.static
 import org.http4k.server.Http4kServer
 import org.http4k.server.asServer
+import pt.isel.SHORT.comms.Contract
+import pt.isel.SHORT.comms.ContractID
+import pt.isel.SHORT.comms.executeContract
 import pt.isel.SHORT.html.base.Body
 import pt.isel.SHORT.html.base.Html
 import pt.isel.SHORT.html.base.element.Tag
@@ -100,6 +104,23 @@ fun runSHORT(sourceManagerClass: Class<Application>, args: Array<String>): Http4
 
     val exposedPaths = routes(
         public,
+        "api/contract/{id}" bind { request: Request ->
+            val id = request.path("id")
+            logger.debug { "Received request with id $id" }
+            if (id == null) {
+                Response(Status.BAD_REQUEST).body("Missing id")
+            } else {
+                try {
+                    executeContract(request, id.toInt())
+                } catch (_: IndexOutOfBoundsException) {
+                    Response(Status.NOT_FOUND).body("Contract not found")
+                }
+                catch (e: Exception) {
+                    logger.error(e) { "Internal server error" }
+                    Response(Status.INTERNAL_SERVER_ERROR).body("Internal server error")
+                }
+            }
+        },
         "/" bind Method.GET to { _: Request ->
             Response(Status.OK).body(webApp.toHtml())
         },

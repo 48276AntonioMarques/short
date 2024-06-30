@@ -8,7 +8,7 @@ class Switch<T>(private val a: Variable<T>) {
     }
 
     fun onCase(value: T, asBreak: Boolean, onCase: JsHandler) {
-        val context = JavaScript()
+        val context = UnAwareJavaScript()
         context.onCase()
         val breakString = if (asBreak) "break;" else ""
         val wrappedValue = when (value) {
@@ -36,7 +36,7 @@ class Switch<T>(private val a: Variable<T>) {
     fun caseContinuous(value: T, case: JsHandler) = onCase(value, false, case)
 
     fun default(onDefault: JsHandler) {
-        val context = JavaScript()
+        val context = UnAwareJavaScript()
         context.onDefault()
         script.append("default: ${context.toHtml()}")
     }

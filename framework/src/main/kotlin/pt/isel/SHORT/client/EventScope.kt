@@ -1,10 +1,11 @@
 package pt.isel.SHORT.client
 
+import pt.isel.SHORT.comms.ContractPool
 import pt.isel.SHORT.html.base.element.Tag
 
 typealias EventHandler = EventScope.() -> Unit
 
-class EventScope(tag: Tag) : JavaScript() {
+class EventScope(contractPool: ContractPool, tag: Tag) : JavaScript(tag, contractPool) {
     val event: Event = Event(tag)
 
     init {

@@ -60,7 +60,7 @@ class Console(private val script: StringBuilder) {
      * Outputs an error message. You may use string substitution and additional arguments with this method.
      */
     fun error(message: String) {
-        TODO()
+        script.append("console.error(\"$message\");")
     }
 
     /**
