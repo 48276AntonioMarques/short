@@ -28,8 +28,7 @@ inline fun <R, reified T> JavaScript.baseServerCall(
         // Can only send a single parameter which maybe be an object containing all the data
         val result = if (parameter == null) {
             callback(null as T)
-        }
-        else {
+        } else {
             val variable = Gson().fromJson(body, T::class.java)
             callback(variable)
         }
@@ -58,7 +57,7 @@ inline fun <R, reified T> JavaScript.baseServerCall(
 fun JavaScript.serverCall(
     callback: () -> Unit
 ) {
-     baseServerCall<Unit, Unit>(callback = callback as (Unit) -> Unit)
+    baseServerCall<Unit, Unit>(callback = callback as (Unit) -> Unit)
 }
 
 fun <R> JavaScript.serverCall(

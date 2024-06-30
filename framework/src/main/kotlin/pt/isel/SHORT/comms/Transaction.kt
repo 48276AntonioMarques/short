@@ -1,5 +1,3 @@
 package pt.isel.SHORT.comms
 
-class Transaction(val contract: Contract, val content: String) {
-
-}
+class Transaction(val contract: Contract, val content: String)

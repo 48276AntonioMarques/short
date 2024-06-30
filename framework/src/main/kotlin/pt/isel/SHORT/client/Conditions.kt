@@ -38,7 +38,6 @@ infix fun <T> JavaScript.compare(comparison: Comparison<T>): Comparison<T> {
     return comparison
 }
 
-
 enum class ConditionType(val html: String) {
     EQUAL("=="),
     NOT_EQUAL("!="),

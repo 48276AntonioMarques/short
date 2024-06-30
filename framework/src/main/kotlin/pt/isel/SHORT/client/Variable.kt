@@ -3,7 +3,7 @@ package pt.isel.SHORT.client
 import com.google.gson.GsonBuilder
 import pt.isel.SHORT.html.base.element.Tag
 
-fun <T: Any> Tag.Var(value: T) = scope.newVariable(value)
+fun <T : Any> Tag.Var(value: T) = scope.newVariable(value)
 
 class Variable<T>(private val id: String, private val initialValue: T) {
     val reference: String // This must be an object
