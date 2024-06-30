@@ -2,7 +2,6 @@ package pt.isel.tictactoe.page
 
 import pt.isel.SHORT.Page
 import pt.isel.SHORT.client.EventHandler
-import pt.isel.SHORT.client.Var
 import pt.isel.SHORT.html.attribute.src
 import pt.isel.SHORT.html.base.Text
 import pt.isel.SHORT.html.base.attribute.Attribute

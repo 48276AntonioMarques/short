@@ -11,32 +11,19 @@ import pt.isel.tictactoe.element.Side
 import pt.isel.tictactoe.element.Square
 
 fun Tag.Game() = apply {
-
     val nextPiece = Var("X")
 
     Div(
         Attribute.`class`("board")
-    ){
-        Div(
-            Attribute.`class`("row")
-        ) {
-            Square(Position(Height.TOP, Side.LEFT), nextPiece)
-            Square(Position(Height.TOP, Side.CENTER), nextPiece)
-            Square(Position(Height.TOP, Side.RIGHT), nextPiece)
-        }
-        Div(
-            Attribute.`class`("row")
-        ) {
-            Square(Position(Height.CENTER, Side.LEFT), nextPiece)
-            Square(Position(Height.CENTER, Side.CENTER), nextPiece)
-            Square(Position(Height.CENTER, Side.RIGHT), nextPiece)
-        }
-        Div(
-            Attribute.`class`("row")
-        ) {
-            Square(Position(Height.BOTTOM, Side.LEFT), nextPiece)
-            Square(Position(Height.BOTTOM, Side.CENTER), nextPiece)
-            Square(Position(Height.BOTTOM, Side.RIGHT), nextPiece)
+    ) {
+        for (height in Height.entries) {
+            Div(
+                Attribute.`class`("row")
+            ) {
+                for (side in Side.entries) {
+                    Square(Position(height, side), nextPiece)
+                }
+            }
         }
     }
 }

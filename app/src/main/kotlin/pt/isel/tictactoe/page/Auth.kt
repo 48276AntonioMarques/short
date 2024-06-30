@@ -4,8 +4,6 @@ import pt.isel.SHORT.Page
 import pt.isel.SHORT.client.EventHandler
 import pt.isel.SHORT.client.Var
 import pt.isel.SHORT.client.Variable
-import pt.isel.SHORT.client.compare
-import pt.isel.SHORT.client.equal
 import pt.isel.SHORT.client.switch
 import pt.isel.SHORT.html.base.element.Tag
 import pt.isel.tictactoe.element.AuthLine
@@ -15,6 +13,7 @@ import pt.isel.tictactoe.element.Menu
 import pt.isel.tictactoe.element.PasswordInputLine
 import pt.isel.tictactoe.element.SideBar
 import pt.isel.tictactoe.element.Title
+import pt.isel.tictactoe.logic.signUp
 
 @Page("/sign")
 fun Tag.SignUp() = apply {
@@ -48,19 +47,7 @@ fun Tag.AuthPage(option: AuthOption) = apply {
             val onPasswordInput = genOnInput(password)
             val onPwdCheckInput = genOnInput(pwdCheck)
 
-            val signUp: EventHandler = {
-                compare(password equal pwdCheck, {
-                    console.log("Signing up...")
-                    val admin = Var("admin")
-                    compare(username equal admin, {
-                        console.log("Admin")
-                    }) {
-                        console.log("Not Admin")
-                    }
-                }) {
-                    console.log("Passwords don't match")
-                }
-            }
+            val signUp: EventHandler = signUp(username, password, pwdCheck)
 
             val logIn: EventHandler = {
                 switch(username) {

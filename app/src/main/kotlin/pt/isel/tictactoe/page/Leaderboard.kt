@@ -17,7 +17,6 @@ import pt.isel.tictactoe.element.Button
 import pt.isel.tictactoe.element.Center
 import pt.isel.tictactoe.element.SideBar
 
-
 @Import("stylesheet", "text/css", "/css/leaderboard.css")
 @Page("/leaderboard")
 fun Tag.Leaderboard() = apply {
@@ -32,14 +31,13 @@ fun Tag.Leaderboard() = apply {
                         Th { Text { "Place" } }
                         Th { Text { "Username" } }
                         Th { Text { "Wins" } }
-
                     }
                 }
 
                 val table = listOf(
-                        Triple("1", "António Marques", "10"),
-                        Triple("2", "Rui Pedrosa", "9"),
-                        Triple("3", "Felipe Brito", "7")
+                    Triple("1", "António Marques", "10"),
+                    Triple("2", "Rui Pedrosa", "9"),
+                    Triple("3", "Felipe Brito", "7")
                 )
                 Tbody {
                     table.forEach { (place, username, wins) ->

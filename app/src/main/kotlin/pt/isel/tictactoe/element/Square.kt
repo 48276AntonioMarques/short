@@ -24,38 +24,29 @@ enum class Side {
     RIGHT
 }
 
-data class Position(val height: Height, val side: Side)
-
-fun Tag.Square(position: Position, nextPiece: Variable<String>) = apply {
-
-    val bgColor = when {
-        position.height == Height.CENTER -> {
-            if (position.side == Side.CENTER) {
+data class Position(val height: Height, val side: Side) {
+    fun toColor(): String = when {
+        height == Height.CENTER -> {
+            if (side == Side.CENTER) {
                 "bg-color-1"
             } else {
                 "bg-color-2"
             }
         }
         else -> {
-            if (position.side == Side.CENTER) {
+            if (side == Side.CENTER) {
                 "bg-color-2"
             } else {
                 "bg-color-1"
             }
         }
     }
+}
 
-    val height = when (position.height) {
-        Height.TOP -> "top"
-        Height.CENTER -> "center"
-        Height.BOTTOM -> "bottom"
-    }
-
-    val side = when (position.side) {
-        Side.LEFT -> "left"
-        Side.CENTER -> "center"
-        Side.RIGHT -> "right"
-    }
+fun Tag.Square(position: Position, nextPiece: Variable<String>) = apply {
+    val bgColor = position.toColor()
+    val height = position.height.toString().lowercase()
+    val side = position.side.toString().lowercase()
 
     val handleClick: EventHandler = {
         val x = Var("X")
@@ -71,7 +62,7 @@ fun Tag.Square(position: Position, nextPiece: Variable<String>) = apply {
 
     Div(
         Attribute.`class`("square $bgColor square-$height square-$side preview-x").onclick(handleClick)
-    ){
+    ) {
         Div(
             Attribute.`class`("preview")
         ) {
