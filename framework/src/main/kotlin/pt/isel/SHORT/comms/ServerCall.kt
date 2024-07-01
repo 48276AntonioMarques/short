@@ -7,8 +7,20 @@ import org.http4k.core.Status
 import pt.isel.SHORT.client.JavaScript
 import pt.isel.SHORT.client.Variable
 
+/**
+ * Represents a server call.
+ */
 typealias Action = (Request) -> Response
 
+/**
+ * Represents the id of a contract.
+ * A contract is the representation of a server call,
+ * which describes the action to be executed on the server,
+ * as well as how to convert the request body into an object.
+ */
+typealias ContractID = Int
+
+// FIXME: This shouldn't exist, this values must be accessed through the Javascript object
 object ContractRegistry {
     val contracts: MutableList<Action> = mutableListOf()
 }
@@ -54,12 +66,23 @@ inline fun <R, reified T> JavaScript.baseServerCall(
 // (T) -> Unit
 // (T) -> R
 
+/**
+ * Used to execute code on the server.
+ * This call is synchronous so the call-site will block until the server responds.
+ * @param callback the code to be executed on the server.
+ */
 fun JavaScript.serverCall(
     callback: () -> Unit
 ) {
     baseServerCall<Unit, Unit>(callback = callback as (Unit) -> Unit)
 }
 
+/**
+ * Used to execute code on the server, that returns a value.
+ * This call is synchronous so the call-site will block until the server responds.
+ * @param callback the code to be executed on the server.
+ * @return the return value of the server call.
+ */
 fun <R> JavaScript.serverCall(
     returnValue: Variable<R>,
     callback: () -> R
@@ -67,6 +90,13 @@ fun <R> JavaScript.serverCall(
     return baseServerCall<R, Unit>(returnValue = returnValue, callback = callback as (Unit) -> R)!!
 }
 
+/**
+ * Used to execute code on the server, using the value of the provided variable.
+ * This call is synchronous so the call-site will block until the server responds.
+ * @param callback the code to be executed on the server.
+ * @param parameter the variable to be sent to the server,
+ * the value sent will be the value of the variable at the time of the call.
+ */
 inline fun <reified T> JavaScript.serverCall(
     parameter: Variable<T>,
     crossinline callback: (T) -> Unit
@@ -74,6 +104,14 @@ inline fun <reified T> JavaScript.serverCall(
     baseServerCall<Unit, T>(parameter = parameter, callback = callback)
 }
 
+/**
+ * Used to execute code on the server, with a parameter and returning a value.
+ * This call is synchronous so the call-site will block until the server responds.
+ * @param callback the code to be executed on the server.
+ * @param parameter the variable to be sent to the server,
+ * the value sent will be the value of the variable at the time of the call.
+ * @return the return value of the server call.
+ */
 inline fun <R, reified T> JavaScript.serverCall(
     returnValue: Variable<R>,
     parameter: Variable<T>,

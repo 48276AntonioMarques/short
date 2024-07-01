@@ -122,11 +122,6 @@ fun aggregatePages(pages: List<PageFactory>): Html {
                     scope.variablesToHtml()
                 }
             }
-            Script {
-                Text {
-                    scope.contractsToHtml()
-                }
-            }
         }
         Body()
     }

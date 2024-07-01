@@ -50,13 +50,15 @@ fun Tag.Square(position: Position, nextPiece: Variable<String>) = apply {
 
     val handleClick: EventHandler = {
         val x = Var("X")
-        compare(nextPiece equal x, {
-            set(nextPiece, "O")
-            call("setPiece", "X", position.height.toString(), position.side.toString())
-        }) {
-            set(nextPiece, "X")
-            call("setPiece", "O", position.height.toString(), position.side.toString())
-        }
+        compare(
+            nextPiece equal x then {
+                set(nextPiece, "O")
+                call("setPiece", "X", position.height.toString(), position.side.toString())
+            } otherwise {
+                set(nextPiece, "X")
+                call("setPiece", "O", position.height.toString(), position.side.toString())
+            }
+        )
         console.log(nextPiece)
     }
 

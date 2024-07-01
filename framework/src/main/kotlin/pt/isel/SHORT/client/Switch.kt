@@ -1,13 +1,24 @@
 package pt.isel.SHORT.client
 
+/**
+ * Important: This class is meant to be used internally or when expanding the framework!!
+ * Represents a switch statement.
+ * @param a The variable to be compared.
+ */
 class Switch<T>(private val a: Variable<T>) {
     private val script = StringBuilder()
 
+    /**
+     * Converts the switch statement to a string that can be injected into the script tag.
+     */
     fun toHtml(): String {
         return "switch(${a.reference}) {$script}"
     }
 
-    fun onCase(value: T, asBreak: Boolean, onCase: JsHandler) {
+    /**
+     * This function will add a case to the switch statement
+     */
+    private fun onCase(value: T, asBreak: Boolean, onCase: JsHandler) {
         val context = UnAwareJavaScript()
         context.onCase()
         val breakString = if (asBreak) "break;" else ""
@@ -35,6 +46,9 @@ class Switch<T>(private val a: Variable<T>) {
      */
     fun caseContinuous(value: T, case: JsHandler) = onCase(value, false, case)
 
+    /**
+     * This function will add a default case to the switch statement
+     */
     fun default(onDefault: JsHandler) {
         val context = UnAwareJavaScript()
         context.onDefault()
@@ -42,6 +56,10 @@ class Switch<T>(private val a: Variable<T>) {
     }
 }
 
+/**
+ * Used to create a switch statement.
+ * This function will be run on the client side.
+ */
 fun <T> JavaScript.switch(a: Variable<T>, onSwitch: Switch<T>.() -> Unit) {
     val switch = Switch(a).also { it.onSwitch() }
     append(switch.toHtml())

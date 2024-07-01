@@ -1,24 +1,32 @@
 package pt.isel.SHORT.client
 
 import com.google.gson.Gson
-import pt.isel.SHORT.comms.Assertion
-import pt.isel.SHORT.comms.Contract
-import pt.isel.SHORT.comms.ContractID
-import pt.isel.SHORT.comms.ContractPool
 import pt.isel.SHORT.html.base.Html
 import pt.isel.SHORT.html.base.element.Tag
 
+/**
+ * Represents the scope where there is meant to be written javascript code.
+ */
 typealias JsHandler = JavaScript.() -> Unit
 
-class UnAwareJavaScript : JavaScript(Html { }.tag, ContractPool({ 0 }) { Contract { } })
+/**
+ * Represents a Javascript scope that is not aware of the context where it is being executed.
+ * This is meant to be used for debug purposes. as well as to generate code to be integrated is other scopes.
+ */
+class UnAwareJavaScript : JavaScript(Html { }.tag)
 
+/**
+ * Represents a Javascript scope that is aware of the context where it is being executed.
+ * This is meant to be used to generate code that will be executed in the context of a tag.
+ * @param tagContext the tag where the javascript code will be executed
+ * This is the base class to implement javascript code.
+ * This is the class to be used as receiver in the [JsHandler] type.
+ * This class is the one that should be used to expand the javascript capabilities.
+ */
 open class JavaScript(
-    private val tagContext: Tag,
-    private val contractPool: ContractPool
+    private val tagContext: Tag
 ) {
     private val script = StringBuilder()
-
-    private val assertions = mutableListOf<Assertion>()
 
     /**
      * Create a representation of the browser's console global object
@@ -106,6 +114,9 @@ open class JavaScript(
         script.append(text)
     }
 
+    /**
+     * Function that converts any type of value to a JSON string.
+     */
     private fun convert(value: Any): String {
         return when (value) {
             is String -> "\"$value\""
@@ -113,12 +124,5 @@ open class JavaScript(
             is Boolean -> value.toString()
             else -> Gson().toJson(value)
         }
-    }
-
-    /**
-     *
-     */
-    internal fun registerContract(contract: Contract): ContractID {
-        return contractPool.add(contract)
     }
 }
