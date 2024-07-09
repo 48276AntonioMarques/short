@@ -3,12 +3,12 @@ package pt.isel.tictactoe.page
 import pt.isel.SHORT.Page
 import pt.isel.SHORT.client.EventHandler
 import pt.isel.SHORT.html.attribute.src
+import pt.isel.SHORT.html.base.Script
 import pt.isel.SHORT.html.base.Text
 import pt.isel.SHORT.html.base.attribute.Attribute
 import pt.isel.SHORT.html.base.css.Import
 import pt.isel.SHORT.html.base.element.Tag
 import pt.isel.SHORT.html.element.Div
-import pt.isel.SHORT.html.element.Script
 import pt.isel.tictactoe.component.Game
 import pt.isel.tictactoe.element.Button
 import pt.isel.tictactoe.element.Center

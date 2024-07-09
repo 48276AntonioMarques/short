@@ -6,8 +6,8 @@ import pt.isel.SHORT.client.Variable
 import pt.isel.SHORT.client.compare
 import pt.isel.SHORT.client.equal
 import pt.isel.SHORT.comms.serverCall
+import pt.isel.SHORT.html.base.Script
 import pt.isel.SHORT.html.base.element.Tag
-import pt.isel.SHORT.html.element.Script
 import pt.isel.tictactoe.service.remote.User
 import pt.isel.tictactoe.service.remote.createUser
 

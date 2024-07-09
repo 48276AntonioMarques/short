@@ -4,9 +4,9 @@ import pt.isel.SHORT.client.Var
 import pt.isel.SHORT.client.Variable
 import pt.isel.SHORT.client.compare
 import pt.isel.SHORT.client.equal
+import pt.isel.SHORT.html.base.Script
 import pt.isel.SHORT.html.base.element.HtmlScope
 import pt.isel.SHORT.html.base.element.Tag
-import pt.isel.SHORT.html.element.Script
 import pt.isel.tictactoe.game.Game
 import pt.isel.tictactoe.game.IGame
 import pt.isel.tictactoe.game.NoGame
