@@ -9,13 +9,13 @@ import pt.isel.SHORT.html.attribute.type
 import pt.isel.SHORT.html.base.Body
 import pt.isel.SHORT.html.base.Head
 import pt.isel.SHORT.html.base.Html
+import pt.isel.SHORT.html.base.Script
 import pt.isel.SHORT.html.base.Text
 import pt.isel.SHORT.html.base.attribute.Attribute
 import pt.isel.SHORT.html.base.css.Import
 import pt.isel.SHORT.html.base.element.Tag
 import pt.isel.SHORT.html.element.Link
 import pt.isel.SHORT.html.element.Meta
-import pt.isel.SHORT.html.element.Script
 import pt.isel.SHORT.html.element.Template
 import java.lang.reflect.Method
 import kotlin.reflect.jvm.kotlinFunction

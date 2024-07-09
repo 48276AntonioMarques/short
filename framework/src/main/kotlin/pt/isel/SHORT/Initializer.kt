@@ -49,9 +49,6 @@ fun runSHORT(sourceManagerClass: Class<Application>, args: Array<String>): Http4
     val sourceManager: Application
 
     try {
-        sourceManagerClass.declaredConstructors.forEach { constructor ->
-            constructor.parameterTypes.joinToString { it.simpleName }.let { logger.debug { "Constructor: $it" } }
-        }
         sourceManager =
             sourceManagerClass
                 .getDeclaredConstructor(
@@ -85,13 +82,25 @@ fun runSHORT(sourceManagerClass: Class<Application>, args: Array<String>): Http4
         { _: Request -> Response(loadingStatus).body(root.toHtml()) }
     }
 
+    // Empty server to get port
+    val emptyServer = routes(
+        "/" bind Method.GET to { _ -> Response(Status.TEMPORARY_REDIRECT) }
+    ).asServer(sourceManager.getServerConfig()).start()
+    val port = emptyServer.port()
+    emptyServer.stop()
+
     // Register loading page
+    val serverConfig = sourceManager.getServerConfig()
     logger.debug { "Registering loading page..." }
-    val loadingPath = routes(public, "/" bind Method.GET to loadingPage)
+    val loadingPath = routes(
+        public,
+        "/" bind Method.GET to loadingPage,
+        singlePageApp(SpaLoader(port))
+    )
 
     // Launch temporary server
     logger.debug { "Starting temporary server..." }
-    val tempServer = loadingPath.asServer(sourceManager.getServerConfig()).start()
+    val tempServer = loadingPath.asServer(serverConfig).start()
     logger.info { "Temporary server started at port ${tempServer.port()}." }
 
     // DON'T START THE SERVER IF DEBUG_TEMPORARY_SERVER IS SET
@@ -106,7 +115,6 @@ fun runSHORT(sourceManagerClass: Class<Application>, args: Array<String>): Http4
 
     // Register new routes
     logger.debug { "Registering exposed paths..." }
-    val serverConfig = sourceManager.getServerConfig()
 
     val exposedPaths = routes(
         public,
@@ -129,7 +137,7 @@ fun runSHORT(sourceManagerClass: Class<Application>, args: Array<String>): Http4
         "/" bind Method.GET to { _: Request ->
             Response(Status.OK).body(webApp.toHtml())
         },
-        singlePageApp(SpaLoader(tempServer.port()))
+        singlePageApp(SpaLoader(port))
     )
 
     // Stop the temporary server

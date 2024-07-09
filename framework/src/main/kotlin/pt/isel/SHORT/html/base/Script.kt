@@ -1,4 +1,4 @@
-package pt.isel.SHORT.html.element
+package pt.isel.SHORT.html.base
 
 import pt.isel.SHORT.client.JavaScript
 import pt.isel.SHORT.client.JsHandler
