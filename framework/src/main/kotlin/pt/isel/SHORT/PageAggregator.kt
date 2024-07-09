@@ -36,9 +36,9 @@ typealias PageFactory = Method
  * Generates a [WebApp] from the functions annotated with [Page]
  * @return a [WebApp] with a single page that contains the whole single page application
  */
-fun generateWebApp(): WebApp {
+fun generateWebApp(application: Application): WebApp {
     val classNames = ClassManager.searchClasses("")
-    return aggregatePages(getPages(classNames))
+    return aggregatePages(application, getPages(classNames))
 }
 
 /**
@@ -74,8 +74,8 @@ fun getPages(classNames: List<String>): List<PageFactory> {
  * @param [pages] the list of pages
  * @return the single page
  */
-fun aggregatePages(pages: List<PageFactory>): Html {
-    return Html {
+fun aggregatePages(application: Application, pages: List<PageFactory>): Html {
+    return Html(application) {
         Head {
             Meta(attributes = Attribute.charset("UTF-8"))
             Script(attributes = Attribute.src("/scripts/router.js"))

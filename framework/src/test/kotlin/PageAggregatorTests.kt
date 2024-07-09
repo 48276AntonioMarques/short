@@ -1,6 +1,7 @@
 import Pages.page1
 import Pages.page2
 import diff.markTextDiff2
+import pt.isel.SHORT.Application
 import pt.isel.SHORT.PageFactory
 import pt.isel.SHORT.aggregatePages
 import pt.isel.SHORT.getPages
@@ -32,7 +33,8 @@ class PageAggregatorTests {
 
     @Test
     fun `aggregate pages with no input`() {
-        val htmlPage = aggregatePages(emptyList())
+        val application = Application(emptyArray())
+        val htmlPage = aggregatePages(application, emptyList())
         val expectedPath = "expected/PageAggregatorTests/NoInput.html"
         val expectedResult = ClassLoader.getSystemResource(expectedPath).readText().normalize()
         val actualResult = htmlPage.toHtml().normalize()
@@ -44,7 +46,8 @@ class PageAggregatorTests {
     fun `aggregate pages with one input`() {
         val pages = listOf(Tag::page1.javaMethod as PageFactory)
 
-        val htmlPage = aggregatePages(pages)
+        val application = Application(emptyArray())
+        val htmlPage = aggregatePages(application, pages)
         val expectedPath = "expected/PageAggregatorTests/OneInput.html"
         val expectedResult = ClassLoader.getSystemResource(expectedPath).readText().normalize()
         val actualResult = htmlPage.toHtml().normalize()
@@ -57,7 +60,8 @@ class PageAggregatorTests {
     fun `aggregate pages with two inputs`() {
         val pages = listOf(Tag::page1.javaMethod as PageFactory, Tag::page2.javaMethod as PageFactory)
 
-        val htmlPage = aggregatePages(pages)
+        val application = Application(emptyArray())
+        val htmlPage = aggregatePages(application, pages)
         val expectedPath = "expected/PageAggregatorTests/TwoInputs.html"
         val expectedResult = ClassLoader.getSystemResource(expectedPath).readText().normalize()
         val actualResult = htmlPage.toHtml().normalize()

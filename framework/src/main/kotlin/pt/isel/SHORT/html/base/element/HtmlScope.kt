@@ -1,5 +1,6 @@
 package pt.isel.SHORT.html.base.element
 
+import pt.isel.SHORT.Application
 import pt.isel.SHORT.client.EventHandler
 import pt.isel.SHORT.client.EventScope
 import pt.isel.SHORT.client.JavaScript
@@ -10,6 +11,9 @@ class HtmlScope(val html: Html) {
     private val eventHandlers: MutableMap<String, EventHandler> = mutableMapOf()
     private val variables: MutableMap<String, Variable<*>> = mutableMapOf()
 
+    val application: Application by lazy {
+        html.application ?: throw IllegalStateException("Application is required but not provided.")
+    }
     val globalScript: JavaScript by lazy { JavaScript(html.tag) }
 
     private fun <T> generateID(map: MutableMap<String, T>): String {

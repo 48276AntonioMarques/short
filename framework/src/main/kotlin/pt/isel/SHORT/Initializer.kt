@@ -49,7 +49,15 @@ fun runSHORT(sourceManagerClass: Class<Application>, args: Array<String>): Http4
     val sourceManager: Application
 
     try {
-        sourceManager = sourceManagerClass.getDeclaredConstructor(emptyArray<String>().javaClass).newInstance(args)
+        sourceManagerClass.declaredConstructors.forEach { constructor ->
+            constructor.parameterTypes.joinToString { it.simpleName }.let { logger.debug { "Constructor: $it" } }
+        }
+        sourceManager =
+            sourceManagerClass
+                .getDeclaredConstructor(
+                    emptyArray<String>().javaClass
+                )
+                .newInstance(args)
     } catch (e: Exception) {
         throw RuntimeException("Couldn't create an instance of the source manager", e)
     }
@@ -94,7 +102,7 @@ fun runSHORT(sourceManagerClass: Class<Application>, args: Array<String>): Http4
 
     // Generate the web app
     logger.debug { "Generating web app..." }
-    val webApp = generateWebApp()
+    val webApp = generateWebApp(sourceManager)
 
     // Register new routes
     logger.debug { "Registering exposed paths..." }
@@ -130,7 +138,7 @@ fun runSHORT(sourceManagerClass: Class<Application>, args: Array<String>): Http4
 
     // Launch definitive server
     logger.debug { "Starting definitive server..." }
-    val server = exposedPaths.asServer(sourceManager.getServerConfig()).start()
+    val server = exposedPaths.asServer(serverConfig).start()
     logger.info { "Server started at port ${server.port()}." }
 
     return server
