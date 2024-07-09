@@ -1,4 +1,4 @@
-package pt.isel.tictactoe.server
+package pt.isel.tictactoe.service.remote
 
 typealias Username = String
 

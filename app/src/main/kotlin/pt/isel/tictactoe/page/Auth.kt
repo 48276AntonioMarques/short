@@ -13,7 +13,7 @@ import pt.isel.tictactoe.element.Menu
 import pt.isel.tictactoe.element.PasswordInputLine
 import pt.isel.tictactoe.element.SideBar
 import pt.isel.tictactoe.element.Title
-import pt.isel.tictactoe.logic.signUp
+import pt.isel.tictactoe.service.local.signUp
 
 @Page("/sign")
 fun Tag.SignUp() = apply {

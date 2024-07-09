@@ -1,4 +1,4 @@
-package pt.isel.tictactoe.logic
+package pt.isel.tictactoe.service.local
 
 import pt.isel.SHORT.client.EventHandler
 import pt.isel.SHORT.client.Var
@@ -7,13 +7,19 @@ import pt.isel.SHORT.client.compare
 import pt.isel.SHORT.client.equal
 import pt.isel.SHORT.comms.serverCall
 import pt.isel.SHORT.html.base.element.Tag
-import pt.isel.tictactoe.server.User
-import pt.isel.tictactoe.server.createUser
+import pt.isel.SHORT.html.element.Script
+import pt.isel.tictactoe.service.remote.User
+import pt.isel.tictactoe.service.remote.createUser
+
+fun Tag.checkLogin() {
+    Script {
+    }
+}
 
 fun <S, T> Tag.signUp(username: Variable<S>, password: Variable<T>, pwdCheck: Variable<T>): EventHandler = {
     compare(
         password equal pwdCheck then {
-            console.log("Signing up...")
+            console.log("Signing up...") // This must call script.append("console.log('Signing up...');")
             val user = Var(User("name", "hash"))
             update(user.field<User>("name"), username)
             update(user.field<User>("pwdHash"), password)
