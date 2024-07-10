@@ -18,8 +18,14 @@ fun <T : Any> Tag.Var(value: T) = scope.newVariable(value)
  * To create a new variable, use the [Var] function.
  */
 class Variable<T>(private val id: String, private val initialValue: T) {
+    internal var isUsed = false
+        private set
+
     val reference: String // This must be an object
-        get() = "_SHORT_VARIABLES_['$id']"
+        get() {
+            isUsed = true
+            return "_SHORT_VARIABLES_['$id']"
+        }
 
     val defaultValue: String
         get() = getDefaultValue(initialValue)

@@ -13,7 +13,7 @@ typealias EventHandler = EventScope.() -> Unit
  * It provides access to the event object and its properties.
  */
 class EventScope(tag: Tag) : JavaScript(tag) {
-    val event: Event = Event(tag)
+    val event = Event(tag)
 
     init {
         literal(event.target.value, "event.target.value")

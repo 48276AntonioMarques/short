@@ -1,10 +1,13 @@
-package pt.isel.SHORT.client
+package pt.isel.SHORT.client.`object`
+
+import pt.isel.SHORT.client.JavaScript
+import pt.isel.SHORT.client.Variable
 
 /**
  * Represents the console object in JavaScript
  * Implementation according to [console - Web APIs | MDN](https://developer.mozilla.org/en-US/docs/Web/API/console)
  */
-class Console(private val script: StringBuilder) {
+class Console(private val script: JavaScript) {
     /**
      * Log an error message to console if the first argument is false.
      */

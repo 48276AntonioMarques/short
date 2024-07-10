@@ -16,7 +16,9 @@ fun Tag.Script(attributes: List<Attribute> = emptyList(), content: JsHandler? = 
     val html: HtmlReceiver = {
         JsScope(JavaScript(this)) {
             content?.invoke(this)
-            toHtml()
+            Text {
+                toHtml()
+            }
         }
     }
     appendChild(prototype("script", attributes, scope, html))

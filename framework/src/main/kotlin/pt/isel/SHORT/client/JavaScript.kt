@@ -1,6 +1,9 @@
 package pt.isel.SHORT.client
 
 import com.google.gson.Gson
+import pt.isel.SHORT.client.`object`.Console
+import pt.isel.SHORT.client.`object`.Event
+import pt.isel.SHORT.client.`object`.Window
 import pt.isel.SHORT.html.base.Html
 import pt.isel.SHORT.html.base.element.Tag
 
@@ -31,7 +34,17 @@ open class JavaScript(
     /**
      * Create a representation of the browser's console global object
      */
-    val console = Console(script)
+    val console = Console(this)
+
+    /**
+     * Create a representation of the browser's window global object
+     */
+    val window = Window(this)
+
+    /**
+     * Create a representation of event
+     */
+    internal val internalEvent = Event(this)
 
     /**
      * Convert the script into an HTML string
@@ -52,6 +65,17 @@ open class JavaScript(
      */
     fun <T> literal(variable: Variable<T>, literal: String) {
         script.append("${variable.reference} = $literal;")
+    }
+
+    /**
+     * Creates a variable that contains the property registered in the script
+     */
+    fun <T : Any> registerProperty(initialValue: T, literal: String): Variable<T> {
+        return tagContext.Var(initialValue).also { variable ->
+            if (variable.isUsed) {
+                literal(variable, literal)
+            }
+        }
     }
 
     /**

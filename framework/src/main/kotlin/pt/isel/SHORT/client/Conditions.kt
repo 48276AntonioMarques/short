@@ -59,7 +59,16 @@ enum class ConditionType(val html: String) {
     LESS_THAN("<"),
     LESS_THAN_OR_EQUAL("<="),
     STRICT_EQUAL("==="),
-    STRICT_NOT_EQUAL("!==");
+    STRICT_NOT_EQUAL("!=="),
+    NULL("=== null") {
+        override fun <T> toHtml(a: Variable<T>, b: Variable<T>): String = unaryToHtml(a)
+    },
+    NOT_NULL("!== null") {
+        override fun <T> toHtml(a: Variable<T>, b: Variable<T>): String = unaryToHtml(a)
+    };
+    open fun <T> toHtml(a: Variable<T>, b: Variable<T>): String = binaryToHtml(a, b)
+    fun <T> unaryToHtml(a: Variable<T>): String = "${a.reference} $html"
+    fun <T> binaryToHtml(a: Variable<T>, b: Variable<T>): String = "${a.reference} $html ${b.reference}"
 }
 
 /**
@@ -73,9 +82,7 @@ class Condition<T>(private val a: Variable<T>, private val b: Variable<T>, priva
     /**
      * Converts the condition to a string that can be injected into the script tag.
      */
-    fun toHtml(): String {
-        return "${a.reference} ${comparison.html} ${b.reference}"
-    }
+    fun toHtml(): String = comparison.toHtml(a, b)
 
     /**
      * Responsible for adding a handler to execute when the condition evaluated is met.
@@ -132,3 +139,15 @@ infix fun <T> Variable<T>.strictEqual(other: Variable<T>) = Condition(this, othe
  * equivalent to "var1 !== var2"
  */
 infix fun <T> Variable<T>.strictNotEqual(other: Variable<T>) = Condition(this, other, ConditionType.STRICT_NOT_EQUAL)
+
+/**
+ * keyword used to compare a variable with null. e.g. "var1.isNull() then { ... }"
+ * equivalent to "var1 == null"
+ */
+fun <T> Variable<T>.isNull() = Condition(this, this, ConditionType.NULL)
+
+/**
+ * keyword used to compare a variable with null. e.g. "var1 notNull then { ... }"
+ * equivalent to "var1 !== null"
+ */
+fun <T> Variable<T>.notNull() = Condition(this, this, ConditionType.NOT_NULL)

@@ -43,11 +43,11 @@ class HtmlScope(val html: Html) {
         }
     }
 
-    fun variablesToHtml(): String {
-        return "const _SHORT_VARIABLES_ = {" + variables.entries.joinToString(",") { (id, variable) ->
+    fun variablesToHtml(): String = "const _SHORT_VARIABLES_ = {" + variables.entries
+        .filter { (_, variable) -> variable.isUsed }
+        .joinToString(",") { (id, variable) ->
             "'$id': ${variable.defaultValue}"
         } + "};"
-    }
 
     fun <T> newVariable(value: T): Variable<T> {
         val id = "var" + generateID(variables)

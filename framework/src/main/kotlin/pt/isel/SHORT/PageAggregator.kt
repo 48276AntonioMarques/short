@@ -10,7 +10,6 @@ import pt.isel.SHORT.html.base.Body
 import pt.isel.SHORT.html.base.Head
 import pt.isel.SHORT.html.base.Html
 import pt.isel.SHORT.html.base.Script
-import pt.isel.SHORT.html.base.Text
 import pt.isel.SHORT.html.base.attribute.Attribute
 import pt.isel.SHORT.html.base.css.Import
 import pt.isel.SHORT.html.base.element.Tag
@@ -104,23 +103,16 @@ fun aggregatePages(application: Application, pages: List<PageFactory>): Html {
                 }
             // Register all event handlers
             Script {
-                Text {
-                    scope.eventHandlersToHtml()
-                }
+                append(scope.eventHandlersToHtml())
             }
             // Global script (used to log server errors on tag.toHtml function)
             Script {
-                Text {
-                    "/*Global script*/"
-                }
-                Text {
-                    scope.globalScript.toHtml()
-                }
+                append("/*Global script*/")
+                append(scope.globalScript.toHtml())
             }
             Script {
-                Text {
-                    scope.variablesToHtml()
-                }
+                append("/*Variables*/")
+                append(scope.variablesToHtml())
             }
         }
         Body()
