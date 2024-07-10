@@ -1,7 +1,14 @@
-function loadPage(url) {
+let isRendering = false
+
+async function loadPage(url) {
     const templates = document.getElementsByTagName("template")
     const template = templates["page-" + url]
     if (template) {
+        while (isRendering) {
+            // Wait for the current page to finish rendering
+            await new Promise(resolve => setTimeout(resolve, 10))
+        }
+        isRendering = true
         const page = template.content.cloneNode(true)
         const app = document.body
         while (app.firstChild) {
@@ -11,6 +18,7 @@ function loadPage(url) {
             let clone = child.cloneNode(true);
             app.appendChild(clone);
         }
+        isRendering = false
         return true
     }
     else {
@@ -20,8 +28,8 @@ function loadPage(url) {
     }
 }
 
-function navigate(url) {
-    const success = loadPage(url)
+async function navigate(url) {
+    const success = await loadPage(url)
     if (success) {
         window.history.pushState({}, '', url)
     }
