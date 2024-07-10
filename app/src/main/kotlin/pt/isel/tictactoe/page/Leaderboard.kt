@@ -1,7 +1,9 @@
 package pt.isel.tictactoe.page
 
 import pt.isel.SHORT.Page
+import pt.isel.SHORT.client.Var
 import pt.isel.SHORT.html.attribute.`class`
+import pt.isel.SHORT.html.base.Script
 import pt.isel.SHORT.html.base.Text
 import pt.isel.SHORT.html.base.attribute.Attribute
 import pt.isel.SHORT.html.base.css.Import
@@ -13,9 +15,11 @@ import pt.isel.SHORT.html.element.Td
 import pt.isel.SHORT.html.element.Th
 import pt.isel.SHORT.html.element.Thead
 import pt.isel.SHORT.html.element.Tr
+import pt.isel.tictactoe.DependenciesProvider
 import pt.isel.tictactoe.element.Button
 import pt.isel.tictactoe.element.Center
 import pt.isel.tictactoe.element.SideBar
+import pt.isel.tictactoe.service.remote.Leaderboard
 
 @Import("stylesheet", "text/css", "/css/leaderboard.css")
 @Page("/leaderboard")
@@ -34,19 +38,32 @@ fun Tag.Leaderboard() = apply {
                     }
                 }
 
-                val table = listOf(
-                    Triple("1", "António Marques", "10"),
-                    Triple("2", "Rui Pedrosa", "9"),
-                    Triple("3", "Felipe Brito", "7")
-                )
+                val page = Var(pt.isel.tictactoe.service.local.Page(0, 10))
+                val scoreService = (scope.application as DependenciesProvider).scoreServiceProvider.scoreService
+                val table = scoreService.getLeaderboard(this@Table, page)
+
+                Script {
+                    console.log(table)
+                }
+
                 Tbody {
-                    table.forEach { (place, username, wins) ->
+                    for (i in 1..10) {
+                        Tr {
+                            val name = table.field<Leaderboard>("scores")
+                            Td { Text { "$i" } }
+                            Td { Text { "______" } }
+                            Td { Text { "0" } }
+                        }
+                    }
+                    /*
+                    table.forEachIndexed { (place, username, wins) ->
                         Tr {
                             Td { Text { place } }
                             Td { Text { username } }
                             Td { Text { wins } }
                         }
                     }
+                    */
                 }
             }
         }

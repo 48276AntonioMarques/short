@@ -4,8 +4,11 @@ import pt.isel.SHORT.Page
 import pt.isel.SHORT.client.EventHandler
 import pt.isel.SHORT.client.Var
 import pt.isel.SHORT.client.Variable
-import pt.isel.SHORT.client.switch
+import pt.isel.SHORT.client.compare
+import pt.isel.SHORT.client.equal
+import pt.isel.SHORT.html.base.Script
 import pt.isel.SHORT.html.base.element.Tag
+import pt.isel.tictactoe.DependenciesProvider
 import pt.isel.tictactoe.element.AuthLine
 import pt.isel.tictactoe.element.Center
 import pt.isel.tictactoe.element.InputLine
@@ -13,7 +16,6 @@ import pt.isel.tictactoe.element.Menu
 import pt.isel.tictactoe.element.PasswordInputLine
 import pt.isel.tictactoe.element.SideBar
 import pt.isel.tictactoe.element.Title
-import pt.isel.tictactoe.service.local.signUp
 
 @Page("/sign")
 fun Tag.SignUp() = apply {
@@ -47,20 +49,18 @@ fun Tag.AuthPage(option: AuthOption) = apply {
             val onPasswordInput = genOnInput(password)
             val onPwdCheckInput = genOnInput(pwdCheck)
 
-            val signUp: EventHandler = signUp(username, password, pwdCheck)
+            val userService = (scope.application as DependenciesProvider).userServiceProvider.userService
+            val signUp: EventHandler = userService.signUp(this, username, password, pwdCheck)
+            val logIn: EventHandler = userService.logIn(this, username, password)
 
-            val logIn: EventHandler = {
-                switch(username) {
-                    case("admin") {
-                        console.log("Admin")
+            Script {
+                val isLoggedIn = userService.isLoggedIn(this@Menu, this)
+                val check = Var(true)
+                compare(
+                    isLoggedIn equal check then {
+                        call("navigate", "/")
                     }
-                    case("manager") {
-                        console.log("Manager")
-                    }
-                    default {
-                        console.log("User")
-                    }
-                }
+                )
             }
 
             val action = when (option) {
