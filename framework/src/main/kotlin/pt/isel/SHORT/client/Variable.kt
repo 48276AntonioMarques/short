@@ -1,6 +1,7 @@
 package pt.isel.SHORT.client
 
 import com.google.gson.GsonBuilder
+import pt.isel.SHORT.client.`object`.ArrayGet
 import pt.isel.SHORT.html.base.element.Tag
 
 /**
@@ -47,18 +48,25 @@ class Variable<T>(private val id: String, private val initialValue: T) {
      * Represents the field of a variable.
      * This is used to access the fields of a variable, when a variable is an object.
      */
-    data class Field<T>(val variable: Variable<T>, val fieldName: String)
+    data class Field<T, F>(internal val variable: Variable<T>, internal val fieldName: String)
 
     /**
      * Used to access the field of a variable.
      */
-    inline infix fun <reified T> field(field: String): Field<T> {
+    inline infix fun <reified V, reified F> field(field: String): Field<V, F> {
         // Check fields and declared fields
-        val clazz = T::class.java
+        val clazz = V::class.java
         val fields = clazz.declaredFields + clazz.fields
-        fields.firstOrNull { it.name == field } ?: run {
-            throw IllegalArgumentException("Field $field does not exist in class ${T::class.java.simpleName}")
+        val target = fields.firstOrNull { it.name == field } ?: run {
+            throw IllegalArgumentException("Field $field does not exist in class ${V::class.java.simpleName}")
         }
-        return Field(this as Variable<T>, field)
+        if (target.type != F::class.java) {
+            throw IllegalArgumentException("Field $field is not of type ${F::class.java.simpleName}")
+        }
+        // Ensure that whatever the type as set in the reified type is the same as the type of variable
+        // If not, throw an exception
+        return Field(this as Variable<V>, field)
     }
 }
+
+operator fun <T> Variable<Array<T>>.get(index: Variable<Int>) = ArrayGet(this, index)

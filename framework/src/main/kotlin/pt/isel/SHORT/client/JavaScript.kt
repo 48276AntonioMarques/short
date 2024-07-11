@@ -1,6 +1,7 @@
 package pt.isel.SHORT.client
 
 import com.google.gson.Gson
+import pt.isel.SHORT.client.`object`.Array
 import pt.isel.SHORT.client.`object`.Console
 import pt.isel.SHORT.client.`object`.Event
 import pt.isel.SHORT.client.`object`.Window
@@ -47,6 +48,11 @@ open class JavaScript(
     internal val internalEvent = Event(this)
 
     /**
+     *
+     */
+    val Array = Array(this)
+
+    /**
      * Convert the script into an HTML string
      */
     fun toHtml(): String {
@@ -82,28 +88,20 @@ open class JavaScript(
      * Call an external function not defined in kotlin
      * (e.g. Function from a js library)
      */
-    fun call(function: String, vararg args: String) {
+    fun call(function: String, vararg args: Any) {
         val argString = if (args.isNotEmpty()) {
-            args.joinToString(", ") { arg -> "\"${arg}\"" }.replace("\n", "")
+            args.joinToString(", ") { arg ->
+                if (arg is Variable<*>) {
+                    arg.reference
+                } else {
+                    convert(arg)
+                }
+            }.replace("\n", "")
         } else {
             ""
         }
         script.append("$function($argString);")
     }
-
-    /**
-     * Call an external function not defined in kotlin
-     * (e.g. Function from a js library)
-     */
-    fun call(function: String, vararg args: Variable<*>) =
-        tagContext.Var(Any()).also { variable ->
-            val argString = if (args.isNotEmpty()) {
-                args.joinToString(", ") { arg -> arg.reference }.replace("\n", "")
-            } else {
-                ""
-            }
-            script.append("${variable.reference} = $function($argString);")
-        }
 
     /**
      * Function to set the value of the variable
@@ -129,13 +127,22 @@ open class JavaScript(
      * @param field the name of field to be set
      * @param value the literal value to be set
      */
-    fun <T, F> update(change: Variable.Field<T>, value: F) {
-        val text = if (value is Variable<*>) {
-            "${change.variable.reference}.${change.fieldName} = ${value.reference};"
-        } else {
-            "${change.variable.reference}.${change.fieldName} = ${convert(value as Any)};"
-        }
-        script.append(text)
+    fun <T, F> update(change: Variable.Field<T, F>, value: F) {
+        script.append("${change.variable.reference}.${change.fieldName} = ${convert(value as Any)};")
+    }
+
+    /**
+     * Function to set a field of a variable
+     * @param variable the variable to be set
+     * @param field the name of field to be set
+     * @param value the variable with the value to be set
+     */
+    fun <T, F> update(change: Variable.Field<T, F>, value: Variable<F>) {
+        script.append("${change.variable.reference}.${change.fieldName} = ${value.reference};")
+    }
+
+    fun <T, F> getField(change: Variable.Field<T, F>, output: Variable<F>) {
+        script.append("${output.reference} = ${change.variable.reference}.${change.fieldName};")
     }
 
     /**
