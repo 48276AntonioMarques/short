@@ -20,6 +20,7 @@ import pt.isel.tictactoe.element.Button
 import pt.isel.tictactoe.element.Center
 import pt.isel.tictactoe.element.SideBar
 import pt.isel.tictactoe.service.remote.Leaderboard
+import pt.isel.tictactoe.service.remote.ScoreEntry
 
 @Import("stylesheet", "text/css", "/css/leaderboard.css")
 @Page("/leaderboard")
@@ -49,7 +50,7 @@ fun Tag.Leaderboard() = apply {
                 Tbody {
                     for (i in 1..10) {
                         Tr {
-                            val name = table.field<Leaderboard>("scores")
+                            val name = table.field<Leaderboard, List<ScoreEntry>>("scores")
                             Td { Text { "$i" } }
                             Td { Text { "______" } }
                             Td { Text { "0" } }
