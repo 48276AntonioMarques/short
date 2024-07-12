@@ -1,5 +1,7 @@
 package pt.isel.SHORT.client
 
+import com.google.gson.GsonBuilder
+
 /**
  * Important: This class is meant to be used internally or when expanding the framework!!
  * Represents a switch statement.
@@ -26,7 +28,7 @@ class Switch<T>(private val a: Variable<T>) {
             is String -> "\"$value\""
             is Number -> value.toString()
             is Boolean -> value.toString()
-            else -> value.toString()
+            else -> GsonBuilder().create().toJson(value)
         }
         script.append("case $wrappedValue: ${context.toHtml()}$breakString")
     }

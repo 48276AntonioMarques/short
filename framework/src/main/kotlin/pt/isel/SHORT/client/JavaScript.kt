@@ -121,13 +121,25 @@ open class JavaScript(
         script.append("${variable.reference} = ${value.reference};")
     }
 
+    fun increment(variable: Variable<Int>) {
+        script.append("${variable.reference}++;")
+    }
+
+    fun decrement(variable: Variable<Int>) {
+        script.append("${variable.reference}--;")
+    }
+
+    fun concat(variable: Variable<String>, value: Variable<String>) {
+        script.append("${variable.reference} += ${value.reference};")
+    }
+
     /**
      * Function to set a field of a variable
      * @param variable the variable to be set
      * @param field the name of field to be set
      * @param value the literal value to be set
      */
-    fun <T, F> update(change: Variable.Field<T, F>, value: F) {
+    fun <T, F> setField(change: Variable.Field<T, F>, value: F) {
         script.append("${change.variable.reference}.${change.fieldName} = ${convert(value as Any)};")
     }
 
@@ -137,10 +149,13 @@ open class JavaScript(
      * @param field the name of field to be set
      * @param value the variable with the value to be set
      */
-    fun <T, F> update(change: Variable.Field<T, F>, value: Variable<F>) {
+    fun <T, F> setField(change: Variable.Field<T, F>, value: Variable<F>) {
         script.append("${change.variable.reference}.${change.fieldName} = ${value.reference};")
     }
 
+    /**
+     * Function to get a field of a variable
+     */
     fun <T, F> getField(change: Variable.Field<T, F>, output: Variable<F>) {
         script.append("${output.reference} = ${change.variable.reference}.${change.fieldName};")
     }
@@ -148,7 +163,7 @@ open class JavaScript(
     /**
      * Function that converts any type of value to a JSON string.
      */
-    private fun convert(value: Any): String {
+    internal fun convert(value: Any): String {
         return when (value) {
             is String -> "\"$value\""
             is Number -> value.toString()

@@ -32,7 +32,13 @@ class HtmlScope(val html: Html) {
         return id
     }
 
-    fun registerHandler(eventHandler: EventHandler) = addValue(eventHandlers, "eH", eventHandler)
+    fun registerHandler(eventHandler: EventHandler): String {
+        val id = eventHandlers.mapNotNull { (id, handler) ->
+            if (handler == eventHandler) id else null
+        }
+        if (id.isNotEmpty()) return id.first()
+        return addValue(eventHandlers, "eH", eventHandler)
+    }
 
     fun eventHandlersToHtml(): String {
         return eventHandlers.entries.joinToString("") { (id, handler) ->

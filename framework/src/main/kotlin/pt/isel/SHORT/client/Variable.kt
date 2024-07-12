@@ -60,8 +60,11 @@ class Variable<T>(private val id: String, private val initialValue: T) {
         val target = fields.firstOrNull { it.name == field } ?: run {
             throw IllegalArgumentException("Field $field does not exist in class ${V::class.java.simpleName}")
         }
-        if (target.type != F::class.java) {
-            throw IllegalArgumentException("Field $field is not of type ${F::class.java.simpleName}")
+        // Ignore the primitive types since they may not be boxed
+        if (target.type != F::class.java && !target.type.isPrimitive) {
+            throw IllegalArgumentException(
+                "Field $field is ${target.type.simpleName} instead of the expected ${F::class.java.simpleName}"
+            )
         }
         // Ensure that whatever the type as set in the reified type is the same as the type of variable
         // If not, throw an exception

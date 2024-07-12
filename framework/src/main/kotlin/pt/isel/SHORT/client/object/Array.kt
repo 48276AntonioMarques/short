@@ -42,6 +42,10 @@ class Array(private val script: JavaScript) : JsObject {
     fun <T> get(result: Variable<T>, array: ArrayGet<T>) {
         script.append("${result.reference} = ${array.array.reference}[${array.index.reference}];")
     }
+
+    fun <T> set(array: ArrayGet<T>, value: Variable<T>) {
+        script.append("${array.array.reference}[${array.index.reference}] = ${value.reference};")
+    }
 }
 
 class ArrayGet<T>(val array: Variable<kotlin.Array<T>>, val index: Variable<Int>)

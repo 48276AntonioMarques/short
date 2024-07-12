@@ -127,7 +127,7 @@ fun runSHORT(sourceManagerClass: Class<Application>, args: Array<String>): Http4
                 try {
                     executeContract(request, id.toInt())
                 } catch (_: IndexOutOfBoundsException) {
-                    Response(Status.NOT_FOUND).body("Contract not found")
+                    Response(Status.NOT_FOUND).body("Contract not found for id $id.")
                 } catch (e: Exception) {
                     logger.error(e) { "Internal server error" }
                     Response(Status.INTERNAL_SERVER_ERROR).body("Internal server error")

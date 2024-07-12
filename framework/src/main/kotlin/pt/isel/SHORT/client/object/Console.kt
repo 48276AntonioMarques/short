@@ -107,12 +107,17 @@ class Console(private val script: JavaScript) {
     /**
      * For general output of logging information. You may use string substitution and additional arguments with this method.
      */
-    fun log(message: String) {
-        script.append("console.log(\"$message\");")
-    }
-
-    fun <T> log(variable: Variable<T>) {
-        script.append("console.log(${variable.reference});")
+    fun log(vararg args: Any) {
+        script.append(
+            "console.log(${args.joinToString(",") { arg ->
+                if (arg is Variable<*>) {
+                    arg.reference
+                } else {
+                    script.convert(arg)
+                }
+            }
+            });"
+        )
     }
 
     /**
