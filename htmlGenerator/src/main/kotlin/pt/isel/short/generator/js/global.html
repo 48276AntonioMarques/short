@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <script src="./global.js"></script>
+    <script>
+        function test() {
+            document.getElementById('result').innerText = getGlobal()
+        }
+
+        function run() {
+            const result = getGlobal()
+            navigator.clipboard.writeText(result)
+            document.getElementById('result').innerText = result
+        }
+    </script>
+</head>
+<body>
+    <button onclick="test()">Test</button>
+    <button onclick="run()">Run</button>
+    <p id="result"></p>
+</body>
+</html>
