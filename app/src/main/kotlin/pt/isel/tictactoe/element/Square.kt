@@ -1,14 +1,13 @@
 package pt.isel.tictactoe.element
 
 import pt.isel.SHORT.client.EventHandler
-import pt.isel.SHORT.client.Variable
+import pt.isel.SHORT.client.get
 import pt.isel.SHORT.html.attribute.`class`
 import pt.isel.SHORT.html.base.Text
 import pt.isel.SHORT.html.base.attribute.Attribute
 import pt.isel.SHORT.html.base.element.Tag
 import pt.isel.SHORT.html.element.Div
 import pt.isel.SHORT.html.event.onclick
-import pt.isel.tictactoe.game.Game
 
 enum class Height {
     TOP,
@@ -39,17 +38,28 @@ data class Position(val height: Height, val side: Side) {
             }
         }
     }
+    fun toIndex(): Int {
+        val height = when (height) {
+            Height.CENTER -> 3
+            Height.BOTTOM -> 6
+            else -> 0
+        }
+        val side = when (side) {
+            Side.CENTER -> 1
+            Side.RIGHT -> 2
+            else -> 0
+        }
+        return height + side
+    }
 }
 
-fun Tag.Square(game: Variable<Game>, position: Position) = apply {
+fun Tag.Square(onClick: EventHandler, position: Position) = apply {
     val bgColor = position.toColor()
     val height = position.height.toString().lowercase()
     val side = position.side.toString().lowercase()
 
-    val handleClick: EventHandler = { call("setPiece", game, position) }
-
     Div(
-        Attribute.`class`("square $bgColor square-$height square-$side preview-x").onclick(handleClick)
+        Attribute.`class`("square $bgColor square-$height square-$side preview-x").onclick(onClick)
     ) {
         Div(
             Attribute.`class`("preview")

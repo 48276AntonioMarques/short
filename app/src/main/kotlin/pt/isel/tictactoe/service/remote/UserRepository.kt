@@ -46,6 +46,10 @@ object UserRepository {
             ""
         }
     }
+
+    fun getUser(token: Token): User? {
+        return users.values.find { it.token == token }
+    }
 }
 
 fun createUser(user: User): Token {

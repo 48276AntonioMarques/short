@@ -27,8 +27,8 @@ class RealUserService : UserService {
             password equal pwdCheck then {
                 console.log("Signing up...")
                 val user = tag.Var(User("name", "hash"))
-                update(user.field<User, String>("name"), username)
-                update(user.field<User, String>("pwdHash"), password)
+                setField(user.field<User, String>("name"), username)
+                setField(user.field<User, String>("pwdHash"), password)
 
                 val result: Variable<String> = tag.Var("Variable not set.")
                 serverCall(result, user) { createUser(it) }
@@ -57,8 +57,8 @@ class RealUserService : UserService {
     override fun logIn(tag: Tag, username: Variable<String>, password: Variable<String>): EventHandler = {
         console.log("Logging in...")
         val user = tag.Var(User("name", "hash"))
-        update(user.field<User, String>("name"), username)
-        update(user.field<User, String>("pwdHash"), password)
+        setField(user.field<User, String>("name"), username)
+        setField(user.field<User, String>("pwdHash"), password)
 
         val result: Variable<String> = tag.Var("")
         serverCall(result, user) { authenticate(it) }
