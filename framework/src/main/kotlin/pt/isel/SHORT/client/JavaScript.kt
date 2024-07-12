@@ -104,6 +104,33 @@ open class JavaScript(
     }
 
     /**
+     * Call an external function not defined in kotlin and awaits for it
+     * (e.g. Function from a js library)
+     */
+    fun await(function: String, vararg args: Any) {
+        val argString = if (args.isNotEmpty()) {
+            args.joinToString(", ") { arg ->
+                if (arg is Variable<*>) {
+                    arg.reference
+                } else {
+                    convert(arg)
+                }
+            }.replace("\n", "")
+        } else {
+            ""
+        }
+        script.append("await $function($argString);")
+    }
+
+    /**
+     * Call an eventHandler
+     */
+    fun call(handler: EventHandler) {
+        val eventID = tagContext.scope.registerHandler(handler)
+        script.append("$eventID({ target: { value: null}});")
+    }
+
+    /**
      * Function to set the value of the variable
      * @param value the value to be set
      * This function will statically set the value of the variable

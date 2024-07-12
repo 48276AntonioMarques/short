@@ -9,6 +9,10 @@ import org.http4k.core.Response
  */
 fun executeContract(request: Request, contractID: ContractID): Response {
     val index: Int = contractID
-    val response = ContractRegistry.contracts[index].invoke(request)
-    return response
+    val contract = ContractRegistry.contracts[index]
+    try {
+        return contract.invoke(request)
+    } catch (e: Exception) {
+        throw RuntimeException("Error executing contract with id $contractID", e)
+    }
 }

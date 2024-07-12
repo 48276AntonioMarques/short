@@ -82,12 +82,7 @@ fun runSHORT(sourceManagerClass: Class<Application>, args: Array<String>): Http4
         { _: Request -> Response(loadingStatus).body(root.toHtml()) }
     }
 
-    // Empty server to get port
-    val emptyServer = routes(
-        "/" bind Method.GET to { _ -> Response(Status.TEMPORARY_REDIRECT) }
-    ).asServer(sourceManager.getServerConfig()).start()
-    val port = emptyServer.port()
-    emptyServer.stop()
+    val port = sourceManager.getPort()
 
     // Register loading page
     val serverConfig = sourceManager.getServerConfig()

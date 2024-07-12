@@ -10,7 +10,9 @@ open class Application(val args: Array<String>) {
 
     fun getScope(): HtmlScope = internalScope ?: throw IllegalStateException("Scope not initialized")
 
-    open fun getServerConfig(): ServerConfig = Jetty(9000)
+    open fun getPort(): Int = 9000
+
+    open fun getServerConfig(): ServerConfig = Jetty(getPort())
 
     open fun getLoadingScreen(root: Tag): Tag? = null
 }
